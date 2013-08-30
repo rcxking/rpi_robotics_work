@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/bryant/Documents/rpi_robotics_work/catkin_workspace/devel/setup.sh
