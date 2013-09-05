@@ -1,0 +1,10 @@
+Notes.txt - Last Updated: 9/4/13 - 3:53 PM
+
+ROS Arduino Serial Bridge:
+http://wiki.ros.org/ros_arduino_bridge
+
+	Prequisites:
+		Python Serial (ALREADY INSTALLED):
+			sudo apt-get install python-serial
+
+	
