@@ -1,0 +1,8 @@
+prefix=/home/bryant/Documents/rpi_robotics_work/catkin_workspace/install
+
+Name: openhand
+Description: Description of openhand
+Version: 0.0.1
+Cflags: 
+Libs: -L/home/bryant/Documents/rpi_robotics_work/catkin_workspace/install/lib 
+Requires: 

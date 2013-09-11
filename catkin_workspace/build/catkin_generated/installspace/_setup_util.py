@@ -42,7 +42,7 @@ import platform
 import sys
 
 # environment at generation time
-CMAKE_PREFIX_PATH = '/home/bryant/Documents/anybots_summer_2013/docking/ros_docking/devel;/home/bryant/catkin_ws/devel;/opt/ros/groovy'.split(';')
+CMAKE_PREFIX_PATH = '/home/bryant/Documents/rpi_robotics_work/catkin_workspace/devel;/home/bryant/Documents/anybots_summer_2013/docking/ros_docking/devel;/home/bryant/catkin_ws/devel;/opt/ros/groovy'.split(';')
 setup_dir = '/home/bryant/Documents/rpi_robotics_work/catkin_workspace/install'
 if setup_dir and setup_dir not in CMAKE_PREFIX_PATH:
     CMAKE_PREFIX_PATH.insert(0, setup_dir)
