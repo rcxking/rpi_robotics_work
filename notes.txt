@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 9/4/13 - 3:53 PM
+Notes.txt - Last Updated: 9/16/13 - 11:01 AM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -7,4 +7,17 @@ http://wiki.ros.org/ros_arduino_bridge
 		Python Serial (ALREADY INSTALLED):
 			sudo apt-get install python-serial
 
-	
+Installing Powerball Software (ROS Groovy):
+	rosinstall . https://raw.github.com/ipa320/schunk_robots/groovy_dev/groovy.rosinstall
+
+	In .rosinstall, copy/paste content from /opt/ros/groovy/.rosinstall into the top of the .rosinstall
+
+	Additional Packages:
+	--------------------
+	sudo apt-get install ros-groovy-pr2-controllers
+	sudo apt-get install ros-groovy-pr2-kinematics	
+	sudo apt-get install ros-groovy-audio-common
+	sudo apt-get install ros-groovy-diagnostics-monitors
+	sudo apt-get install ros-groovy-pr2-power-drivers
+	sudo apt-get install ros-groovy-rqt-pr2-dashboard
+	sudo apt-get install ros-groovy-pr2-teleop-app
