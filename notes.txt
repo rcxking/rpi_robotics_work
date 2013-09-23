@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 9/16/13 - 11:01 AM
+Notes.txt - Last Updated: 9/23/13 - 11:27 AM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -21,3 +21,5 @@ Installing Powerball Software (ROS Groovy):
 	sudo apt-get install ros-groovy-pr2-power-drivers
 	sudo apt-get install ros-groovy-rqt-pr2-dashboard
 	sudo apt-get install ros-groovy-pr2-teleop-app
+
+	Powerball Arm is renamed to "lwap"
