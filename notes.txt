@@ -8,7 +8,15 @@ http://wiki.ros.org/ros_arduino_bridge
 			sudo apt-get install python-serial
 
 Installing Powerball Software (ROS Groovy):
+
+	Clone the software repositories from Github:
+	git clone https://github.com/ipa320/schunk_robots.git - VALIDATED
+	git clone https://github.com/ipa320/schunk_modular_robotics.git	- VALIDATED
+
+
 	rosinstall . https://raw.github.com/ipa320/schunk_robots/groovy_dev/groovy.rosinstall
+
+
 
 	In .rosinstall, copy/paste content from /opt/ros/groovy/.rosinstall into the top of the .rosinstall
 
