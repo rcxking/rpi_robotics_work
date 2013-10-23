@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 9/23/13 - 11:27 AM
+Notes.txt - Last Updated: 10/23/13 - 3:48 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -31,3 +31,16 @@ Installing Powerball Software (ROS Groovy):
 	sudo apt-get install ros-groovy-pr2-teleop-app
 
 	Powerball Arm is renamed to "lwap"
+
+10/23/13 Notes
+--------------
+- On Windows 7 Machine - Rishab's Account:
+	- Installed Optitrack Motive software
+	- To get the cameras working, plug the OptiTrack Hardware key on the FRONT LEFT USB Port
+	- Camera hub should be plugge in the FRONT RIGHT USB Port 
+	- Data can be saved as a .csv file (comma-separated file) for easy parsing
+
+- Mocap Optitrack ROS node:
+	http://wiki.ros.org/mocap_optitrack
+
+	- Very well supported (Clearpath Robotics, 2013)
