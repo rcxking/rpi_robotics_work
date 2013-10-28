@@ -572,6 +572,21 @@ openhand/preinstall:
 .PHONY : openhand/preinstall
 
 #=============================================================================
+# Directory level rules for directory powerball_arm
+
+# Convenience name for "all" pass in the directory.
+powerball_arm/all:
+.PHONY : powerball_arm/all
+
+# Convenience name for "clean" pass in the directory.
+powerball_arm/clean:
+.PHONY : powerball_arm/clean
+
+# Convenience name for "preinstall" pass in the directory.
+powerball_arm/preinstall:
+.PHONY : powerball_arm/preinstall
+
+#=============================================================================
 # Special targets to cleanup operation of make.
 
 # Special rule to run CMake to check the build system integrity.

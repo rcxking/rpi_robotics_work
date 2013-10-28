@@ -87,6 +87,7 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   INCLUDE("/home/bryant/Documents/rpi_robotics_work/catkin_workspace/build/gtest/cmake_install.cmake")
   INCLUDE("/home/bryant/Documents/rpi_robotics_work/catkin_workspace/build/beginner_tutorials/cmake_install.cmake")
   INCLUDE("/home/bryant/Documents/rpi_robotics_work/catkin_workspace/build/openhand/cmake_install.cmake")
+  INCLUDE("/home/bryant/Documents/rpi_robotics_work/catkin_workspace/build/powerball_arm/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

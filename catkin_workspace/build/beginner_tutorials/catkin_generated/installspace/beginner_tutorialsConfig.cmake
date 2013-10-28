@@ -111,7 +111,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/bryant/Documents/rpi_robotics_work/catkin_workspace/install/lib;/home/bryant/Documents/rpi_robotics_work/catkin_workspace/devel/lib;/home/bryant/Documents/anybots_summer_2013/docking/ros_docking/devel/lib;/home/bryant/catkin_ws/devel/lib;/opt/ros/groovy/lib)
+    foreach(path /home/bryant/Documents/rpi_robotics_work/catkin_workspace/install/lib;/opt/ros/groovy/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

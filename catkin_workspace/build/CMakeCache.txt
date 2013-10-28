@@ -281,6 +281,12 @@ openhand_BINARY_DIR:STATIC=/home/bryant/Documents/rpi_robotics_work/catkin_works
 //Value Computed by CMake
 openhand_SOURCE_DIR:STATIC=/home/bryant/Documents/rpi_robotics_work/catkin_workspace/src/openhand
 
+//Value Computed by CMake
+powerball_arm_BINARY_DIR:STATIC=/home/bryant/Documents/rpi_robotics_work/catkin_workspace/build/powerball_arm
+
+//Value Computed by CMake
+powerball_arm_SOURCE_DIR:STATIC=/home/bryant/Documents/rpi_robotics_work/catkin_workspace/src/powerball_arm
+
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/groovy/share/rosconsole/cmake
 
@@ -414,7 +420,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=4
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=5
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

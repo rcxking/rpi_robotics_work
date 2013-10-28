@@ -1,0 +1,8 @@
+prefix=/home/bryant/Documents/rpi_robotics_work/catkin_workspace/devel
+
+Name: powerball_arm
+Description: Description of powerball_arm
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/bryant/Documents/rpi_robotics_work/catkin_workspace/devel/lib 
+Requires: 
