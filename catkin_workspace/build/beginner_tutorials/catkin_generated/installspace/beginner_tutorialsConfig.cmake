@@ -83,9 +83,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(beginner_tutorials_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "" STREQUAL "")
+if(NOT "include" STREQUAL "")
   set(beginner_tutorials_INCLUDE_DIRS "")
-  set(_include_dirs "")
+  set(_include_dirs "include")
   foreach(idir ${_include_dirs})
     if(IS_ABSOLUTE ${idir} AND IS_DIRECTORY ${idir})
       set(include ${idir})
@@ -111,7 +111,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/bryant/Documents/rpi_robotics_work/catkin_workspace/install/lib;/opt/ros/groovy/lib)
+    foreach(path /home/bryant/Documents/rpi_robotics_work/catkin_workspace/install/lib;/home/bryant/Documents/rpi_robotics_work/catkin_workspace/devel/lib;/opt/ros/groovy/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -134,7 +134,7 @@ foreach(library ${libraries})
   endif()
 endforeach()
 
-set(beginner_tutorials_EXPORTED_TARGETS "")
+set(beginner_tutorials_EXPORTED_TARGETS "beginner_tutorials_generate_messages_cpp;beginner_tutorials_generate_messages_lisp;beginner_tutorials_generate_messages_py")
 # create dummy targets for exported code generation targets to make life of users easier
 foreach(t ${beginner_tutorials_EXPORTED_TARGETS})
   if(NOT TARGET ${t})
@@ -168,7 +168,7 @@ if(beginner_tutorials_LIBRARIES)
   _remove_duplicate_libraries(beginner_tutorials_LIBRARIES beginner_tutorials_LIBRARIES)
 endif()
 
-set(pkg_cfg_extras "")
+set(pkg_cfg_extras "beginner_tutorials-msg-extras.cmake")
 foreach(extra ${pkg_cfg_extras})
   if(NOT IS_ABSOLUTE ${extra})
     set(extra ${beginner_tutorials_DIR}/${extra})

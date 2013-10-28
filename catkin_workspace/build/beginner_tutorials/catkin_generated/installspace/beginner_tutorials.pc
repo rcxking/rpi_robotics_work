@@ -3,6 +3,6 @@ prefix=/home/bryant/Documents/rpi_robotics_work/catkin_workspace/install
 Name: beginner_tutorials
 Description: Description of beginner_tutorials
 Version: 0.0.0
-Cflags: 
+Cflags: -I/home/bryant/Documents/rpi_robotics_work/catkin_workspace/install/include
 Libs: -L/home/bryant/Documents/rpi_robotics_work/catkin_workspace/install/lib 
 Requires: 
