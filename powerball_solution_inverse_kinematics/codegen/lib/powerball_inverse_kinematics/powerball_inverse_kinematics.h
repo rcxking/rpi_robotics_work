@@ -3,7 +3,7 @@
  *
  * Code generation for function 'powerball_inverse_kinematics'
  *
- * C source code generated on: Mon Oct 14 13:43:42 2013
+ * C source code generated on: Thu Nov 07 07:37:25 2013
  *
  */
 
@@ -29,6 +29,8 @@
 /* Variable Definitions */
 
 /* Function Declarations */
-extern void powerball_inverse_kinematics(const real_T T06[16], const real_T th_p[6], real_T th_out_data[48], int32_T th_out_size[2]);
+extern void powerball_inverse_kinematics(const real_T T06[16], const real_T th_p[6], real_T th_out_data[56], int32_T th_out_size[2]);
+extern void powerball_inverse_kinematics_initialize(void);
+extern void powerball_inverse_kinematics_terminate(void);
 #endif
 /* End of code generation (powerball_inverse_kinematics.h) */

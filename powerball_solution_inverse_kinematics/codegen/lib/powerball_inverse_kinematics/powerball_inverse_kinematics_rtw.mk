@@ -73,7 +73,7 @@ COMPILER_TOOL_CHAIN = vcx64
 #  EXTMODE_STATIC_SIZE - Size of static memory allocation buffer.
 
 MODEL                = powerball_inverse_kinematics
-MODULES              = powerball_inverse_kinematics_initialize.c powerball_inverse_kinematics_terminate.c powerball_inverse_kinematics.c norm.c rt_nonfinite.c rtGetNaN.c rtGetInf.c 
+MODULES              = powerball_inverse_kinematics.c rt_nonfinite.c rtGetNaN.c rtGetInf.c 
 MAKEFILE             = powerball_inverse_kinematics_rtw.mk
 MATLAB_ROOT          = C:\Program Files\MATLAB\R2012b
 ALT_MATLAB_ROOT      = C:\PROGRA~1\MATLAB\R2012b

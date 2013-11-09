@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 10/23/13 - 3:48 PM
+Notes.txt - Last Updated: 11/8/13 - 6:40 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -15,8 +15,6 @@ Installing Powerball Software (ROS Groovy):
 
 
 	rosinstall . https://raw.github.com/ipa320/schunk_robots/groovy_dev/groovy.rosinstall
-
-
 
 	In .rosinstall, copy/paste content from /opt/ros/groovy/.rosinstall into the top of the .rosinstall
 
@@ -42,5 +40,14 @@ Installing Powerball Software (ROS Groovy):
 
 - Mocap Optitrack ROS node:
 	http://wiki.ros.org/mocap_optitrack
-
 	- Very well supported (Clearpath Robotics, 2013)
+
+11/8/13 Notes
+-------------
+- Mocap Optitrack ROS Node:
+	- Requires ROS to be running in a virtual machine or on a second computer
+	- How to use Motive Software?  
+
+- Inverse Kinematics Solution:
+	- To run, create a 4 x 4 matrix named T06 and a 1 x 6 matrix named th_p
+	- Call: powerball_inverse_kinematics(T06, th_p)
