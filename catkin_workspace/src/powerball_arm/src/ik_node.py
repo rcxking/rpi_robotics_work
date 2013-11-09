@@ -2,11 +2,11 @@
 
 '''
 ik_node.py - rosnode to calculate the inverse kinematics for the
-			powerball arm.
+powerball arm.
 
 Bryant Pong
 10/28/13
-Last Updated: 11/8/13 - 6:37 PM
+Last Updated: 11/8/13 - 7:07 PM
 '''
 
 # Import the rospy ROS Python library:
@@ -27,7 +27,7 @@ arguments:
 def inverse_kinematics(T06, th_p):
 	
 	# Numpy Matrix to store the working solution (7 x 8 matrix):
-	th_ik = mat([[0 for col in xrange(8)] for row in xrange(7)])	
+	th_ik = zeros([7, 8])
 
 	# DEBUG ONLY - Print out the initialized th_ik matrix: - Validated
 	print("th_ik is: ")
