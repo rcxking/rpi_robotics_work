@@ -109,54 +109,55 @@ end
 end
 
 function T = symDH(th,d,a,al)
-% homogenous transform matrix from DH parameters
-T=[	cos(th)		-sin(th)*cos(al)	sin(th)*sin(al)		a*cos(th);...
-    sin(th)		cos(th)*cos(al)		-cos(th)*sin(al)	a*sin(th);...
-    0				sin(al)					cos(al)					d;
-    0					0						0						1];
+	% homogenous transform matrix from DH parameters
+	T=[	cos(th)		-sin(th)*cos(al)	sin(th)*sin(al)		a*cos(th);...
+		sin(th)		cos(th)*cos(al)		-cos(th)*sin(al)	a*sin(th);...
+		0				sin(al)					cos(al)					d;
+		0					0						0						1];
 end
 
 function [theta1,theta2]=subproblem2(k1,k2,p,q)
 % Finds theta1 & theta2 where two vectors p & q intersect when rotated about vectors k1 and k2
-k12=k1'*k2;
-pk=p'*k2;
-qk=q'*k1;
+	k12=k1'*k2;
+	pk=p'*k2;
+	qk=q'*k1;
 
-% check if solution exists
+	% check if solution exists
 
-if abs(k12^2-1)<eps;theta1=[NaN NaN]; theta2=[NaN NaN];
-    disp('no solution (***1***)');
-    return;
-end
+	if abs(k12^2-1)<eps;theta1=[NaN NaN]; theta2=[NaN NaN];
+		disp('no solution (***1***)');
+		return;
+	end
 
-a=[k12 -1;-1 k12]*[pk;qk]/(k12^2-1);
+	a = [k12 -1;-1 k12]*[pk;qk]/(k12^2-1);
 
-bb=(norm(p)^2-norm(a)^2-2*a(1)*a(2)*k12);
-if abs(bb)<eps;bb=0;end
-if bb<0;theta1=[NaN NaN];theta2=[NaN NaN];
-    disp('no solution (***2***)');
-    return;end
+	bb=(norm(p)^2-norm(a)^2-2*a(1)*a(2)*k12);
+	if abs(bb)<eps;bb=0;end
+	if bb<0;theta1=[NaN NaN];theta2=[NaN NaN];
+		disp('no solution (***2***)');
+		return;
+	end
 
-% check if there is only 1 solution
-gamma=sqrt(bb)/norm(cross(k1,k2));
-if abs(gamma)<eps;
-    c1=[k1 k2 cross(k1,k2)]*[a;gamma];
-    theta2=[subproblem1(k2,p,c1) NaN];
-    theta1=[-subproblem1(k1,q,c1) NaN];
-end
+	% check if there is only 1 solution
+	gamma=sqrt(bb)/norm(cross(k1,k2));
+	if abs(gamma)<eps;
+		c1=[k1 k2 cross(k1,k2)]*[a;gamma];
+		theta2=[subproblem1(k2,p,c1) NaN];
+		theta1=[-subproblem1(k1,q,c1) NaN];
+	end
 
-% general case: 2 solutions
+	% general case: 2 solutions
 
-theta1=zeros(1,2);
-theta2=zeros(1,2);
+	theta1=zeros(1,2);
+	theta2=zeros(1,2);
 
-c1=[k1 k2 cross(k1,k2)]*[a;gamma];
-c2=[k1 k2 cross(k1,k2)]*[a;-gamma];
-theta2(1)=subproblem1(k2,p,c1);
-theta2(2)=subproblem1(k2,p,c2);
+	c1=[k1 k2 cross(k1,k2)]*[a;gamma];
+	c2=[k1 k2 cross(k1,k2)]*[a;-gamma];
+	theta2(1)=subproblem1(k2,p,c1);
+	theta2(2)=subproblem1(k2,p,c2);
 
-theta1(1)=-subproblem1(k1,q,c1);
-theta1(2)=-subproblem1(k1,q,c2);
+	theta1(1)=-subproblem1(k1,q,c1);
+	theta1(2)=-subproblem1(k1,q,c2);
 end
 
 function [theta]=subproblem1(k,p,q)
