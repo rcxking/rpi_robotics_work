@@ -1,5 +1,7 @@
 /*
  * Here's the commented version of the code.
+ *
+ * I2C Protocol: http://www.takktile.com/tutorial:takktile-i2c
  * I'll be here this Friday - 11/22/13.
  * 
  * Bryant :D
@@ -7,7 +9,7 @@
  * (\_/)
  * (0.0)
  * (>.<)
- * This is bunny.  He's taking over Notepad.
+ * This is bunny.  He's taking over this explanation.
  */
  
 // Arduino addressing is using 7bit
@@ -69,23 +71,37 @@ boolean flagShowAddress=false;
 boolean flagShowPressure=true;
 boolean flagShowTemperature=false;
 
-// 
+// This function begins communication through the I2C Protocol:
 void initialize() {
     // s 0C
 	/*
-	 * To begin, we first need to 
+	 * To begin, we first need to turn on all sensors.
+	 * 0x0C is the value assigned to SENSOR_ALL_ON.  According to that page I linked
+	 * on the top, in the section labeled "Enabling/Disabling all Sensors", 0x0C triggers
+	 * all sensors in one shot.  Remember that we need to bit shift by 1 right to 
+	 * compensate Arduino only using 7 / 8 bits.
+	 */
   Wire.beginTransmission(SENSOR_ALL_ON>>1);
   Wire.endTransmission();
   
   // s C0 12 01
+  /*
+   * The commands 0xC0 0x12 are to enable data conversion.  0x01 means
+   * read the pressure value from the sensor (lowest 4 bytes).
+   */
   Wire.beginTransmission(0xC0>>1);
   Wire.write(0x12);
   Wire.write(0x01);
   Wire.endTransmission();
   
   // s 0D
+  // This command is where we tell the sensors that we want your data NOW!
   Wire.requestFrom(SENSOR_ALL_ON>>1, 1);
   
+  /*
+   * Because the Arduino can't talk too quickly through I2C, this 5 millisecond delay
+   * allows the sensors to get ready to transmit data.
+   */
   delay(5);
 }
 
@@ -154,14 +170,21 @@ void readNum(byte addressSensor, float* oTemp, float* oPressure)
   //*oTemp = temp;
 }
 
+// This function checks to see how many sensors are actually connected.
+// Remember that this program can support up to 50 sensors (10 strips of 5)
 void checkAddresses()
 {
   addressLength=0;
   int temp_add=0;
-  // check every strip
-  for (int strip_n=0;strip_n<10;strip_n++){
+
+  // check every strip 
+  // Remember that there can be up to 10 strips.  Loop through all the strips:
+  for (int strip_n=0;strip_n<10;strip_n++) {
+
     // check every sensor
+	//...And each strip has 5 sensors on it:
     for (int sensor_n=0;sensor_n<5;sensor_n++){
+
       temp_add=(strip_n<<4)+sensor_n*2; // calculate the address
 
       // check if the Attiny responds with its address
