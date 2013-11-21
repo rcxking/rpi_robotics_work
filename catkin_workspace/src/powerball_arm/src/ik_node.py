@@ -6,7 +6,7 @@ powerball arm.
 
 Bryant Pong
 10/28/13
-Last Updated: 11/20/13 - 5:05 PM
+Last Updated: 11/21/13 - 6:05 PM
 '''
 
 # Import the rospy ROS Python library:
@@ -68,6 +68,8 @@ def subproblem1(k, p, q):
 	print("k is now:")
 	print(k)
 	
+		
+
 	print("\nNOW LEAVING SUBPROBLEM1")
 
 '''
@@ -136,15 +138,16 @@ def subproblem2(k1, k2, p, q):
 	print("g is: " + str(g))
 	if abs(g) < eps:
 		c1 = matrix([k1, k2, cross(transpose(k1), transpose(k2))]) * matrix([ [a], [g] ])
-		theta2 = matrix([subproblem1(k2, p, c1), None])
-		theta3 = matrix([-1 * subproblem1(k1, q, c1), None])
+		theta1 = matrix([subproblem1(k2, p, c1), None])
+		theta2 = matrix([-1 * subproblem1(k1, q, c1), None])
+		return theta1, theta2
 	
 	# General case: 2 solutions
 	theta1 = matrix(zeros([1, 2]))
 	theta2 = matrix(zeros([1, 2]))
 	
-	c1 = matrix([k1, k2, cross(transpose(k1), transpose(k2))]) * matrix([ [a[0,0]], [a[1,0]], [gamma] ])
-	c2 = matrix([k1, k2, cross(transpose(k1), transpose(k2))]) * matrix([ [a[0,0]], [a[1,0]], [-gamma] ])
+	c1 = matrix([k1, k2, cross(transpose(k1), transpose(k2))]) * matrix([ [a[0,0]], [a[1,0]], [g] ])
+	c2 = matrix([k1, k2, cross(transpose(k1), transpose(k2))]) * matrix([ [a[0,0]], [a[1,0]], [-g] ])
 	
 	theta2[0,0] = subproblem1(k2, p, c1)
 	theta2[0,1] = subproblem1(k2, p, c2)
@@ -155,12 +158,15 @@ def subproblem2(k1, k2, p, q):
 	print(c2)
 	print("theta2 is: ")
 	print(theta2)
-	
-	'''
+
+	'''	
 	theta1[0,0] = -1 * subproblem1(k1, q, c1)
 	theta1[0,1] = -1 * subproblem1(k1, q, c2)
-	'''
 	
+	print("theta1 is: ")
+	print(theta1)
+	'''	
+
 	return theta1, theta2
 	
 	print("\nNOW LEAVING SUBPROBLEM2")
