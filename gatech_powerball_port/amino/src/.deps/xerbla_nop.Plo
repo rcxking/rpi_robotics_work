@@ -1,1 +1,1 @@
-# dummy
+src/xerbla_nop.lo: src/xerbla_nop.c

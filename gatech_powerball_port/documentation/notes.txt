@@ -1,0 +1,13 @@
+Notes for Tuesday, 1/21/14
+--------------------------
+
+Dependencies:
+
+For amino:
+sudo apt-get install maxima autoconf automake libtool autoconf-archive
+
+For ach:
+sudo apt-get install autoconf automake libtool autoconf-archive help2man man2html docbook-utils  
+
+For reflex:
+sudo apt-get install autoconf automake libtool autoconf-archive
