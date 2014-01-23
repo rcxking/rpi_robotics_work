@@ -11,3 +11,7 @@ sudo apt-get install autoconf automake libtool autoconf-archive help2man man2htm
 
 For reflex:
 sudo apt-get install autoconf automake libtool autoconf-archive
+
+Notes for Wednesday 1/22/14:
+----------------------------
+sudo apt-get install libblas-dev

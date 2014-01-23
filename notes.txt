@@ -57,3 +57,10 @@ Installing Powerball Software (ROS Groovy):
 - positions/velocities data found in rostopic /powerball_controller/state
 - Torque control + safeguard nodes - FUTURE
 
+1/22/14 Notes
+-------------
+- ach compiled and installed
+- socanmatic compiled and installed
+- amino compiled and installed
+
+
