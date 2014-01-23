@@ -31,8 +31,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = x86_64-unknown-linux-gnu
-host_triplet = x86_64-unknown-linux-gnu
+build_triplet = i686-pc-linux-gnu
+host_triplet = i686-pc-linux-gnu
 subdir = doc
 DIST_COMMON = $(dist_man_MANS) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in
@@ -85,11 +85,11 @@ AR = ar
 AUTOCONF = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex/missing --run autoconf
 AUTOHEADER = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex/missing --run autoheader
 AUTOMAKE = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex/missing --run automake-1.11
-AWK = gawk
+AWK = mawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
 CFLAGS = -Wc++-compat -Wwrite-strings -Wshadow -Wfloat-equal -Wpointer-arith -Wconversion -Wextra -g -O2 -Wall
-CLASSPATH = .:NONE/share/java/*
+CLASSPATH = 
 CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
@@ -135,27 +135,27 @@ FC = gfortran
 FCFLAGS = -Wintrinsic-shadow -Wunused-parameter -Wtabs -Warray-temporaries -Wunderflow -Wimplicit-procedure -Wimplicit-interface -Wshadow -Wconversion-extra -Wconversion -Wextra -pedantic -Wall -ffree-line-length-none -fimplicit-none -g -O2
 FGREP = /bin/grep -F
 GREP = /bin/grep
-HELP2MAN = help2man
+HELP2MAN = 
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-JAR = jar
-JAVA = java
-JAVAC = javac
-JAVAH = javah
-JNICPPFLAGS =  -I/usr/lib/jvm/java-7-oracle/include -I/usr/lib/jvm/java-7-oracle/include/linux
-LD = /usr/bin/ld -m elf_x86_64
+JAR = 
+JAVA = 
+JAVAC = 
+JAVAH = 
+JNICPPFLAGS = 
+LD = /usr/bin/ld
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -llapack -lblas 
+LIBS = -lamino -llapack -lblas 
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex/missing --run makeinfo
-MAN2HTML = man2html
+MAN2HTML = 
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -178,7 +178,7 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = strip
 VERSION = 0.20120504
-_ACJNI_JAVAC = /usr/bin/javac
+_ACJNI_JAVAC = 
 abs_builddir = /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex/doc
 abs_srcdir = /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex/doc
 abs_top_builddir = /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex
@@ -194,22 +194,22 @@ am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
-build = x86_64-unknown-linux-gnu
+build = i686-pc-linux-gnu
 build_alias = 
-build_cpu = x86_64
+build_cpu = i686
 build_os = linux-gnu
-build_vendor = unknown
+build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = x86_64-unknown-linux-gnu
+host = i686-pc-linux-gnu
 host_alias = 
-host_cpu = x86_64
+host_cpu = i686
 host_os = linux-gnu
-host_vendor = unknown
+host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -233,7 +233,7 @@ target_alias =
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-dist_man_MANS = man/rfx-trajgen.1
+#dist_man_MANS = man/rfx-trajgen.1
 all: all-am
 
 .SUFFIXES:
@@ -482,11 +482,11 @@ uninstall-man: uninstall-man1
 	uninstall-man uninstall-man1
 
 
-man/rfx-trajgen.1: $(top_srcdir)/src/demo/rfx-trajgen.c $(top_srcdir)/configure.ac $(top_srcdir)/doc/rfx-trajgen.inc
-	$(HELP2MAN) -i rfx-trajgen.inc -h -h -v -V --no-info -n "Generate trajectory" $(top_builddir)/rfx-trajgen$(EXEEXT) -o $@
+#man/rfx-trajgen.1: $(top_srcdir)/src/demo/rfx-trajgen.c $(top_srcdir)/configure.ac $(top_srcdir)/doc/rfx-trajgen.inc
+#	$(HELP2MAN) -i rfx-trajgen.inc -h -h -v -V --no-info -n "Generate trajectory" $(top_builddir)/rfx-trajgen$(EXEEXT) -o $@
 
-.1.html:
-	$(MAN2HTML) -r $< | sed -e '1d;2d;8d;s/@\|&amp;/{at}/g' > $@
+##.1.html:
+##	$(MAN2HTML) -r $< | sed -e '1d;2d;8d;s/@\|&amp;/{at}/g' > $@
 
 maintainer-clean-local:
 	-rm -rf *.1 *.html man/*.html man/*.1

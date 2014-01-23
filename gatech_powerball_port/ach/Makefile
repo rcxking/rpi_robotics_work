@@ -36,14 +36,14 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = x86_64-unknown-linux-gnu
-host_triplet = x86_64-unknown-linux-gnu
+build_triplet = i686-pc-linux-gnu
+host_triplet = i686-pc-linux-gnu
 TESTS = achtest$(EXEEXT) achtooltest test-achcop canceltest$(EXEEXT)
 bin_PROGRAMS = ach$(EXEEXT) achcat$(EXEEXT) achbench$(EXEEXT) \
 	achd$(EXEEXT) achcop$(EXEEXT) achlog$(EXEEXT) cpptest$(EXEEXT)
 noinst_PROGRAMS = achtest$(EXEEXT) ach-example$(EXEEXT) \
 	canceltest$(EXEEXT) robusttest$(EXEEXT)
-am__append_1 = libachj.la
+#am__append_1 = libachj.la
 DIST_COMMON = README $(am__configure_deps) $(am__python_PYTHON_DIST) \
 	$(dist_noinst_SCRIPTS) $(include_HEADERS) $(noinst_HEADERS) \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
@@ -118,11 +118,11 @@ libachcpp_la_OBJECTS = $(am_libachcpp_la_OBJECTS)
 libachcpp_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(libachcpp_la_LDFLAGS) $(LDFLAGS) -o $@
-libachj_la_DEPENDENCIES = libach.la
+#libachj_la_DEPENDENCIES = libach.la
 am__libachj_la_SOURCES_DIST = java/achj.c
-am_libachj_la_OBJECTS = libachj_la-achj.lo
+#am_libachj_la_OBJECTS = libachj_la-achj.lo
 libachj_la_OBJECTS = $(am_libachj_la_OBJECTS)
-am_libachj_la_rpath = -rpath $(libdir)
+#am_libachj_la_rpath = -rpath $(libdir)
 libachutil_la_LIBADD =
 am_libachutil_la_OBJECTS = achutil.lo
 libachutil_la_OBJECTS = $(am_libachutil_la_OBJECTS)
@@ -264,7 +264,7 @@ AR = ar
 AUTOCONF = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/ach/missing --run autoconf
 AUTOHEADER = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/ach/missing --run autoheader
 AUTOMAKE = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/ach/missing --run automake-1.11
-AWK = gawk
+AWK = mawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
 CFLAGS = -DNDEBUG -Wc++-compat -Wwrite-strings -Wshadow -Wfloat-equal -Wpointer-arith -Wconversion -Wextra -g -O2 -Wall
@@ -275,7 +275,7 @@ CXXCPP = g++ -E
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -DNDEBUG -Wwrite-strings -Wshadow -Wfloat-equal -Wpointer-arith -Wconversion -Wextra -g -O2
 CYGPATH_W = echo
-DB2HTML = db2html
+DB2HTML = 
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
 DLLTOOL = false
@@ -312,18 +312,18 @@ EGREP = /bin/grep -E
 EXEEXT = 
 FGREP = /bin/grep -F
 GREP = /bin/grep
-HELP2MAN = help2man
+HELP2MAN = 
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-JAR = jar
-JAVA = java
-JAVAC = javac
-JAVAH = javah
-JNICPPFLAGS =  -I/usr/lib/jvm/java-7-oracle/include -I/usr/lib/jvm/java-7-oracle/include/linux
-LD = /usr/bin/ld -m elf_x86_64
+JAR = 
+JAVA = 
+JAVAC = 
+JAVAH = 
+JNICPPFLAGS = 
+LD = /usr/bin/ld
 LDFLAGS = 
 LIBOBJS = 
 LIBS = -lrt -lpthread 
@@ -332,7 +332,7 @@ LIPO =
 LN_S = ln -s
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/ach/missing --run makeinfo
-MAN2HTML = man2html
+MAN2HTML = 
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -365,7 +365,7 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = strip
 VERSION = 1.2.0
-_ACJNI_JAVAC = /usr/bin/javac
+_ACJNI_JAVAC = 
 abs_builddir = /home/bryant/rpi_robotics_work/gatech_powerball_port/ach
 abs_srcdir = /home/bryant/rpi_robotics_work/gatech_powerball_port/ach
 abs_top_builddir = /home/bryant/rpi_robotics_work/gatech_powerball_port/ach
@@ -380,22 +380,22 @@ am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
-build = x86_64-unknown-linux-gnu
+build = i686-pc-linux-gnu
 build_alias = 
-build_cpu = x86_64
+build_cpu = i686
 build_os = linux-gnu
-build_vendor = unknown
+build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = x86_64-unknown-linux-gnu
+host = i686-pc-linux-gnu
 host_alias = 
-host_cpu = x86_64
+host_cpu = i686
 host_os = linux-gnu
-host_vendor = unknown
+host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -486,19 +486,19 @@ JSOURCES = \
 	$(top_srcdir)/java/Channel.java   \
 	$(top_srcdir)/java/Test.java
 
-BUILT_SOURCES = org_golems_ach_Lib.h
-JCLASSES = \
-	org/golems/ach/Status.class       \
-	org/golems/ach/Channel.class      \
-	org/golems/ach/Test.class
+#BUILT_SOURCES = org_golems_ach_Lib.h
+#JCLASSES = \
+#	org/golems/ach/Status.class       \
+#	org/golems/ach/Channel.class      \
+#	org/golems/ach/Test.class
 
 
 # install the jar file somewhere reasonable
-javadir = $(datadir)/java
-java_DATA = org.golems.ach.jar
-libachj_la_CPPFLAGS = $(AM_CPPFLAGS) $(CPPFLAGS) $(JNICPPFLAGS)
-libachj_la_SOURCES = java/achj.c
-libachj_la_LIBADD = libach.la
+#javadir = $(datadir)/java
+#java_DATA = org.golems.ach.jar
+#libachj_la_CPPFLAGS = $(AM_CPPFLAGS) $(CPPFLAGS) $(JNICPPFLAGS)
+#libachj_la_SOURCES = java/achj.c
+#libachj_la_LIBADD = libach.la
 DX_CLEAN_HTML = doxygen-doc/html
 #DX_CLEAN_CHM = doxygen-doc/chm
 ##DX_CLEAN_CHI = doxygen-doc/ach.chi
@@ -1730,24 +1730,24 @@ uninstall-am: uninstall-binPROGRAMS uninstall-includeHEADERS \
 	uninstall-pythonPYTHON
 
 
-org/golems/ach/Lib.class: $(JSOURCES)
-	$(JAVAC) -d $(top_builddir) $(JSOURCES)
+#org/golems/ach/Lib.class: $(JSOURCES)
+#	$(JAVAC) -d $(top_builddir) $(JSOURCES)
 
-org/golems/ach/Status.class: org/golems/ach/Lib.class
-org/golems/ach/Channel.class: org/golems/ach/Lib.class
-org/golems/ach/Test.class: org/golems/ach/Lib.class
+#org/golems/ach/Status.class: org/golems/ach/Lib.class
+#org/golems/ach/Channel.class: org/golems/ach/Lib.class
+#org/golems/ach/Test.class: org/golems/ach/Lib.class
 
-org_golems_ach_Lib.h: $(top_builddir)/org/golems/ach/Lib.class
-	$(JAVAH) org.golems.ach.Lib
-	touch $@
+#org_golems_ach_Lib.h: $(top_builddir)/org/golems/ach/Lib.class
+#	$(JAVAH) org.golems.ach.Lib
+#	touch $@
 
-org.golems.ach.jar: $(JCLASSES)
-	$(JAR) cf $@ $(JCLASSES)
+#org.golems.ach.jar: $(JCLASSES)
+#	$(JAR) cf $@ $(JCLASSES)
 
 # Javadocs
-doc/.javadoc.stamp: $(JSOURCES)
-	javadoc -d doc/javadoc $(JSOURCES)
-	touch $@
+#doc/.javadoc.stamp: $(JSOURCES)
+#	javadoc -d doc/javadoc $(JSOURCES)
+#	touch $@
 
 clean-local:
 	-rm -rf debian/tmp debian/files debian/libach? debian/libach-dev debian/*.log debian/*.substvars texput.log debian/*.debhelper debian/usr/* debian/DEBIAN/* *.so *.so.* org org_golems_ach_Lib.h org.golems.ach.jar

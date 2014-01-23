@@ -32,8 +32,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = x86_64-unknown-linux-gnu
-host_triplet = x86_64-unknown-linux-gnu
+build_triplet = i686-pc-linux-gnu
+host_triplet = i686-pc-linux-gnu
 subdir = doc
 DIST_COMMON = $(am__dist_doc_DATA_DIST) $(dist_man_MANS) \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -92,7 +92,7 @@ AR = ar
 AUTOCONF = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/ach/missing --run autoconf
 AUTOHEADER = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/ach/missing --run autoheader
 AUTOMAKE = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/ach/missing --run automake-1.11
-AWK = gawk
+AWK = mawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
 CFLAGS = -DNDEBUG -Wc++-compat -Wwrite-strings -Wshadow -Wfloat-equal -Wpointer-arith -Wconversion -Wextra -g -O2 -Wall
@@ -103,7 +103,7 @@ CXXCPP = g++ -E
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -DNDEBUG -Wwrite-strings -Wshadow -Wfloat-equal -Wpointer-arith -Wconversion -Wextra -g -O2
 CYGPATH_W = echo
-DB2HTML = db2html
+DB2HTML = 
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
 DLLTOOL = false
@@ -140,18 +140,18 @@ EGREP = /bin/grep -E
 EXEEXT = 
 FGREP = /bin/grep -F
 GREP = /bin/grep
-HELP2MAN = help2man
+HELP2MAN = 
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-JAR = jar
-JAVA = java
-JAVAC = javac
-JAVAH = javah
-JNICPPFLAGS =  -I/usr/lib/jvm/java-7-oracle/include -I/usr/lib/jvm/java-7-oracle/include/linux
-LD = /usr/bin/ld -m elf_x86_64
+JAR = 
+JAVA = 
+JAVAC = 
+JAVAH = 
+JNICPPFLAGS = 
+LD = /usr/bin/ld
 LDFLAGS = 
 LIBOBJS = 
 LIBS = -lrt -lpthread 
@@ -160,7 +160,7 @@ LIPO =
 LN_S = ln -s
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/ach/missing --run makeinfo
-MAN2HTML = man2html
+MAN2HTML = 
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -193,7 +193,7 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = strip
 VERSION = 1.2.0
-_ACJNI_JAVAC = /usr/bin/javac
+_ACJNI_JAVAC = 
 abs_builddir = /home/bryant/rpi_robotics_work/gatech_powerball_port/ach/doc
 abs_srcdir = /home/bryant/rpi_robotics_work/gatech_powerball_port/ach/doc
 abs_top_builddir = /home/bryant/rpi_robotics_work/gatech_powerball_port/ach
@@ -208,22 +208,22 @@ am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
-build = x86_64-unknown-linux-gnu
+build = i686-pc-linux-gnu
 build_alias = 
-build_cpu = x86_64
+build_cpu = i686
 build_os = linux-gnu
-build_vendor = unknown
+build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = x86_64-unknown-linux-gnu
+host = i686-pc-linux-gnu
 host_alias = 
-host_cpu = x86_64
+host_cpu = i686
 host_os = linux-gnu
-host_vendor = unknown
+host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -525,29 +525,29 @@ uninstall-man: uninstall-man1
 
 
 # Rules to build
-man/ach.1: $(top_srcdir)/src/achtool.c $(top_srcdir)/configure.ac
-	$(HELP2MAN) -h -h -v -V --no-info -n "manipulate ach channels" $(top_builddir)/ach$(EXEEXT) -o $@
+#man/ach.1: $(top_srcdir)/src/achtool.c $(top_srcdir)/configure.ac
+#	$(HELP2MAN) -h -h -v -V --no-info -n "manipulate ach channels" $(top_builddir)/ach$(EXEEXT) -o $@
 
-man/achbench.1: $(top_srcdir)/src/ach-bench.c $(top_srcdir)/configure.ac
-	$(HELP2MAN) -h -h -v -V --no-info -n "benchmark and tune ach" $(top_builddir)/achbench$(EXEEXT) -o $@
+#man/achbench.1: $(top_srcdir)/src/ach-bench.c $(top_srcdir)/configure.ac
+#	$(HELP2MAN) -h -h -v -V --no-info -n "benchmark and tune ach" $(top_builddir)/achbench$(EXEEXT) -o $@
 
-man/achcat.1: $(top_srcdir)/src/achcat.c $(top_srcdir)/configure.ac
-	$(HELP2MAN) -h -h -v -V --no-info -n "ach debugging tool" $(top_builddir)/achcat$(EXEEXT) -o $@
+#man/achcat.1: $(top_srcdir)/src/achcat.c $(top_srcdir)/configure.ac
+#	$(HELP2MAN) -h -h -v -V --no-info -n "ach debugging tool" $(top_builddir)/achcat$(EXEEXT) -o $@
 
-man/achd.1: $(top_srcdir)/src/achd/achd.c $(top_srcdir)/configure.ac achd.inc
-	$(HELP2MAN) -h -\? -v -V -i achd.inc --no-info -n "send ach messages over streams" $(top_builddir)/achd$(EXEEXT) -o $@
+#man/achd.1: $(top_srcdir)/src/achd/achd.c $(top_srcdir)/configure.ac achd.inc
+#	$(HELP2MAN) -h -\? -v -V -i achd.inc --no-info -n "send ach messages over streams" $(top_builddir)/achd$(EXEEXT) -o $@
 
-man/achlog.1: $(top_srcdir)/src/achlog.c
-	$(HELP2MAN) -h -h -v -V --no-info -n "log ach messages" $(top_builddir)/achlog$(EXEEXT) -o $@
+#man/achlog.1: $(top_srcdir)/src/achlog.c
+#	$(HELP2MAN) -h -h -v -V --no-info -n "log ach messages" $(top_builddir)/achlog$(EXEEXT) -o $@
 
-man/achcop.1: $(top_srcdir)/src/achcop.c
-	$(HELP2MAN) -h -\? -v -V --no-info -n "Watchdog for ach daemons" $(top_builddir)/achcop$(EXEEXT) -o $@
+#man/achcop.1: $(top_srcdir)/src/achcop.c
+#	$(HELP2MAN) -h -\? -v -V --no-info -n "Watchdog for ach daemons" $(top_builddir)/achcop$(EXEEXT) -o $@
 
-.1.html:
-	$(MAN2HTML) -r $< | sed -e '1d;2d;8d;s/@\|&amp;/{at}/g' > $@
+##.1.html:
+##	$(MAN2HTML) -r $< | sed -e '1d;2d;8d;s/@\|&amp;/{at}/g' > $@
 
-manual/ach-manual.html: ach-manual.xml
-	db2html -u -o manual $<
+#manual/ach-manual.html: ach-manual.xml
+#	db2html -u -o manual $<
 
 maintainer-clean-local:
 	-rm -rf *.1 *.html man/*.html man/*.1

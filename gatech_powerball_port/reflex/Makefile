@@ -35,12 +35,12 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = x86_64-unknown-linux-gnu
-host_triplet = x86_64-unknown-linux-gnu
+build_triplet = i686-pc-linux-gnu
+host_triplet = i686-pc-linux-gnu
 noinst_PROGRAMS = lqgtest$(EXEEXT) cartpend$(EXEEXT) \
 	test-tf-filter$(EXEEXT) plot_test$(EXEEXT)
 bin_PROGRAMS = rfx-trajgen$(EXEEXT)
-am__append_1 = libreflexj.la
+#am__append_1 = libreflexj.la
 DIST_COMMON = README $(am__configure_deps) $(include_HEADERS) \
 	$(pkginclude_HEADERS) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/aminclude.am \
@@ -95,12 +95,12 @@ am_libreflex_la_OBJECTS = src/control.lo src/trajectory.lo src/lqg.lo \
 	src/lqg_tf.lo src/plot.lo src/trajq.lo src/kin.lo src/trajx.lo \
 	src/body/body.lo src/traj.lo reflex_mod.lo
 libreflex_la_OBJECTS = $(am_libreflex_la_OBJECTS)
-libreflexj_la_DEPENDENCIES = libreflex.la
+#libreflexj_la_DEPENDENCIES = libreflex.la
 am__libreflexj_la_SOURCES_DIST = java/reflexj.c
-am_libreflexj_la_OBJECTS =  \
-	java/libreflexj_la-reflexj.lo
+#am_libreflexj_la_OBJECTS =  \
+#	java/libreflexj_la-reflexj.lo
 libreflexj_la_OBJECTS = $(am_libreflexj_la_OBJECTS)
-am_libreflexj_la_rpath = -rpath $(libdir)
+#am_libreflexj_la_rpath = -rpath $(libdir)
 PROGRAMS = $(bin_PROGRAMS) $(noinst_PROGRAMS)
 am_cartpend_OBJECTS = src/cartpend.$(OBJEXT)
 cartpend_OBJECTS = $(am_cartpend_OBJECTS)
@@ -218,11 +218,11 @@ AR = ar
 AUTOCONF = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex/missing --run autoconf
 AUTOHEADER = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex/missing --run autoheader
 AUTOMAKE = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex/missing --run automake-1.11
-AWK = gawk
+AWK = mawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
 CFLAGS = -Wc++-compat -Wwrite-strings -Wshadow -Wfloat-equal -Wpointer-arith -Wconversion -Wextra -g -O2 -Wall
-CLASSPATH = .:NONE/share/java/*
+CLASSPATH = 
 CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
@@ -268,27 +268,27 @@ FC = gfortran
 FCFLAGS = -Wintrinsic-shadow -Wunused-parameter -Wtabs -Warray-temporaries -Wunderflow -Wimplicit-procedure -Wimplicit-interface -Wshadow -Wconversion-extra -Wconversion -Wextra -pedantic -Wall -ffree-line-length-none -fimplicit-none -g -O2
 FGREP = /bin/grep -F
 GREP = /bin/grep
-HELP2MAN = help2man
+HELP2MAN = 
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-JAR = jar
-JAVA = java
-JAVAC = javac
-JAVAH = javah
-JNICPPFLAGS =  -I/usr/lib/jvm/java-7-oracle/include -I/usr/lib/jvm/java-7-oracle/include/linux
-LD = /usr/bin/ld -m elf_x86_64
+JAR = 
+JAVA = 
+JAVAC = 
+JAVAH = 
+JNICPPFLAGS = 
+LD = /usr/bin/ld
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -llapack -lblas 
+LIBS = -lamino -llapack -lblas 
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex/missing --run makeinfo
-MAN2HTML = man2html
+MAN2HTML = 
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -311,7 +311,7 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = strip
 VERSION = 0.20120504
-_ACJNI_JAVAC = /usr/bin/javac
+_ACJNI_JAVAC = 
 abs_builddir = /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex
 abs_srcdir = /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex
 abs_top_builddir = /home/bryant/rpi_robotics_work/gatech_powerball_port/reflex
@@ -327,22 +327,22 @@ am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
-build = x86_64-unknown-linux-gnu
+build = i686-pc-linux-gnu
 build_alias = 
-build_cpu = x86_64
+build_cpu = i686
 build_os = linux-gnu
-build_vendor = unknown
+build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = x86_64-unknown-linux-gnu
+host = i686-pc-linux-gnu
 host_alias = 
-host_cpu = x86_64
+host_cpu = i686
 host_os = linux-gnu
-host_vendor = unknown
+host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -410,18 +410,18 @@ JSOURCES = \
 	$(top_srcdir)/java/Lib.java               \
 	$(top_srcdir)/java/Test.java
 
-BUILT_SOURCES = org_golems_reflex_Lib.h
-JCLASSES = \
-	org/golems/reflex/Lib.class               \
-	org/golems/reflex/Test.class
+#BUILT_SOURCES = org_golems_reflex_Lib.h
+#JCLASSES = \
+#	org/golems/reflex/Lib.class               \
+#	org/golems/reflex/Test.class
 
 
 # install the jar file somewhere reasonable
-javadir = $(datadir)/java
-java_DATA = org.golems.reflex.jar
-libreflexj_la_CPPFLAGS = $(CPPFLAGS) $(JNICPPFLAGS)
-libreflexj_la_SOURCES = java/reflexj.c
-libreflexj_la_LIBADD = libreflex.la
+#javadir = $(datadir)/java
+#java_DATA = org.golems.reflex.jar
+#libreflexj_la_CPPFLAGS = $(CPPFLAGS) $(JNICPPFLAGS)
+#libreflexj_la_SOURCES = java/reflexj.c
+#libreflexj_la_LIBADD = libreflex.la
 DX_CLEAN_HTML = doxygen-doc/html
 #DX_CLEAN_CHM = doxygen-doc/chm
 ##DX_CLEAN_CHI = doxygen-doc/reflex.chi
@@ -1358,27 +1358,27 @@ tf-filter.eps: test-tf-filter src/test/plot-tf-filter
 	./test-tf-filter
 	gnuplot ./src/test/plot-tf-filter
 
-org/golems/reflex/Lib.class: $(JSOURCES)
-	$(JAVAC) -classpath $(CLASSPATH)  -d $(top_builddir) $(JSOURCES)
+#org/golems/reflex/Lib.class: $(JSOURCES)
+#	$(JAVAC) -classpath $(CLASSPATH)  -d $(top_builddir) $(JSOURCES)
 
-org_golems_reflex_Lib.h: $(top_builddir)/org/golems/reflex/Lib.class
-	$(JAVAH) org.golems.reflex.Lib
-	touch $@
+#org_golems_reflex_Lib.h: $(top_builddir)/org/golems/reflex/Lib.class
+#	$(JAVAH) org.golems.reflex.Lib
+#	touch $@
 
-$(top_builddir)/org/golems/reflex/Lib.class: org.golems.reflex.jar
+#$(top_builddir)/org/golems/reflex/Lib.class: org.golems.reflex.jar
 
-org.golems.reflex.jar: $(JSOURCES)
-	$(JAVAC) -classpath $(CLASSPATH) -d $(top_builddir) $(JSOURCES)
-	$(JAR) cf $@ $(JCLASSES)
+#org.golems.reflex.jar: $(JSOURCES)
+#	$(JAVAC) -classpath $(CLASSPATH) -d $(top_builddir) $(JSOURCES)
+#	$(JAR) cf $@ $(JCLASSES)
 
 # Javadocs
-doc/.javadoc.stamp: $(JSOURCES)
-	javadoc -d doc/javadoc $(JSOURCES)
-	touch $@
+#doc/.javadoc.stamp: $(JSOURCES)
+#	javadoc -d doc/javadoc $(JSOURCES)
+#	touch $@
 
-doc/javadoc: doc/.javadoc.stamp
+#doc/javadoc: doc/.javadoc.stamp
 
-javadoc: doc/.javadoc.stamp
+#javadoc: doc/.javadoc.stamp
 
 #doxygen-ps: doxygen-doc/reflex.ps
 

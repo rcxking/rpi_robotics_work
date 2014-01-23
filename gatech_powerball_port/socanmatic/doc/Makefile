@@ -32,8 +32,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = x86_64-unknown-linux-gnu
-host_triplet = x86_64-unknown-linux-gnu
+build_triplet = i686-pc-linux-gnu
+host_triplet = i686-pc-linux-gnu
 subdir = doc
 DIST_COMMON = $(am__dist_doc_DATA_DIST) $(dist_man_MANS) \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -91,14 +91,14 @@ AR = ar
 AUTOCONF = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/socanmatic/missing --run autoconf
 AUTOHEADER = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/socanmatic/missing --run autoheader
 AUTOMAKE = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/socanmatic/missing --run automake-1.11
-AWK = gawk
+AWK = mawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
 CFLAGS = -Wc++-compat -Wwrite-strings -Wshadow -Wfloat-equal -Wpointer-arith -Wconversion -Wextra -g -O2 -Wall
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo
-DB2HTML = db2html
+DB2HTML = 
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
 DLLTOOL = false
@@ -135,13 +135,13 @@ EGREP = /bin/grep -E
 EXEEXT = 
 FGREP = /bin/grep -F
 GREP = /bin/grep
-HELP2MAN = help2man
+HELP2MAN = 
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-LD = /usr/bin/ld -m elf_x86_64
+LD = /usr/bin/ld
 LDFLAGS = 
 LIBOBJS = 
 LIBS = -lrt 
@@ -150,7 +150,7 @@ LIPO =
 LN_S = ln -s
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/socanmatic/missing --run makeinfo
-MAN2HTML = man2html
+MAN2HTML = 
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -186,22 +186,22 @@ am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
-build = x86_64-unknown-linux-gnu
+build = i686-pc-linux-gnu
 build_alias = 
-build_cpu = x86_64
+build_cpu = i686
 build_os = linux-gnu
-build_vendor = unknown
+build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = x86_64-unknown-linux-gnu
+host = i686-pc-linux-gnu
 host_alias = 
-host_cpu = x86_64
+host_cpu = i686
 host_os = linux-gnu
-host_vendor = unknown
+host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -228,8 +228,8 @@ top_srcdir = ..
 EXTRA_DIST = socanmatic-manual.xml
 
 # test what to install
-dist_man_MANS = man/canmat.1 man/canmatc.1
-MAN_HTML = man/canmat.html man/canmatc.html
+#dist_man_MANS = man/canmat.1 man/canmatc.1
+#MAN_HTML = man/canmat.html man/canmatc.html
 DOCBOOK_HTML = manual/socanmatic-manual.html
 dist_doc_DATA = $(DOCBOOK_HTML) $(MAN_HTML)
 all: all-am
@@ -499,17 +499,17 @@ uninstall-man: uninstall-man1
 
 
 # Rules to build
-man/canmat.1: $(top_srcdir)/src/canmat.c $(top_srcdir)/configure.ac
-	$(HELP2MAN) -h -h -v -V --no-info -n "canmat shell tool" $(top_builddir)/canmat$(EXEEXT) -o $@
+#man/canmat.1: $(top_srcdir)/src/canmat.c $(top_srcdir)/configure.ac
+#	$(HELP2MAN) -h -h -v -V --no-info -n "canmat shell tool" $(top_builddir)/canmat$(EXEEXT) -o $@
 
-man/canmatc.1: $(top_srcdir)/canmatc $(top_srcdir)/configure.ac
-	$(HELP2MAN) -h -h -v -V --no-info -n "canmat profile compiler" $(top_builddir)/canmat$(EXEEXT) -o $@
+#man/canmatc.1: $(top_srcdir)/canmatc $(top_srcdir)/configure.ac
+#	$(HELP2MAN) -h -h -v -V --no-info -n "canmat profile compiler" $(top_builddir)/canmat$(EXEEXT) -o $@
 
-.1.html:
-	$(MAN2HTML) -r $< | sed -e '1d;2d;8d;s/@\|&amp;/{at}/g' > $@
+##.1.html:
+##	$(MAN2HTML) -r $< | sed -e '1d;2d;8d;s/@\|&amp;/{at}/g' > $@
 
-manual/socanmatic-manual.html: socanmatic-manual.xml
-	db2html -u -o manual $<
+#manual/socanmatic-manual.html: socanmatic-manual.xml
+#	db2html -u -o manual $<
 
 maintainer-clean-local:
 	-rm -rf *.1 *.html man/*.html man/*.1

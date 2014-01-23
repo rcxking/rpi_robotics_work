@@ -35,10 +35,10 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = x86_64-unknown-linux-gnu
-host_triplet = x86_64-unknown-linux-gnu
-am__append_1 = org_golems_amino_Lib.h
-am__append_2 = libaminoj.la
+build_triplet = i686-pc-linux-gnu
+host_triplet = i686-pc-linux-gnu
+#am__append_1 = org_golems_amino_Lib.h
+#am__append_2 = libaminoj.la
 TESTS = aa_test$(EXEEXT) la_test$(EXEEXT) aa_regress$(EXEEXT) \
 	q_test$(EXEEXT) aa_fuzz$(EXEEXT) testcpp$(EXEEXT)
 noinst_PROGRAMS = aa_test$(EXEEXT) la_test$(EXEEXT) aa_fuzz$(EXEEXT) \
@@ -117,12 +117,12 @@ libamino_tf_la_OBJECTS = $(am_libamino_tf_la_OBJECTS)
 libamino_xerbla_nop_la_LIBADD =
 am_libamino_xerbla_nop_la_OBJECTS = src/xerbla_nop.lo
 libamino_xerbla_nop_la_OBJECTS = $(am_libamino_xerbla_nop_la_OBJECTS)
-libaminoj_la_DEPENDENCIES = libamino.la
+#libaminoj_la_DEPENDENCIES = libamino.la
 am__libaminoj_la_SOURCES_DIST = java/aminoj.c
-am_libaminoj_la_OBJECTS =  \
-	java/libaminoj_la-aminoj.lo
+#am_libaminoj_la_OBJECTS =  \
+#	java/libaminoj_la-aminoj.lo
 libaminoj_la_OBJECTS = $(am_libaminoj_la_OBJECTS)
-am_libaminoj_la_rpath = -rpath $(libdir)
+#am_libaminoj_la_rpath = -rpath $(libdir)
 libtestutil_la_LIBADD =
 am_libtestutil_la_OBJECTS = src/test/testutil.lo
 libtestutil_la_OBJECTS = $(am_libtestutil_la_OBJECTS)
@@ -250,7 +250,7 @@ AR = ar
 AUTOCONF = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/amino/missing --run autoconf
 AUTOHEADER = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/amino/missing --run autoheader
 AUTOMAKE = ${SHELL} /home/bryant/rpi_robotics_work/gatech_powerball_port/amino/missing --run automake-1.11
-AWK = gawk
+AWK = mawk
 CC = gcc -std=gnu99
 CCDEPMODE = depmode=gcc3
 CFLAGS = -Wc++-compat -Wwrite-strings -Wshadow -Wfloat-equal -Wpointer-arith -Wconversion -Wextra -g -O2 -Wall
@@ -304,12 +304,12 @@ INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-JAR = jar
-JAVA = java
-JAVAC = javac
-JAVAH = javah
-JNICPPFLAGS =  -I/usr/lib/jvm/java-7-oracle/include -I/usr/lib/jvm/java-7-oracle/include/linux
-LD = /usr/bin/ld -m elf_x86_64
+JAR = 
+JAVA = 
+JAVAC = 
+JAVAH = 
+JNICPPFLAGS = 
+LD = /usr/bin/ld
 LDFLAGS = 
 LIBOBJS = 
 LIBS = -lm -lrt 
@@ -341,7 +341,7 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = strip
 VERSION = 0.20120916
-_ACJNI_JAVAC = /usr/bin/javac
+_ACJNI_JAVAC = 
 abs_builddir = /home/bryant/rpi_robotics_work/gatech_powerball_port/amino
 abs_srcdir = /home/bryant/rpi_robotics_work/gatech_powerball_port/amino
 abs_top_builddir = /home/bryant/rpi_robotics_work/gatech_powerball_port/amino
@@ -357,22 +357,22 @@ am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
-build = x86_64-unknown-linux-gnu
+build = i686-pc-linux-gnu
 build_alias = 
-build_cpu = x86_64
+build_cpu = i686
 build_os = linux-gnu
-build_vendor = unknown
+build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-host = x86_64-unknown-linux-gnu
+host = i686-pc-linux-gnu
 host_alias = 
-host_cpu = x86_64
+host_cpu = i686
 host_os = linux-gnu
-host_vendor = unknown
+host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -474,16 +474,16 @@ libamino_tf_la_SOURCES = tf_mod.f90
 JSOURCES = \
 	$(top_srcdir)/java/Lib.java
 
-JCLASSES = \
-	org/golems/amino/Lib.class
+#JCLASSES = \
+#	org/golems/amino/Lib.class
 
 
 # install the jar file somewhere reasonable
-javadir = $(datadir)/java
-java_DATA = org.golems.amino.jar
-libaminoj_la_CPPFLAGS = $(CPPFLAGS) $(JNICPPFLAGS)
-libaminoj_la_SOURCES = java/aminoj.c
-libaminoj_la_LIBADD = libamino.la
+#javadir = $(datadir)/java
+#java_DATA = org.golems.amino.jar
+#libaminoj_la_CPPFLAGS = $(CPPFLAGS) $(JNICPPFLAGS)
+#libaminoj_la_SOURCES = java/aminoj.c
+#libaminoj_la_LIBADD = libamino.la
 libtestutil_la_SOURCES = src/test/testutil.c
 aa_test_SOURCES = src/test/aa_test.c
 aa_test_LDADD = libamino.la -lblas -llapack libtestutil.la
@@ -1443,24 +1443,24 @@ $(la_test_OBJECTS): amino_la.mod # manually specify fortran module dependency
 foo:
 	echo $(la_test_OBJECTS)
 
-org/golems/amino/Lib.class: $(JSOURCES)
-	$(JAVAC) -d $(top_builddir) $(JSOURCES)
+#org/golems/amino/Lib.class: $(JSOURCES)
+#	$(JAVAC) -d $(top_builddir) $(JSOURCES)
 
-org_golems_amino_Lib.h: $(top_builddir)/org/golems/amino/Lib.class
-	$(JAVAH) org.golems.amino.Lib
-	touch $@
+#org_golems_amino_Lib.h: $(top_builddir)/org/golems/amino/Lib.class
+#	$(JAVAH) org.golems.amino.Lib
+#	touch $@
 
-org.golems.amino.jar: $(JCLASSES)
-	$(JAR) cf $@ $(JCLASSES)
+#org.golems.amino.jar: $(JCLASSES)
+#	$(JAR) cf $@ $(JCLASSES)
 
 # Javadocs
-doc/.javadoc.stamp: $(JSOURCES)
-	javadoc -d doc/javadoc $(JSOURCES)
-	touch $@
+#doc/.javadoc.stamp: $(JSOURCES)
+#	javadoc -d doc/javadoc $(JSOURCES)
+#	touch $@
 
-doc/javadoc: doc/.javadoc.stamp
+#doc/javadoc: doc/.javadoc.stamp
 
-javadoc: doc/.javadoc.stamp
+#javadoc: doc/.javadoc.stamp
 
 clapack_doc.c: doc/clapack_doc.c include/amino/clapack.h include/amino/clapack_impl.h
 	$(CPP) $(INCLUDES) -CC $< -o $@
