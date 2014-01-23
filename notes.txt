@@ -63,4 +63,14 @@ Installing Powerball Software (ROS Groovy):
 - socanmatic compiled and installed
 - amino compiled and installed
 
+1/23/14
+-------
+- Removed all packages compiled from source
+- For ach:
+	In /etc/apt/sources.list:
+	deb http://code.golems.org/debian precise golems.org
+
+	sudo apt-get update && sudo apt-get install libach-dev ach-utils
+	sudo dpkg-reconfigure ach-utils
+
 
