@@ -1,0 +1,6 @@
+/home/karsh/catkin_ws/build/CMakeFiles/clean_test_results.dir
+/home/karsh/catkin_ws/build/CMakeFiles/doxygen.dir
+/home/karsh/catkin_ws/build/gtest/CMakeFiles/gtest.dir
+/home/karsh/catkin_ws/build/gtest/CMakeFiles/gtest_main.dir
+/home/karsh/catkin_ws/build/CMakeFiles/run_tests.dir
+/home/karsh/catkin_ws/build/CMakeFiles/tests.dir
