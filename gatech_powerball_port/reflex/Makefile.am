@@ -8,9 +8,10 @@ include_HEADERS = include/reflex.h include/reflex.hpp
 
 pkginclude_HEADERS = \
 	include/reflex/kinematics.h \
-	include/reflex/trajectory.h \
+	include/reflex/trajq.h \
 	include/reflex/trajx.h \
 	include/reflex/tf.h \
+	include/reflex/lqg.h \
 	include/reflex/body.h
 
 nodist_include_HEADERS = reflex.mod
@@ -21,44 +22,54 @@ nodist_include_HEADERS = reflex.mod
 
 lib_LTLIBRARIES = libreflex.la
 
-noinst_PROGRAMS = lqgtest cartpend test-tf-filter
-
-cartpend_SOURCES = src/cartpend.c
-cartpend_LDADD = libreflex.la
-
-lqgtest_SOURCES = src/lqgtest.c
-lqgtest_LDADD = libreflex.la
-
-noinst_PROGRAMS += plot_test
-plot_test_SOURCES = src/plot_test.c
-plot_test_LDADD = libreflex.la
-
 libreflex_la_SOURCES =              \
 	src/control.c               \
-	src/trajectory.cpp          \
 	src/lqg.c                   \
 	src/lqg_tf.c                \
+	src/rfx_tf.c                \
+	src/tf/dud.c                \
 	src/plot.c                  \
 	src/trajq.c                 \
 	src/kin.c                   \
-	src/trajx.c                 \
-	src/body/body.cpp           \
+	src/trajx.cpp               \
 	src/traj.c                  \
-	reflex_mod.f90
+	src/body/body.cpp
+
+libreflex_la_LIBADD = libreflex_mod.la
+
+noinst_PROGRAMS = cartpend
+cartpend_SOURCES = src/cartpend.c
+cartpend_LDADD = libreflex.la -lamino -llapack -lblas
+
+noinst_PROGRAMS += lqgtest
+lqgtest_SOURCES = src/lqgtest.c
+lqgtest_LDADD = libreflex.la -lamino -llapack -lblas
+
+noinst_PROGRAMS += plot_test
+plot_test_SOURCES = src/plot_test.c
+plot_test_LDADD = libreflex.la -lamino -llapack -lblas
 
 
+noinst_PROGRAMS += test-tf-filter
 test_tf_filter_SOURCES = src/test/test-tf-filter.c
-test_tf_filter_LDADD = libreflex.la
-
+test_tf_filter_LDADD = libreflex.la -lamino -llapack -lblas
 
 
 bin_PROGRAMS = rfx-trajgen
-
 rfx_trajgen_SOURCES = src/demo/rfx-trajgen.c
-rfx_trajgen_LDADD = libreflex.la
+rfx_trajgen_LDADD = libreflex.la -lamino -lblas -llapack
 
-reflex_mod.f90: src/reflex_mod.F90 src/kinematics.f90 src/lqgf.f90 src/lqg_tf_f.f90
+
+bin_PROGRAMS += rfx-camcal
+rfx_camcal_SOURCES = src/demo/rfx-camcal.c
+rfx_camcal_LDADD = libreflex.la -lamino -lblas -llapack
+
+reflex_mod.f90: src/reflex_mod.F90 src/kinematics.f90 src/lqg_tf_f.f90 src/tf/rfx_tff.f90
 	$(CPP) $(INCLUDES) -x c  $< -o $@
+
+noinst_LTLIBRARIES = libreflex_mod.la
+libreflex_mod_la_SOURCES = reflex_mod.f90
+reflex.mod: $(libreflex_mod_la_OBJECTS)
 
 
 clean-local:

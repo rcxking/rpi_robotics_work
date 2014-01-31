@@ -72,6 +72,13 @@ subroutine aa_tf_qutr2tfmat( e, T ) &
   T(:,4) = e(QUTR_V)
 end subroutine aa_tf_qutr2tfmat
 
+subroutine aa_tf_tfmat2qutr( T, e ) &
+     bind( C, name="aa_tf_tfmat2qutr" )
+  real(C_DOUBLE), intent(out) :: e(7)
+  real(C_DOUBLE), intent(in) :: T(3,4)
+  call aa_tf_rotmat2quat( T(:,1:3), e(QUTR_Q))
+  e(QUTR_V) = T(:,4)
+end subroutine aa_tf_tfmat2qutr
 
 !!!!!!!!!
 !! OPS !!
@@ -93,6 +100,61 @@ subroutine aa_tf_qutr_mul( a, b, c ) &
   call aa_tf_qmul( a(QUTR_Q), b(QUTR_Q), c(QUTR_Q) )
   call aa_tf_qutr_tf( a, b(QUTR_V), c(QUTR_V) )
 end subroutine aa_tf_qutr_mul
+
+subroutine aa_tf_qutr_mulnorm( a, b, c ) &
+     bind( C, name="aa_tf_qutr_mulnorm" )
+  real(C_DOUBLE), intent(out) :: c(7)
+  real(C_DOUBLE), intent(in) :: a(7), b(7)
+  call aa_tf_qmulnorm( a(QUTR_Q), b(QUTR_Q), c(QUTR_Q) )
+  call aa_tf_qutr_tf( a, b(QUTR_V), c(QUTR_V) )
+end subroutine aa_tf_qutr_mulnorm
+
+
+subroutine aa_tf_qutr_conj( a, b ) &
+     bind( C, name="aa_tf_qutr_conj" )
+  real(C_DOUBLE), intent(out) :: b(7)
+  real(C_DOUBLE), intent(in) :: a(7)
+  call aa_tf_qconj( a(QUTR_Q), b(QUTR_Q) )
+  call aa_tf_qrot( b(QUTR_Q), a(QUTR_V), b(QUTR_V) )
+  b(QUTR_V) = - b(QUTR_V)
+end subroutine aa_tf_qutr_conj
+
+
+subroutine aa_tf_qutr_mulc( a, b, c ) &
+     bind( C, name="aa_tf_qutr_mulc" )
+  real(C_DOUBLE), intent(out) :: c(7)
+  real(C_DOUBLE), intent(in) :: a(7), b(7)
+  real(C_DOUBLE) :: bc(7)
+  call aa_tf_qutr_conj(b,bc)
+  call aa_tf_qutr_mul(a, bc, c)
+end subroutine aa_tf_qutr_mulc
+
+
+subroutine aa_tf_qutr_cmul( a, b, c ) &
+     bind( C, name="aa_tf_qutr_cmul" )
+  real(C_DOUBLE), intent(out) :: c(7)
+  real(C_DOUBLE), intent(in) :: a(7), b(7)
+  real(C_DOUBLE) :: ac(7)
+  call aa_tf_qutr_conj(a,ac)
+  call aa_tf_qutr_mul(ac, b, c)
+end subroutine aa_tf_qutr_cmul
+
+
+subroutine aa_tf_qutr_wavg( n, w, EE, ldee,  a ) &
+     bind( C, name="aa_tf_qutr_wavg" )
+  integer(C_SIZE_T), intent(in), value :: n, ldee
+  real(C_DOUBLE), intent(in) :: EE(ldee,n), w(n)
+  real(C_DOUBLE), intent(out) :: a(7)
+  integer(C_SIZE_T) :: i
+  !! average translation, davenport q method
+  call aa_tf_quat_davenport( n, w, EE, ldee, a(1:4) )
+  !! TODO: Should we consider coupling between orientation and translation?
+  !! TODO: Kahan summation
+  a(5:7)=real(0,C_DOUBLE)
+  do i=1,n
+     a(5:7) = a(5:7) + w(i) * EE(5:7,i)
+  end do
+end subroutine aa_tf_qutr_wavg
 
 !!!!!!!!!!!!!!
 !! CALCULUS !!
@@ -118,6 +180,15 @@ subroutine aa_tf_qutr_diff2vel( e, de, dx ) &
   call aa_tf_qdiff2vel( e(QUTR_Q), de(QUTR_Q), dx(4:6) )
   dx(1:3) = de(QUTR_V)
 end subroutine aa_tf_qutr_diff2vel
+
+
+subroutine aa_tf_qutr_vel2diff( e, dx, de ) &
+     bind( C, name="aa_tf_qutr_vel2diff" )
+  real(C_DOUBLE), intent(in) :: e(7), dx(6)
+  real(C_DOUBLE), intent(out) :: de(7)
+  call aa_tf_qvel2diff( e(QUTR_Q), dx(4:6), de(QUTR_Q) )
+  de(QUTR_V) =  dx(1:3)
+end subroutine aa_tf_qutr_vel2diff
 
 subroutine aa_tf_qutr_sdiff( e0, de, dt, e1 ) &
      bind( C, name="aa_tf_qutr_sdiff" )

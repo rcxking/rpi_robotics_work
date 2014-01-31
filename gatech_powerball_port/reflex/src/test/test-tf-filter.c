@@ -46,17 +46,18 @@
 #include "reflex.h"
 
 
-void x_fopen( const char *prefix, const char *suffix, FILE *f[7] ) {
-    for( int i = 0; i < 7; i ++ ) {
+void x_fopen( const char *prefix, const char *suffix, size_t n, FILE *f[] ) {
+    for( size_t i = 0; i < n; i ++ ) {
         char buf[512];
-        sprintf(buf,"%s%d%s", prefix, i, suffix);
+        sprintf(buf,"%s%lu%s", prefix, i, suffix);
         f[i] = fopen(buf, "w");
     }
 }
 
-void x_write( double t, double e[7], FILE *f[7] ) {
-    for( size_t i = 0; i < 7; i ++ ) {
+void x_write( double t, size_t n, double e[], FILE *f[7] ) {
+    for( size_t i = 0; i < n; i ++ ) {
         fprintf(f[i], "%f %f\n", t, e[i] );
+        //fprintf(stdout, "%f %f\n", t, e[i] );
     }
 }
 
@@ -86,42 +87,75 @@ void e_corrupt( double theta_max, double x_max, const double e0[7], double e1[7]
 
 }
 
+rfx_tf_dx XX_true;
+rfx_tf_dx XX_est;
+rfx_tf_dx ZZ;
+rfx_tf_dx UU;
+
+double P[16*16] = {0};
+double V[16*16] = {0};
+double W[8*8] = {0};
+
+double Pa[13*13] = {0};
+double Wa[13*13] = {0};
+double Va[13*13] = {0};
+
+double Pb[13*13] = {0};
+double Wb[7*7] = {0};
+double Vb[13*13] = {0};
+
+
 int main(void)
 {
+
+    double dt = .01;
+
+    FILE *fout_z[7];
+    FILE *fout_x_true[7];
+    FILE *fout_x_est[7];
+
+    FILE *fout_dx_true[6];
+    FILE *fout_dx_est[6];
+
     // state
-    rfx_tf_dx XX_true;
-    rfx_tf_dx XX_est;
-    rfx_tf_dx ZZ;
-    rfx_tf_dx UU;
     memset(&XX_true,0,sizeof(XX_true));
     memset(&XX_est,0,sizeof(XX_est));
     memset(&ZZ,0,sizeof(ZZ));
     memset(&UU,0,sizeof(UU));
 
-    double P[13*13] = {0};
-    double W[13*13] = {0};
-    double V[13*13] = {0};
-    aa_la_diag( 13, P, 1.0e-2 );
-    aa_la_diag( 13, W, 1.0 );
-    aa_la_diag( 13, V, 1.0e2 );
+    aa_la_diag( 16, P, 1.0 );
+    aa_la_diag( 8, W, 1.0 );
+    aa_la_diag( 16, V, 1.0e-2 );
+
+    for( size_t i = 0; i < 8; i ++ ) {
+        AA_MATREF(V,16, i, 8+i ) = 1e-2;
+        AA_MATREF(V,16, 8+i, i ) = 1e-2;
+    }
+
+    aa_la_diag( 13, Pb, 1 );
+    aa_la_diag( 7, Wb, dt*5e-1 );
+
+
+    aa_la_diag( 13, Pa, 1.0e-2 );
+    aa_la_diag( 13, Wa, 1.0 );
+    aa_la_diag( 13, Va, 1.0e2 );
 
     // files
-    FILE *fout_x_true[7];
-    FILE *fout_z[7];
-    FILE *fout_x_est[7];
-    x_fopen("xtrue", ".dat", fout_x_true);
-    x_fopen("z", ".dat", fout_z);
-    x_fopen("xest", ".dat", fout_x_est);
+
+    x_fopen("xtrue", ".dat", 7,fout_x_true);
+    x_fopen("z", ".dat", 7,fout_z);
+    x_fopen("xest", ".dat", 7,fout_x_est);
+    x_fopen("dx_true", ".dat", 6,fout_dx_true);
+    x_fopen("dx_est", ".dat", 6,fout_dx_est);
 
     memcpy(XX_true.tf.r.data, aa_tf_quat_ident, 4*sizeof(XX_true.tf.r.data[0]));
     memcpy(XX_est.tf.r.data, aa_tf_quat_ident, 4*sizeof(XX_true.tf.r.data[0]));
 
-    double dt = .01;
-    for( double t = 0.0; t < 2.0; t += dt ) {
+    for( double t = 0.0; t < 10.0; t += dt ) {
         fprintf(stderr, "t: %f, ", t );
         // pristine velocity
-        double dx[6] = {cos(t*M_PI), 0, 0,
-                        0, 0, sin(t*M_PI)};
+        double dx[6] = {cos(t*M_PI / 1), 0, 0,
+                        0, 0, sin(t*M_PI / 1)};
         AA_MEM_CPY(XX_true.dx.data, dx, 6);
 
         // integrate true
@@ -133,17 +167,59 @@ int main(void)
 
 
         // corrupt measurement
-        e_corrupt( 10*M_PI/180, 2e-2, XX_true.tf.data, ZZ.tf.data );
+        e_corrupt( 10*M_PI/180, 7e-2, XX_true.tf.data, ZZ.tf.data );
 
         // filter
         aa_tick("filter time: ");
-        rfx_tf_filter_update_work( dt, XX_est.tf.data, UU.tf.data, ZZ.tf.data, P, V, W );
-        aa_tock();
+        double S[8];
+        double Sz[8];
+        double dS_est[8];
+        double dS_true[8];
+        //double dE_est[7];
+        aa_tf_qutr2duqu( XX_est.tf.data, S);
+        aa_tf_qutr2duqu( ZZ.tf.data, Sz);
+        aa_tf_duqu_vel2diff( S, XX_est.dx.data, dS_est );
+        aa_tf_duqu_vel2diff( S, XX_true.dx.data, dS_true );
 
+        //aa_tf_qutr_vel2diff( XX_est.tf.data, XX_est.dx.data, dE_est );
+
+
+        /* rfx_lqg_duqu_predict( dt, S, dS_est, P, V ); */
+        /* rfx_lqg_duqu_correct( 1, */
+        /*                       S, dS_est, */
+        /*                       Sz, /\*ZZ.dx.data, *\/ */
+        /*                       P, W ); */
+        /* aa_tf_duqu_diff2vel( S, dS_est, XX_est.dx.data ); */
+        /* aa_tf_duqu2qutr( S, XX_est.tf.data); */
+
+
+        rfx_lqg_qutr_process_noise( dt, 1, 1, XX_est.tf.data, Vb );
+
+        rfx_lqg_qutr_predict( dt, XX_est.tf.data, XX_est.dx.data, Pb, Vb );
+        rfx_lqg_qutr_correct( 1,
+                              XX_est.tf.data, XX_est.dx.data,
+                              ZZ.tf.data,
+                              Pb, Wb );
+        //aa_tf_qutr_diff2vel( XX_est.tf.data, dE_est, XX_est.dx.data );
+
+
+
+        //rfx_tf_filter_update_work( dt, XX_est.tf.data, UU.tf.data, ZZ.tf.data, Pa, Va, Wa );
+        aa_tock();
+        //printf("--\n");
+        //printf("dS_true: "); aa_dump_vec( stdout, dS_true, 8 );
+        //printf("dS_est: "); aa_dump_vec(  stdout, dS_est, 8 );
+        //aa_dump_mat( stdout, P, 16, 16 );
+
+        //return 0;
         // print
-        x_write( t, XX_true.tf.data, fout_x_true );
-        x_write( t, XX_est.tf.data, fout_x_est );
-        x_write( t, ZZ.tf.data, fout_z );
+        x_write( t, 7, XX_true.tf.data, fout_x_true );
+        x_write( t, 6, XX_true.dx.data, fout_dx_true );
+
+        x_write( t, 7, XX_est.tf.data, fout_x_est );
+        x_write( t, 6, XX_est.dx.data, fout_dx_est );
+
+        x_write( t, 7, ZZ.tf.data, fout_z );
     }
 
 

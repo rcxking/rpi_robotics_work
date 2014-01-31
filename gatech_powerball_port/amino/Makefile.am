@@ -40,6 +40,7 @@ pkginclude_HEADERS = 	                \
 	include/amino/const.h           \
 	include/amino/def.h             \
 	include/amino/undef.h           \
+	include/amino/heap.h            \
 	include/amino/mangle.h          \
 	include/amino/def.F90           \
 	include/amino/undef.F90
@@ -63,6 +64,7 @@ libamino_la_SOURCES =                  \
 	src/io.c                       \
 	src/are.c                      \
 	src/sigsys.c                   \
+	src/heap.c                     \
 	src/cv.c
 
 libamino_la_LIBADD =                   \

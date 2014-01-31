@@ -55,7 +55,7 @@ void randtf(double T[12], double q[4], double R[9], double v[3]) {
     aa_tf_axang2quat( axa, q );
     aa_tf_quat2rotmat( q, T );
     aa_tf_quat2rotmat( q, R );
-    aa_fcpy( T+9, v, 3 );
+    AA_MEM_CPY( T+9, v, 3 );
 }
 
 
@@ -379,16 +379,16 @@ void la2() {
     /*     aa_la_inv(3, R ); */
     /*     aveq( "la_inv3x3", 9, R, S, 0.00001 ); */
     /* } */
-    /* // det3x3 */
-    /* { */
-    /*     double R[9] = {0,-1,0, 1,0,0, 0,0,-1}; */
-    /*     double S[9]; */
-    /*     aa_la_inverse3x3( R, S ); */
-    /*     double d = aa_la_det3x3( R ); */
-    /*     double dt = aa_la_det3x3( S ); */
-    /*     afeq( -1, d, .000001 ); */
-    /*     afeq( -1, dt, .000001 ); */
-    /* } */
+    // det3x3
+    {
+        double R[9] = {0,-1,0, 1,0,0, 0,0,-1};
+        double S[9];
+        //aa_la_inverse3x3( R, S );
+        double d = aa_la_det3x3( R );
+        //double dt = aa_la_det3x3( S );
+        afeq( -1, d, .000001 );
+        //afeq( -1, dt, .000001 );
+    }
 
     //dpinv
     {
@@ -1160,7 +1160,7 @@ void mem() {
     {
         double x[6] = {1,2,3,4,5,6};
         assert( 6*sizeof(double) == sizeof(x) );
-        AA_ZERO_AR(x);
+        AA_MEM_ZERO(x,6);
         aveq( "zero_ar", 6, x, AA_FAR(0,0,0,0,0,0), 0 );
     }
     // set_ar
@@ -1843,6 +1843,17 @@ void list() {
     }
 }
 
+
+static void array(void)
+{
+
+    double x[] = {3,1,5,2,4,6};
+    double m6 = aa_la_d_median( 6, x, 1);
+    double m5 = aa_la_d_median( 5, x, 1);
+    assert( aa_feq(m6, 3.5, 0) );
+    assert( aa_feq(m5, 3, 0) );
+}
+
 int main( int argc, char **argv ) {
     printf("Init aa_test\n");
     (void) argc; (void) argv;
@@ -1907,6 +1918,8 @@ int main( int argc, char **argv ) {
     stat();
     ang();
     plane();
+    array();
+
     aa_mem_region_destroy(&g_region);
 
     list();

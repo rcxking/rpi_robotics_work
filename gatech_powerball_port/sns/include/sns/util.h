@@ -63,9 +63,21 @@ int sns_beep( int fd, double freq, double dur );
 
 static inline struct timespec sns_time_add_ns( struct timespec ts, int64_t ns ) {
     int64_t ns1 = ns + ts.tv_nsec;
-    struct timespec r = { .tv_nsec = ns1 % 1000000000,
-                          .tv_sec = ts.tv_sec + ns1 / 1000000000 };
+    struct timespec r;
+    r.tv_nsec = ns1 % 1000000000;
+    r.tv_sec = ts.tv_sec + ns1 / 1000000000;
     return r;
+}
+
+static inline
+struct timespec sns_now(void)
+{
+    /* TODO: CLOCK_MONOTONIC is machine local
+     * Look into Precision Time Protocol
+     */
+    struct timespec t;
+    clock_gettime( CLOCK_MONOTONIC, &t );
+    return t;
 }
 
 const char *sns_str_nullterm( const char *text, size_t n );

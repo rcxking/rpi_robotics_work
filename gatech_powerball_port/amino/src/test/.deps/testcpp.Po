@@ -122,8 +122,8 @@ src/test/testcpp.o: src/test/testcpp.cpp include/amino.hpp \
  include/amino/debug.h include/amino/plot.h include/amino/kin.h \
  include/amino/type.h include/amino/endconv.h include/amino/unit.h \
  include/amino/validate.h include/amino/io.h include/amino/cv.h \
- include/amino/const.h include/amino/mem.hpp /usr/include/c++/4.6/memory \
- /usr/include/c++/4.6/bits/stl_tempbuf.h \
+ include/amino/const.h include/amino/heap.h include/amino/mem.hpp \
+ /usr/include/c++/4.6/memory /usr/include/c++/4.6/bits/stl_tempbuf.h \
  /usr/include/c++/4.6/bits/stl_raw_storage_iter.h \
  /usr/include/c++/4.6/backward/auto_ptr.h /usr/include/c++/4.6/limits \
  /usr/include/c++/4.6/list /usr/include/c++/4.6/bits/stl_list.h \
@@ -498,6 +498,8 @@ include/amino/io.h:
 include/amino/cv.h:
 
 include/amino/const.h:
+
+include/amino/heap.h:
 
 include/amino/mem.hpp:
 

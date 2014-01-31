@@ -45,29 +45,50 @@
 extern "C" {
 #endif
 
+
+/***************/
+/* Basic Types */
+/***************/
+
+typedef struct aa_tf_qv sns_tf;
+typedef struct aa_tf_qv_dx sns_tf_dx;
+
+/** Weighted transform type */
+typedef struct {
+    sns_tf tf;
+    double weight;
+} sns_wt_tf;
+
 /***********/
 /* HEADERS */
 /***********/
 
-typedef struct sns_msg_time {
-    int64_t sec;
-    int64_t dur_nsec;
-    uint32_t nsec;
-} sns_msg_time_t;
-
-// express duration in nanoseconds
-
+/* Each message begins with a header */
 typedef struct sns_msg_header {
-    sns_msg_time_t time;
-    int64_t from_pid;
-    uint64_t seq;
-    uint8_t from_host[SNS_HOSTNAME_LEN];
+    int64_t sec;              ///< Time message sent, seconds portion
+    int64_t dur_nsec;         ///< Valid message duration, nanoseconds
+    uint32_t nsec;            ///< Time message sent, nanoseconds portion
+    uint32_t n;               ///< Element count for variable-sized messages
+    int64_t from_pid;         ///< Sending PID
+    uint64_t seq;             ///< Sequence number
+    /// Sending Host
+    char from_host[SNS_HOSTNAME_LEN];
+    /// Sending process name
+    char ident[SNS_IDENT_LEN];
 } sns_msg_header_t;
 
-_Bool sns_msg_is_expired( const struct sns_msg_header *msg, const struct timespec *now );
+int sns_msg_is_expired( const struct sns_msg_header *msg, const struct timespec *now );
 
- void sns_msg_set_time( struct sns_msg_header *msg, const struct timespec *now, int64_t duration_ns );
+void sns_msg_set_time( struct sns_msg_header *msg, const struct timespec *now, int64_t duration_ns );
 
+static inline struct timespec
+sns_msg_get_time( struct sns_msg_header *msg )
+{
+    struct timespec ts;
+    ts.tv_sec = msg->sec;
+    ts.tv_nsec = msg->nsec;
+    return ts;
+}
 
 void sns_msg_header_fill ( struct sns_msg_header *msg );
 
@@ -76,25 +97,124 @@ void sns_msg_header_fill ( struct sns_msg_header *msg );
     ( (frame_size) < sns_msg_ ## type ## _size_n(0) ||          \
       (frame_size) < sns_msg_ ## type ## _size(pointer) )
 
- /*******/
- /* LOG */
- /******/
+
+/***********/
+/* MACROS */
+/**********/
+
+// read an ACH message into buffer from the thread-local memory region
+enum ach_status
+sns_msg_local_get( ach_channel_t *chan, void **pbuf,
+                   size_t *frame_size,
+                   const struct timespec *ACH_RESTRICT abstime,
+                   int options );
+
+/* Define many functions for vararray messages */
+#define SNS_DEF_MSG_VAR( type, var )                                    \
+    /* size_n */                                                        \
+    /* Returns size (in octets) necessary to hold n items  */           \
+    static inline uint32_t                                              \
+    type ## _size_n                                                     \
+    ( uint32_t n )                                                      \
+    {                                                                   \
+        static const struct type *msg;                                  \
+        return (uint32_t)( sizeof(*msg) -                               \
+                         sizeof(msg->var[0]) +                          \
+                         n*sizeof(msg->var[0]) );                       \
+    }                                                                   \
+    /* size */                                                          \
+    /* Returns actual size (in octets) of msg, */                       \
+    /* based on its count variable */                                   \
+    static inline uint32_t                                              \
+    type ## _size                                                       \
+    ( struct type *msg )                                                \
+    {                                                                   \
+        return type ## _size_n( msg->header.n );;                       \
+    }                                                                   \
+    /* init */                                                          \
+    /* Initialize a message */                                          \
+    static inline void                                                  \
+    type ## _init                                                       \
+    ( struct type *msg, uint32_t n )                                    \
+    {                                                                   \
+        memset(msg, 0, type ## _size_n(n) );                            \
+        sns_msg_header_fill( &msg->header );                            \
+        msg->header.n = n;                                              \
+    }                                                                   \
+    /* alloc */                                                         \
+    /* Allocate message in heat */                                      \
+    static inline struct type*                                          \
+    type ## _heap_alloc                                                 \
+    ( uint32_t n )                                                      \
+    {                                                                   \
+        struct type *msg = (struct type *) malloc(type ## _size_n(n) ); \
+        type ## _init(msg,n);                                           \
+        return msg;                                                     \
+    }                                                                   \
+    /* region_alloc */                                                  \
+    /* Allocate message from region */                                  \
+    static inline struct type*                                          \
+    type ## _region_alloc                                               \
+    ( struct aa_mem_region *reg, uint32_t n )                           \
+    {                                                                   \
+        struct type *msg =                                              \
+            (struct type *) aa_mem_region_alloc( reg,                   \
+                                                 type ## _size_n(n) );  \
+        type ## _init(msg,n);                                           \
+        return msg;                                                     \
+    }                                                                   \
+    /* local_alloc */                                                   \
+    /* Allocate message from thread-local region */                     \
+    static inline struct type*                                          \
+    type ## _local_alloc                                                \
+    ( uint32_t n )                                                      \
+    {                                                                   \
+        return type ## _region_alloc( aa_mem_region_local_get(), n );   \
+    }                                                                   \
+    /* put */                                                           \
+    /* Put message to channel */                                        \
+    static inline enum ach_status                                       \
+    type ## _put                                                        \
+    ( ach_channel_t *chan, struct type *msg )                           \
+    {                                                                   \
+        return ach_put( chan, msg, type ## _size(msg) );                \
+    }                                                                   \
+    /* local_get */                                                     \
+    /* Get message, allocated from local memory region */               \
+    static inline enum ach_status                                       \
+    type ## _local_get                                                  \
+    ( ach_channel_t *chan, struct type **pmsg,                          \
+      size_t *frame_size,                                               \
+      const struct timespec *ACH_RESTRICT abstime,                      \
+      int options )                                                     \
+    {                                                                   \
+        return  sns_msg_local_get ( chan,                               \
+                                    (void**)pmsg, frame_size,           \
+                                    abstime, options ) ;                \
+    }
+
+
+#define SNS_DEC_MSG_PLUGINS( type )                                     \
+    void type ## _dump                                                  \
+    ( FILE*, const struct type *msg );                                  \
+    void type ## _plot_sample(                                          \
+        const struct type *msg,                                         \
+        double **sample_ptr,                                            \
+        char ***sample_labels,                                          \
+        size_t *sample_size );
+
+/*******/
+/* LOG */
+/*******/
 
 typedef struct sns_msg_log {
     struct sns_msg_header header;
     int priority;
-    size_t n;
     char text[1];
 } sns_msg_log_t;
 
-static inline size_t sns_msg_log_size_n ( size_t n ) {
-     static const struct sns_msg_log *msg;
-     return sizeof(*msg) - sizeof(msg->text[0]) + sizeof(msg->text[0])*n;
- }
-
- static inline size_t sns_msg_log_size ( const struct sns_msg_log *msg ) {
-     return sns_msg_log_size_n(msg->n);
- }
+SNS_DEF_MSG_VAR( sns_msg_log, text );
+SNS_DEC_MSG_PLUGINS( sns_msg_log );
 
 /**********/
 /* Vector */
@@ -102,20 +222,11 @@ static inline size_t sns_msg_log_size_n ( size_t n ) {
 
 struct sns_msg_vector {
     struct sns_msg_header header;
-    uint64_t n;
     sns_real_t x[1];
 };
 
-static inline size_t sns_msg_vector_size_n ( size_t n ) {
-    static const struct sns_msg_vector *msg;
-    return sizeof(*msg) - sizeof(msg->x[0]) + sizeof(msg->x[0])*n;
-}
-static inline size_t sns_msg_vector_size ( const struct sns_msg_vector *msg ) {
-    return sns_msg_vector_size_n(msg->n);
-}
-void sns_msg_vector_dump ( FILE*, const struct sns_msg_vector *msg );
-void sns_msg_vector_plot_sample(
-    const struct sns_msg_vector *msg, double **sample_ptr, char ***sample_labels, size_t *sample_size );
+SNS_DEF_MSG_VAR( sns_msg_vector, x );
+SNS_DEC_MSG_PLUGINS( sns_msg_vector );
 
 
 /**********/
@@ -137,102 +248,91 @@ static inline size_t sns_msg_matrix_size ( const struct sns_msg_matrix *msg ) {
     return sns_msg_matrix_size_mn(msg->rows,msg->cols);
 }
 
- /**********/
- /* MOTORS */
- /**********/
 
- enum sns_motor_mode {
-     SNS_MOTOR_MODE_HALT = 1,
-     SNS_MOTOR_MODE_POS  = 2,
-     SNS_MOTOR_MODE_VEL  = 3,
-     SNS_MOTOR_MODE_TORQ = 4
- };
+/**************/
+/* Transforms */
+/**************/
 
- struct sns_msg_motor_ref {
-     struct sns_msg_header header;
-     enum sns_motor_mode mode;
-     uint32_t n;
-     sns_real_t u[1];
- };
+/* TF */
+struct sns_msg_tf {
+    struct sns_msg_header header;
+    sns_tf tf[1];
+};
 
- static inline size_t sns_msg_motor_ref_size_n ( size_t n ) {
-     static const struct sns_msg_motor_ref *msg;
-     return sizeof(*msg) - sizeof(msg->u[0]) + sizeof(msg->u[0])*n;
- }
- static inline size_t sns_msg_motor_ref_size ( const struct sns_msg_motor_ref *msg ) {
-     return sns_msg_motor_ref_size_n(msg->n);
- }
+SNS_DEF_MSG_VAR( sns_msg_tf, tf );
+SNS_DEC_MSG_PLUGINS( sns_msg_tf );
 
- struct sns_msg_motor_state {
-     struct sns_msg_header header;
-     enum sns_motor_mode mode;
-     uint32_t n;
-     struct {
-         sns_real_t pos;
-         sns_real_t vel;
-         //sns_real_t cur;
-     } X[1];
- };
+/* Weighted TF */
+struct sns_msg_wt_tf {
+    struct sns_msg_header header;
+    sns_wt_tf wt_tf[1];
+};
 
- static inline size_t sns_msg_motor_state_size_n ( size_t n ) {
-     static const struct sns_msg_motor_state *msg;
-     return sizeof(*msg) - sizeof(msg->X[0]) + sizeof(msg->X[0])*n;
- }
- static inline size_t sns_msg_motor_state_size ( const struct sns_msg_motor_state *msg ) {
-     return sns_msg_motor_state_size_n(msg->n);
- }
+SNS_DEF_MSG_VAR( sns_msg_wt_tf, wt_tf );
+SNS_DEC_MSG_PLUGINS( sns_msg_wt_tf );
 
- /************/
- /* JOYSTICK */
- /************/
+/* TF DX */
+struct sns_msg_tf_dx {
+    struct sns_msg_header header;
+    sns_tf_dx tf_dx[1];
+};
 
- struct sns_msg_joystick {
-     struct sns_msg_header header;
-     uint64_t buttons;
-     uint32_t n;
-     sns_real_t axis[1];
- };
+SNS_DEF_MSG_VAR( sns_msg_tf_dx, tf_dx );
+SNS_DEC_MSG_PLUGINS( sns_msg_tf_dx );
 
- static inline size_t sns_msg_joystick_size_n ( size_t n ) {
-     static const struct sns_msg_joystick *msg;
-     return sizeof(*msg) - sizeof(msg->axis[0]) + sizeof(msg->axis[0])*n;
- }
- static inline size_t sns_msg_joystick_size ( const struct sns_msg_joystick *msg ) {
-     return sns_msg_joystick_size_n(msg->n);
- }
+/**********/
+/* MOTORS */
+/**********/
+
+enum sns_motor_mode {
+    SNS_MOTOR_MODE_HALT = 1,
+    SNS_MOTOR_MODE_POS  = 2,
+    SNS_MOTOR_MODE_VEL  = 3,
+    SNS_MOTOR_MODE_TORQ = 4
+};
+
+struct sns_msg_motor_ref {
+    struct sns_msg_header header;
+    enum sns_motor_mode mode;
+    sns_real_t u[1];
+};
+
+SNS_DEF_MSG_VAR( sns_msg_motor_ref, u );
+SNS_DEC_MSG_PLUGINS( sns_msg_motor_ref );
+
+struct sns_msg_motor_state {
+    struct sns_msg_header header;
+    enum sns_motor_mode mode;
+    struct {
+        sns_real_t pos;
+        sns_real_t vel;
+        //sns_real_t cur;
+    } X[1];
+};
+
+SNS_DEF_MSG_VAR( sns_msg_motor_state, X );
+SNS_DEC_MSG_PLUGINS( sns_msg_motor_state );
+
+/************/
+/* JOYSTICK */
+/************/
+
+struct sns_msg_joystick {
+    struct sns_msg_header header;
+    uint64_t buttons;
+    sns_real_t axis[1];
+};
+
+SNS_DEF_MSG_VAR( sns_msg_joystick, axis );
+SNS_DEC_MSG_PLUGINS( sns_msg_joystick );
+
+/*************************/
+/* CONVENIENCE FUNCTIONS */
+/*************************/
 
 
- /*************************/
- /* CONVENIENCE FUNCTIONS */
- /*************************/
 
- // read an ACH message into buffer from the thread-local memory region
- enum ach_status
- sns_msg_local_get( ach_channel_t *chan, void **pbuf,
-                    size_t *frame_size,
-                    const struct timespec *ACH_RESTRICT abstime,
-                    int options );
-
-
-struct sns_msg_motor_ref *sns_msg_motor_ref_alloc ( uint32_t n );
-
-/** Allocate motor message of of local region */
-struct sns_msg_motor_ref *sns_msg_motor_ref_local_alloc ( uint32_t n );
-
-void sns_msg_motor_ref_dump ( FILE*, const struct sns_msg_motor_ref *msg );
-void sns_msg_motor_ref_plot_sample(
-    const struct sns_msg_motor_ref *msg, double **sample_ptr, char ***sample_labels, size_t *sample_size );
-
-struct sns_msg_motor_state *sns_msg_motor_state_alloc ( uint32_t n );
-void sns_msg_motor_state_dump ( FILE*, const struct sns_msg_motor_state *msg );
-void sns_msg_motor_state_plot_sample(
-    const struct sns_msg_motor_state *msg, double **sample_ptr, char ***sample_labels, size_t *sample_size );
-
-struct sns_msg_joystick *sns_msg_joystick_alloc ( uint32_t n );
-void sns_msg_joystick_dump ( FILE*, const struct sns_msg_joystick *msg );
-void sns_msg_joystick_plot_sample(
-    const struct sns_msg_joystick *msg, double **sample_ptr, char ***sample_labels, size_t *sample_size );
-
+struct sns_msg_motor_ref *sns_msg_motor_ref_alloc ( uint64_t n );
 
 /***********/
 /* PLUGINS */
@@ -240,6 +340,8 @@ void sns_msg_joystick_plot_sample(
 
 typedef void sns_msg_dump_fun( FILE *, void* );
 typedef void sns_msg_plot_sample_fun( const void *, double **, char ***, size_t *) ;
+
+// TODO: message validation
 
 void *sns_msg_plugin_symbol( const char *type, const char *symbol );
 void sns_msg_dump( FILE *out, const void *msg ) ;

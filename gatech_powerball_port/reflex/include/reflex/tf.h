@@ -47,6 +47,23 @@
 extern "C" {
 #endif //__cplusplus
 
+
+/** Compute absolute tfs from relative tfs.
+ *
+ * Each frame must have a greater index than it's parent.
+ * Parent value <0 indicates relative frame is in the global frame.
+ */
+int rfx_tf_abs( size_t n,
+                const rfx_tf *tf_rel,
+                ssize_t *parents,
+                rfx_tf *tf_abs );
+
+
+
+/** Randomly corrupt a transform */
+void rfx_tf_corrupt
+( double theta_max, double x_max, const double e0[7], double e1[7] );
+
 struct rfx_tf_filter {
     rfx_tf_dx X;  ///< state
     rfx_tf_dx Z;  ///< measurement
@@ -67,6 +84,57 @@ int rfx_tf_filter_update( double dt, struct rfx_tf_filter *F);
 
 int rfx_tf_filter_update_work
 ( double dt, double *XX, const double *UU, const double *ZZ, double *P, const double *V, const double *W );
+
+
+struct rfx_lqg_duqu {
+    double S[8];       ///< state
+    double dx[6];      ///< state
+    double P[14*14];   ///< covariance
+    double V[14*14];   ///< process noise
+    double W[14*14];   ///< measurement noise
+};
+
+int rfx_lqg_duqu_predict
+( double dt, double *S, double *dS, double *P, const double *V );
+
+int rfx_lqg_duqu_correct
+( double dt, double *S_est, double *dS_est,
+  const double *S_obs,
+  double *P, const double *W );
+
+
+void rfx_lqg_qutr_process_noise( double dt, double dx, double dtheta,
+                                 double *E, double *V );
+
+
+int rfx_lqg_qutr_process( void *cx, double *x, const double *u, double *F );
+int rfx_lqg_qutr_measure( void *cx, const double *x, double *y, double *H );
+int rfx_lqg_qutr_innovate( void *cx, const double *x, const double *z, double *y );
+int rfx_lqg_qutr_update( void *cx, double *x, const double *Ky );
+
+int rfx_lqg_qutr_predict
+( double dt, double *E, double *dE, double *P, const double *V );
+
+int rfx_lqg_qutr_correct
+( double dt, double *E_est, double *dE_est,
+  const double *E_obs,
+  double *P, const double *W );
+
+
+int rfx_tf_numeyama
+( size_t n, double *_X, size_t ldx, double *_Y, size_t ldy, double tf[12] );
+int rfx_tf_umeyama
+( size_t n, const double *_X, size_t ldx, const double *_Y, size_t ldy, double tf[12] );
+
+void rfx_tf_qlnmedian
+( size_t n, const double *u, const double *Q, size_t ldq, double p[4] );
+
+int rfx_tf_dud_median
+( size_t n, const double *Ex, size_t ldx, const double *Ey, size_t ldy, double z[7] );
+
+int rfx_tf_dud_rejected_mean
+( size_t n, double z_theta, double z_x,
+  const double *Ex, size_t ldx, const double *Ey, size_t ldy, double e[7] );
 
 #ifdef __cplusplus
 }

@@ -45,6 +45,166 @@
 #include <cblas.h>
 #include "reflex.h"
 
+#define SYMM_PART CblasUpper
+#define SYMM_PARTC "U"
+
+AA_API void rfx_lqg_kf_predict_cov( size_t n, const double *A, const double *V, double *P )
+{
+    // P = A * P * A**T + V
+    int ni = (int)n;
+    double *T = (double*)aa_mem_region_local_tmpalloc( 2 * n*n * sizeof(P[0]) );
+
+    // T := A*P
+    cblas_dsymm( CblasColMajor, CblasRight, SYMM_PART,
+                 ni, ni,
+                 1.0, P, ni,
+                 A, ni,
+                 0.0, T, ni );
+
+    // P := (A*P) * A**T + V
+    dlacpy_( SYMM_PARTC, &ni, &ni,
+             V, &ni,
+             P, &ni );
+    cblas_dgemm( CblasColMajor, CblasNoTrans, CblasTrans,
+                 ni, ni, ni,
+                 1.0, T, ni,
+                 A, ni,
+                 1.0, P, ni );
+}
+
+int rfx_lqg_kf_correct_gain
+( size_t n_x, size_t n_z, const double *C, const double *P, const double *W, double *K )
+{
+    int nxi = (int)n_x;
+    int nzi = (int)n_z;
+
+    double *ptr = (double*) aa_mem_region_local_alloc( sizeof(ptr[0]) *
+                                                       (n_z*n_x + n_z*n_z) );
+
+    double *CP = ptr;
+    double *Kp = &ptr[n_z*n_x];
+
+    // P is symmetric, so P*C^T == (C*P^T)^T == (C*P)^T
+
+    // Kp := C * P * C**T + W = C*(C*P)^T
+    // Kp^T := C*(C * P)^T
+    cblas_dsymm( CblasColMajor, CblasRight, SYMM_PART,
+                 nzi, nxi,
+                 1.0, P, nxi,
+                 C, nzi,
+                 0.0, CP, nzi );
+
+    dlacpy_( SYMM_PARTC, &nzi, &nzi,
+             W, &nzi,
+             Kp, &nzi );
+    cblas_dgemm( CblasColMajor, CblasNoTrans, CblasTrans,
+                 nzi, nzi, nxi,
+                 1.0, C, nzi,
+                 CP, nzi,
+                 1.0, Kp, nzi );
+
+    // K := P * C**T * Kp^-1
+    // K Kp := P * C**T
+    // CP = Kp^T K^T
+    // Kp is symmetric
+    // CP = Kp K^T
+    int info;
+
+    // Cholesky
+    dpotrf_( SYMM_PARTC, &nzi,
+             Kp, &nzi,
+             &info );
+
+    // Solve it!
+    dpotrs_( SYMM_PARTC, &nzi, &nxi,
+             Kp, &nzi,
+             CP, &nzi,
+             &info );
+
+    // Transpose
+    for( size_t j = 0; j < n_z; j ++ )
+        for( size_t i = 0; i < n_x; i ++ )
+            K[j*n_x+i] = CP[i*n_z+j];
+
+    int i = 0;
+
+    return i;
+}
+
+void rfx_lqg_kf_correct_cov
+( size_t n_x, size_t n_z, const double *C, double *P, double *K )
+{
+    int nxi = (int)n_x;
+    int nzi = (int)n_z;
+
+    double *ptr = (double*)aa_mem_region_local_tmpalloc( 2 * n_x*n_x * sizeof(P[0]) );
+    double *KC = ptr;
+    double *P1 = &ptr[n_x*n_x];
+
+    // P := (I - K*C) * P
+    cblas_dgemm( CblasColMajor, CblasNoTrans, CblasNoTrans,
+                 nxi, nxi, nzi,
+                 -1.0, K, nxi,
+                 C, nzi,
+                 0.0, KC, nxi );
+    // KC += I
+    for( size_t i = 0; i < n_x*n_x; i = i + n_x + 1 )
+        KC[i] += 1;
+
+    cblas_dsymm( CblasColMajor, CblasRight, SYMM_PART,
+                 nxi, nxi,
+                 1.0, P, nxi,
+                 KC, nxi,
+                 0.0, P1, nxi );
+    dlacpy_( SYMM_PARTC, &nxi, &nxi, P1, &nxi, P, &nxi );
+}
+
+
+int rfx_lqg_ekf_predict
+( void *cx, size_t n_x, double *x, const double *u, double *P, const double *V,
+  rfx_lqg_ekf_process_fun process )
+{
+    double F[n_x*n_x];
+    int i = process( cx, x, u, F );
+    rfx_lqg_kf_predict_cov( n_x, F, V, P );
+    return i;
+}
+
+
+int rfx_lqg_ekf_correct
+( void *cx, size_t n_x, size_t n_z, double *x, const double *z, double *P, const double *W,
+  rfx_lqg_ekf_measure_fun measure, rfx_lqg_ekf_innovate_fun innovate, rfx_lqg_ekf_update_fun update )
+{
+    int i;
+
+    double y[n_z];
+    double H[n_z*n_x];
+    i = measure(cx, x, y, H);
+    if(i) return i;
+
+    double K[n_x*n_z];
+    i = rfx_lqg_kf_correct_gain( n_x, n_z, H, P, W, K );
+    if(i) return i;
+
+    i = innovate(cx, x, z, y);
+    if(i) return i;
+
+    double Ky[n_x];
+    cblas_dgemv( CblasColMajor, CblasNoTrans,
+                 (int)n_x, (int)n_z,
+                 1.0, K, (int)n_x,
+                 y, 1,
+                 0.0, Ky, 1 );
+
+    i = update(cx, x, Ky);
+
+    rfx_lqg_kf_correct_cov( n_x, n_z, H, P, K );
+
+    return i;
+}
+
+
+
 
 
 AA_API void rfx_lqg_init( rfx_lqg_t *lqg, size_t n_x, size_t n_u, size_t n_z ) {
@@ -149,7 +309,6 @@ static void kf_innovate( rfx_lqg_t *lqg, double *xh ) {
 }
 
 AA_API void rfx_lqg_kf_predict( rfx_lqg_t *lqg ) {
-    int m = (int)lqg->n_x;
     // x = A*x + B*u
     {
         double x[lqg->n_x];
@@ -160,71 +319,20 @@ AA_API void rfx_lqg_kf_predict( rfx_lqg_t *lqg ) {
         memcpy(lqg->x, x, sizeof(x));
     }
     // P = A * P * A**T + V
-    {
-        double T[lqg->n_x * lqg->n_x];
-        // T := A*P
-        cblas_dgemm( CblasColMajor, CblasNoTrans, CblasNoTrans,
-                     m, m, m,
-                     1.0, lqg->A, m,
-                     lqg->P, m,
-                     0.0, T, m );
-        // P := (A*P) * A**T + V
-        memcpy( lqg->P, lqg->V, sizeof(T) );
-        cblas_dgemm( CblasColMajor, CblasNoTrans, CblasTrans,
-                     m, m, m,
-                     1.0, T, m,
-                     lqg->A, m,
-                     1.0, lqg->P, m );
-    }
-
+    rfx_lqg_kf_predict_cov( lqg->n_x, lqg->A, lqg->V, lqg->P );
 }
+
 AA_API void rfx_lqg_kf_correct( rfx_lqg_t *lqg ) {
 
-    // K = P * C**T * (C * P * C**T + W)**-1
-    {
-        double Kp[lqg->n_z*lqg->n_z];
-        // Kp := C * P * C**T + W
-        memcpy(Kp, lqg->W, sizeof(Kp) );
-        matmul3( lqg->n_z, lqg->n_z, lqg->n_x, lqg->n_x,
-                 CblasNoTrans, CblasNoTrans, CblasTrans,
-                 lqg->C, lqg->n_z,
-                 lqg->P, lqg->n_x,
-                 lqg->C, lqg->n_z,
-                 1.0, Kp, lqg->n_z );
-        aa_la_inv(lqg->n_z, Kp);
+    rfx_lqg_kf_correct_gain( lqg->n_x, lqg->n_z,
+                             lqg->C, lqg->P, lqg->W, lqg->K );
 
-        // K := P * C**T * Kp
-        matmul3( lqg->n_x, lqg->n_z, lqg->n_x, lqg->n_z,
-                 CblasNoTrans, CblasTrans, CblasNoTrans,
-                 lqg->P, lqg->n_x,
-                 lqg->C, lqg->n_z,
-                 Kp, lqg->n_z,
-                 0.0, lqg->K, lqg->n_x );
-    }
     // x = x + K * (z - C*x)
     kf_innovate( lqg, lqg->x );
 
     // P = (I - K*C) * P
-    {
-        double KC[lqg->n_x * lqg->n_x];
-        cblas_dgemm( CblasColMajor, CblasNoTrans, CblasNoTrans,
-                     (int)lqg->n_x, (int)lqg->n_x, (int)lqg->n_z,
-                     -1.0, lqg->K, (int)lqg->n_x,
-                     lqg->C, (int)lqg->n_z,
-                     0.0, KC, (int)lqg->n_x );
-        // KC += I
-        for( size_t i = 0; i < lqg->n_x; i ++ )
-            AA_MATREF(KC, lqg->n_x, i, i) += 1;
-
-        double PT[lqg->n_x*lqg->n_x];
-        memcpy(PT, lqg->P, sizeof(PT));
-        cblas_dgemm( CblasColMajor, CblasNoTrans, CblasNoTrans,
-                     (int)lqg->n_x, (int)lqg->n_x, (int)lqg->n_x,
-                     1.0, KC, (int)lqg->n_x,
-                     PT, (int)lqg->n_x,
-                     0.0, lqg->P, (int)lqg->n_x );
-    }
-
+    rfx_lqg_kf_correct_cov( lqg->n_x, lqg->n_z,
+                            lqg->C, lqg->P, lqg->K );
 }
 
 // kalman-bucy gain
@@ -393,3 +501,9 @@ void rfx_lqg_sys( const void *cx,
     // compute current input
     // u = -Lx
 //}
+
+/* int rfx_lqg_duqu_predict */
+/* ( double dt, double *S, double *dx, double *P, const double *V ) */
+/* { */
+/*     return 0; */
+/* } */

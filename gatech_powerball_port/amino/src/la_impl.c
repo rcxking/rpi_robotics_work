@@ -511,4 +511,63 @@ AA_API int AA_NAME(la,eev)
 }
 
 
+
+int AA_NAME(la,compar)( const void *_a, const void *_b )
+{
+    double a = *(double*)_a;
+    double b = *(double*)_b;
+    if( a < b ) return -1;
+    if( a > b ) return 1;
+    return 0;
+}
+
+AA_TYPE AA_NAME(la,nmedian)( size_t n, AA_TYPE *x )
+{
+    if( 0 == n ) {
+        return 0; // is this reasonable?
+    } else if( 1 == n ) {
+        return *x;
+    } else {
+        // this is not great
+        // TODO: linear time select algorithm
+        aa_aheap_sort( x, n, sizeof(AA_TYPE), AA_NAME(la,compar) );
+        size_t i = n/2;
+        if ( 1 == n%2 ) { // odd
+            return x[i];
+        } else { // even
+            return (x[i] + x[i-1])/2;
+        }
+    }
+}
+
+AA_TYPE AA_NAME(la,median)( size_t n, const AA_TYPE *x, size_t incx )
+{
+    AA_TYPE *y = AA_MEM_REGION_LOCAL_NEW_N(AA_TYPE,n);
+    AA_CBLAS_NAME(copy) ( (int)n, x, (int)incx, y, 1 );
+    return AA_NAME(la,nmedian_pop)( n, y );
+}
+
+AA_TYPE AA_NAME(la,mad)( size_t n, const AA_TYPE u, const AA_TYPE *x, size_t incx )
+{
+    AA_TYPE *P = AA_MEM_REGION_LOCAL_NEW_N(AA_TYPE,n);
+
+    // compute distances
+    for( size_t i = 0; i < n; i ++ ) {
+        P[i] = (AA_TYPE)fabs( u - x[i*incx] );
+    }
+
+    return AA_NAME(la,nmedian_pop)( n, P );
+}
+
+AA_TYPE AA_NAME(la,mad2)( size_t m, size_t n, const AA_TYPE *u, const AA_TYPE *A, size_t lda )
+{
+    AA_TYPE *P = AA_MEM_REGION_LOCAL_NEW_N(AA_TYPE,n);
+
+    // compute distances
+    for( size_t i = 0; i < n; i ++ ) {
+        P[i] = (AA_TYPE)sqrt( AA_NAME(la,ssd)(m, AA_MATCOL(A,lda,i), 1, u, 1) );
+    }
+    return AA_NAME(la,nmedian_pop)( n, P );
+}
+
 #include "amino/undef.h"

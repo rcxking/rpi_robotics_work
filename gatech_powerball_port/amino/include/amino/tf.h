@@ -392,6 +392,22 @@ AA_API void aa_tf_qexp( const double q[AA_RESTRICT 4],
 AA_API void aa_tf_qln( const double q[AA_RESTRICT 4],
                        double r[AA_RESTRICT 4] );
 
+
+/** Return the angle of the quaternion.
+ *
+ * Note that this result is half the 3D angle.
+ */
+double aa_tf_qangle( const double q[AA_RESTRICT 4] );
+
+/* Relative quaternion angles
+ */
+double aa_tf_qangle_rel( const double *q, const double *p );
+
+/** Return the angle between unit quaterniosn in 4D space.
+ */
+double aa_tf_quhypangle2
+( const double q[AA_RESTRICT 4], const double p[AA_RESTRICT 4] );
+
 /** Quaternion inverse */
 AA_API void aa_tf_qinv( const double q[AA_RESTRICT 4],
                         double r[AA_RESTRICT 4] );
@@ -410,6 +426,11 @@ AA_API void aa_tf_qsub( const double a[AA_RESTRICT 4],
 AA_API void aa_tf_qmul( const double a[AA_RESTRICT 4],
                         const double b[AA_RESTRICT 4],
                         double c[AA_RESTRICT 4] );
+
+/** Quaternion multiplication and normalize. */
+AA_API void aa_tf_qmulnorm( const double a[AA_RESTRICT 4],
+                            const double b[AA_RESTRICT 4],
+                            double c[AA_RESTRICT 4] );
 
 /** Quaternion multiplication. */
 AA_API void aa_tf_qmul_qv( const double q[AA_RESTRICT 4],
@@ -560,24 +581,36 @@ AA_API void aa_tf_yangle2quat( double theta_y, double q[AA_RESTRICT 4] );
 /** Unit quaternion for angle about z axis */
 AA_API void aa_tf_zangle2quat( double theta_z, double q[AA_RESTRICT 4] );
 
-
+/* Construct matrix for Davenport's q-method */
 AA_API void aa_tf_quat_davenport_matrix
-( size_t n, const double *w, const double *q, double *M );
+( size_t n, const double *w, const double *q, size_t ldqq, double *M );
 
-
+/* Weighted average quaternion using Davenport's q-method
+ *
+ * @param n number of quaternions
+ * @param w weights
+ * @param Q array of quaternions
+ * @param ldq leading dimension of Q
+ * @param y average quaternion
+ */
 AA_API void aa_tf_quat_davenport
-( size_t n, const double *w, const double *q, double *p );
+( size_t n, const double *w, const double *Q, size_t ldq, double *y );
+
 
 
 /** Construct matrix for left quaternion multiply
  * q*p = M*p
  */
-AA_API void aa_tf_qmatrix_l( const double *q, double *M );
+AA_API void aa_tf_qmatrix_l( const double *q, double *M, size_t ldm );
 
 /** Construct matrix for right quaternion multiply
  * p*q = M*p
  */
-AA_API void aa_tf_qmatrix_r( const double *q, double *M );
+AA_API void aa_tf_qmatrix_r( const double *q, double *M, size_t ldm );
+
+
+/** Generate random unit quaternion */
+void aa_tf_qurand( double q[4] );
 
 /*********/
 /* Axang */
@@ -615,16 +648,34 @@ void aa_tf_qutr2duqu( const double e[7], double s[8] );
 /// quaternion-translation to transformation matrix
 void aa_tf_qutr2tfmat( const double e[7], double T[12] );
 
+/// transformation matrix to  quaternion-translation
+void aa_tf_tfmat2qutr( const double T[12], double e[7] );
+
 /// dual quaternion to quaternion-translation
 void aa_tf_duqu2qutr( const double s[8], double e[7] );
-
 
 /// quaternion-translation multiply
 void aa_tf_qutr_mul( const double a[7], const double b[7], double c[7] ) ;
 
+/// quaternion-translation multiply and normalize
+void aa_tf_qutr_mulnorm( const double a[7], const double b[7], double c[7] ) ;
+
+/// quaternion-translation conjugate
+void aa_tf_qutr_conj( const double a[7], double c[7] ) ;
+
+/// quaternion-translation conjugate multiply
+void aa_tf_qutr_mulc( const double a[7], const double b[7], double c[7] ) ;
+
+/// quaternion-translation conjugate multiply
+void aa_tf_qutr_cmul( const double a[7], const double b[7], double c[7] ) ;
+
 /** Quaternion-translation derivative to spatial velocity */
 void aa_tf_qutr_diff2vel
 ( const double e[7], const double de[7], double dx[6] );
+
+/** Quaternion-translation spatial velocity to derivative */
+void aa_tf_qutr_diff2vel
+( const double e[7], const double dx[6], double de[7] );
 
 /** Integrate a quaternion-translation */
 void aa_tf_qutr_svel
@@ -633,6 +684,13 @@ void aa_tf_qutr_svel
 /** Integrate a quaternion-translation */
 void aa_tf_qutr_sdiff
 ( const double e0[7], const double de[7], double dt, double e1[7] );
+
+/** Weighted average transform */
+void aa_tf_qutr_wavg
+( size_t n, const double *w, const double *EE, size_t ldee, double *a );
+
+/** Generate random transform */
+void aa_tf_qutr_rand( double E[7] );
 
 /***************/
 /* Conversions */
@@ -647,6 +705,10 @@ AA_API void aa_tf_quat2axang( const double q[AA_RESTRICT 4],
 AA_API void aa_tf_axang2quat( const double axang[AA_RESTRICT 4],
                               double q[AA_RESTRICT 4] );
 
+/** axis-angle to quaternion. */
+AA_API void aa_tf_axang2quat2( const double axis[AA_RESTRICT 3],
+                               double angle,
+                               double q[AA_RESTRICT 4] );
 
 
 /// convert axis-angle to rotation vector
@@ -763,6 +825,16 @@ AA_API void aa_tf_duqu_smul( const double d1[AA_RESTRICT 8], const double d2[AA_
 AA_API void aa_tf_duqu_mul( const double d1[AA_RESTRICT 8], const double d2[AA_RESTRICT 8],
                             double d3[AA_RESTRICT 8] );
 
+/** Construct matrix for left dual quaternion multiply
+ * q*p = M*p
+ */
+AA_API void aa_tf_duqu_matrix_l( const double *q, double *M, size_t ldm );
+
+/** Construct matrix for right dual quaternion multiply
+ * p*q = M*p
+ */
+AA_API void aa_tf_duqu_matrix_r( const double *q, double *M, size_t ldm );
+
 /** Dual quaternion multiply conjugate of d1 by d2 */
 AA_API void aa_tf_duqu_cmul( const double d1[AA_RESTRICT 8], const double d2[AA_RESTRICT 8],
                              double d3[AA_RESTRICT 8] );
@@ -869,6 +941,18 @@ AA_API void aa_tf_duqu_svel( const double d0[AA_RESTRICT 8], const double dd[AA_
 AA_API void aa_tf_duqu_sdiff( const double d0[AA_RESTRICT 8], const double dd[AA_RESTRICT 8],
                               double dt, double d1[AA_RESTRICT 6] ) ;
 
+
+/* Misc */
+
+void aa_tf_relx_mean( size_t n, const double *R,
+                      const double *X, size_t ldx,
+                      const double *Y, size_t ldy,
+                      double rel[3]);
+
+void aa_tf_relx_median( size_t n, const double *R,
+                        const double *X, size_t ldx,
+                        const double *Y, size_t ldy,
+                        double rel[3]);
 
 #ifdef __cplusplus
 }

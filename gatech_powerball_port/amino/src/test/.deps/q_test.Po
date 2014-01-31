@@ -51,8 +51,9 @@ src/test/q_test.o: src/test/q_test.c include/amino.h \
  include/amino/time.h include/amino/debug.h include/amino/plot.h \
  include/amino/kin.h include/amino/type.h include/amino/endconv.h \
  include/amino/unit.h include/amino/validate.h include/amino/io.h \
- include/amino/cv.h include/amino/const.h include/amino/test.h \
- /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ include/amino/cv.h include/amino/const.h include/amino/heap.h \
+ include/amino/test.h /usr/include/unistd.h \
+ /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
  /usr/include/x86_64-linux-gnu/bits/confname.h /usr/include/getopt.h \
  /usr/include/x86_64-linux-gnu/bits/unistd.h /usr/include/inttypes.h \
@@ -226,6 +227,8 @@ include/amino/io.h:
 include/amino/cv.h:
 
 include/amino/const.h:
+
+include/amino/heap.h:
 
 include/amino/test.h:
 

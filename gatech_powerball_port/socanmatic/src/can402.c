@@ -130,12 +130,6 @@ static void *feedback_recv_start( void *cx );
 static void update_feedback( struct can402_cx *cx );
 static void send_feedback( struct can402_cx *cx );
 
-static unsigned long parse_u( const char *arg, int base, uint64_t max );
-//static unsigned long parse_u( const char *arg, uint64_t max );
-struct canmat_iface *open_iface( const char *type, const char *name );
-
-//static void error( int level , const char fmt[], ...)          ATTR_PRINTF(2,3);
-
 int main( int argc, char ** argv ) {
     sns_init();
     struct can402_cx cx;
@@ -240,8 +234,8 @@ static void parse( struct can402_cx *cx, int argc, char **argv )
         case '?':   /* help     */
         case 'h':
         case 'H':
-            puts( "Usage: canmat [OPTIONS...] COMMAND [command-args...]\n"
-                  "Shell tool for CANopen\n"
+            puts( "Usage: can402 [OPTIONS...] \n"
+                  "Driver daemon for CANopen servo drivies\n"
                   "\n"
                   "Options:\n"
                   "  -v,                       Make output more verbose\n"
@@ -255,6 +249,7 @@ static void parse( struct can402_cx *cx, int argc, char **argv )
                   "  -V,                       Print program version\n"
                   "\n"
                   "Examples:\n"
+                  " can402 -f can0 -R 1 -C 0 -n 3 -n 4 -c ref -s state    Interface with nodes 3 and 4\n"
                   "\n"
                   "Report bugs to <ntd@gatech.edu>"
                 );
@@ -272,8 +267,8 @@ static void parse( struct can402_cx *cx, int argc, char **argv )
     SNS_REQUIRE( cx->drive_set.cif, "can402: missing interface.\nTry `can402 -H' for more information.\n");
     SNS_REQUIRE( cx->drive_set.n, "can402: missing node IDs.\nTry `can402 -H' for more information.\n");
 
-    cx->msg_ref = sns_msg_motor_ref_alloc ( cx->drive_set.n );
-    cx->msg_state = sns_msg_motor_state_alloc ( cx->drive_set.n );
+    cx->msg_ref = sns_msg_motor_ref_heap_alloc ( cx->drive_set.n );
+    cx->msg_state = sns_msg_motor_state_heap_alloc ( cx->drive_set.n );
 
     for( size_t i = 0; i < cx->drive_set.n; i++ ) {
         SNS_REQUIRE( cx->drive_set.drive[i].rpdo_user != cx->drive_set.drive[i].rpdo_ctrl,
@@ -392,7 +387,7 @@ static void run( struct can402_cx *cx ) {
     size_t frame_size = 0; // outside to maintain frame size when we get ACH_TIMEOUT
     while( ! sns_cx.shutdown ) {
         /*-- reference --*/
-        cx->msg_ref->n = cx->drive_set.n;
+        cx->msg_ref->header.n = cx->drive_set.n;
         const size_t expected_size = sns_msg_motor_ref_size(cx->msg_ref);
         struct timespec timeout = sns_time_add_ns( cx->now, timeout_ns );
         ach_status_t r = ach_get( &cx->chan_ref, cx->msg_ref,
@@ -415,14 +410,14 @@ static void run( struct can402_cx *cx ) {
         case ACH_MISSED_FRAME: /* This is probably OK */
         case ACH_OK:
             // validate
-            if( cx->msg_ref->n == cx->drive_set.n &&
+            if( cx->msg_ref->header.n == cx->drive_set.n &&
                 frame_size == expected_size )
             {
                 process(cx);
             } else {
                 SNS_LOG( LOG_ERR, "bogus message: n: %"PRIu32", expected: %"PRIu32", "
                          "size: %"PRIuPTR", expected: %"PRIuPTR"\n",
-                         cx->msg_ref->n, cx->drive_set.n,
+                         cx->msg_ref->header.n, cx->drive_set.n,
                          frame_size, expected_size );
             }
             break;
@@ -492,7 +487,7 @@ static void process( struct can402_cx *cx ) {
     case SNS_MOTOR_MODE_VEL:
         halt(cx, 0); // unhalt
         if( cx->halt ) return;  // make sure we unhalted
-        for( size_t i = 0; i < cx->msg_ref->n; i ++ ) {
+        for( size_t i = 0; i < cx->msg_ref->header.n; i ++ ) {
             // position limit
             double val = pos_limit( &cx->drive_set.drive[i], cx->msg_ref->u[i] );
             // clamp value
@@ -591,14 +586,19 @@ static void *feedback_recv_start( void *cx ) {
     feedback_recv( (struct can402_cx*)cx );
     return NULL;
 }
+
 static void feedback_recv( struct can402_cx *cx ) {
     while(!sns_cx.shutdown) {
         struct can_frame can;
-        // FIXME: add a timeout in case we need to terminate and node isn't responding
         enum canmat_status i = canmat_iface_recv( cx->drive_set.cif, &can);
         if( CANMAT_OK != i ) {
-            SNS_LOG( LOG_ERR, "Error receiving CAN frame: %s\n",
-                     canmat_iface_strerror(cx->drive_set.cif, i) );
+            if( !(CANMAT_ERR_OS == i &&
+                  EINTR == cx->drive_set.cif->err ))
+            {
+                SNS_LOG( LOG_ERR, "Error receiving CAN frame: %s\n",
+                         canmat_iface_strerror(cx->drive_set.cif, i) );
+            }
+            continue;
         }
         // TODO: Binary search is better (but this array is tiny)
         // filter non-TPDOs
@@ -637,40 +637,4 @@ static void stop( struct can402_cx *cx ) {
         }
     }
     sns_end();
-}
-
-static unsigned long parse_u( const char *arg, int base, uint64_t max ) {
-    char *endptr;
-    errno = 0;
-    unsigned long u  = strtoul( arg, &endptr, base );
-
-    SNS_REQUIRE( 0 == errno, "Invalid hex argument: %s (%s)\n", arg, strerror(errno) );
-    SNS_REQUIRE( u <= max, "Argument %s too big\n", arg );
-
-    return u;
-}
-
-
-/* static unsigned long parse_u( const char *arg, uint64_t max ) { */
-/*     char *endptr; */
-/*     errno = 0; */
-/*     unsigned long u  = strtoul( arg, &endptr, 0 ); */
-
-/*     SNS_REQUIRE( 0 == errno, "Invalid hex argument: %s (%s)\n", arg, strerror(errno) ); */
-/*     SNS_REQUIRE( u <= max, "Argument %s too big\n", arg ); */
-
-/*     return u; */
-/* } */
-
-struct canmat_iface *open_iface( const char *type, const char *name ) {
-    struct canmat_iface *cif = canmat_iface_new( type );
-    SNS_REQUIRE( cif, "Couldn't create interface of type: %s\n", type );
-
-    canmat_status_t r =  canmat_iface_open( cif, name);
-    SNS_REQUIRE( CANMAT_OK == r, "Couldn't open: %s, %s\n",
-                 name, canmat_iface_strerror( cif, r ) );
-
-    SNS_LOG( LOG_INFO, "Opened interface %s, type %s\n", name, type);
-
-    return cif;
 }

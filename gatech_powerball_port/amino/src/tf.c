@@ -136,16 +136,16 @@ void aa_tf_axang_make( double x, double y, double z, double theta,
 void aa_tf_axang_permute2( const double aa[restrict 4],
                            double aa_plus[restrict 4],
                            double aa_minus[restrict 4] ) {
-    aa_fcpy( aa_plus, aa, 3 );
+    AA_MEM_CPY( aa_plus, aa, 3 );
     aa_plus[3] = aa[3] + 2*M_PI;
-    aa_fcpy( aa_minus, aa, 3 );
+    AA_MEM_CPY( aa_minus, aa, 3 );
     aa_minus[3] = aa[3] - 2*M_PI;
 }
 
 
 void aa_tf_axang_permute( const double ra[restrict 4], int k,
                           double ra_p[restrict 4] ) {
-    aa_fcpy( ra_p, ra, 3 );
+    AA_MEM_CPY( ra_p, ra, 3 );
     ra_p[3] = ra[3] + k*2*M_PI;
 }
 
@@ -164,7 +164,7 @@ void aa_tf_rotvec_near( const double rv[restrict 3],
     double ssd[7];
     double arv[sizeof(ssd)/sizeof(double)][3];
 
-    aa_fcpy(arv[0],rv,3);
+    AA_MEM_CPY(arv[0],rv,3);
     aa_tf_rotvec_permute( rv, 1, arv[1] );
     aa_tf_rotvec_permute( rv, 2, arv[2] );
     aa_tf_rotvec_permute( rv, 3, arv[3] );
@@ -175,7 +175,7 @@ void aa_tf_rotvec_near( const double rv[restrict 3],
     for( size_t i = 0; i < sizeof(ssd)/sizeof(double); i++ ) {
         ssd[i] = aa_la_ssd( 3, rv_near, arv[i] );
     }
-    aa_fcpy( rv_p, arv[ aa_fminloc(7, ssd) ], 3 );
+    AA_MEM_CPY( rv_p, arv[ aa_fminloc(7, ssd) ], 3 );
 }
 
 void aa_tf_axang2rotvec( const double axang[restrict 4],
@@ -187,7 +187,7 @@ void aa_tf_rotvec2axang( const double rotvec[restrict 3],
                          double axang[restrict 4] ) {
     axang[3] = aa_la_norm(3,rotvec);
     if( aa_feq( axang[3], 0, AA_TF_EPSILON ) ) {
-        aa_fzero( axang, 3 );
+        AA_MEM_ZERO( axang, 3 );
     } else {
         aa_la_smul( 3, 1.0 / axang[3] , rotvec, axang );
     }
@@ -448,10 +448,10 @@ void aa_tf_rotmat2eulerzyx( const double R[restrict 9],
 /* } */
 
 AA_API void aa_tf_quat_davenport
-( size_t n, const double *w, const double *q, double *p )
+( size_t n, const double *w, const double *qq, size_t ldqq, double *p )
 {
     double M[16];
-    aa_tf_quat_davenport_matrix( n,w,q,M);
+    aa_tf_quat_davenport_matrix( n,w,qq,ldqq,M);
     double wr[4]={0}, wi[4]={0}, Vr[16];
     aa_la_d_eev( 4, M, 4, wr, wi,
                  NULL, 0, Vr, 4 );
@@ -462,4 +462,65 @@ AA_API void aa_tf_quat_davenport
 
     size_t i = aa_fmaxloc( 4, wr );
     AA_MEM_CPY( p, Vr+4*i, 4 );
+}
+
+
+void aa_tf_qurand( double q[4] ) {
+    aa_vrand(4, q);
+    for( size_t i = 0; i < 4; i ++ ) q[i] -= 0.5;
+    aa_tf_qnormalize(q);
+}
+
+void aa_tf_qutr_rand( double E[7] )
+{
+    aa_vrand(7, E);
+    for( size_t i = 0; i < 7; i ++ ) E[i] -= 0.5;
+    aa_tf_qnormalize(E);
+}
+
+void aa_tf_relx( size_t n, const double *R,
+                 const double *X, size_t ldx,
+                 const double *Y, size_t ldy,
+                 double *Z, size_t ldz )
+{
+    aa_cla_dlacpy( ' ', 3, (int)n,
+                   Y, (int)ldy,
+                   Z, (int)ldz );
+    for( size_t j = 0; j < n; j ++ ) {
+        double xp[3];
+        aa_tf_9rot( R, &X[ldx*j], xp );
+        for( size_t i = 0; i < 3; i++ )
+            AA_MATREF(Z, ldz, i, j) -=  xp[i];
+    }
+}
+
+void aa_tf_relx_mean( size_t n, const double *R,
+                      const double *X, size_t ldx,
+                      const double *Y, size_t ldy,
+                      double rel[3])
+{
+    double *yp = AA_MEM_REGION_LOCAL_NEW_N(double, 3*n);
+    aa_tf_relx(n,R, X, ldx, Y, ldy, yp, 3 );
+    aa_la_d_colmean( 3, n, yp, 3, rel );
+    aa_mem_region_local_pop(yp);
+}
+
+void aa_tf_relx_median( size_t n, const double *R,
+                        const double *X, size_t ldx,
+                        const double *Y, size_t ldy,
+                        double rel[3])
+{
+    double *yp = AA_MEM_REGION_LOCAL_NEW_N(double, 3*n);
+    aa_tf_relx(n,R, X, ldx, Y, ldy, yp, 3 );
+    for( size_t i = 0; i < 3; i ++ )
+        rel[i] = aa_la_d_median( n, yp+i, 3 );
+    aa_mem_region_local_pop(yp);
+}
+
+double aa_tf_qangle_rel( const double *q, const double *p )
+{
+    double qrel[4];
+    aa_tf_qcmul(q, p, qrel);
+    aa_tf_qminimize(qrel);
+    return  fabs(aa_tf_qangle(qrel));
 }

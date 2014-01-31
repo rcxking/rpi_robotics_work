@@ -51,7 +51,8 @@ src/math.lo: src/math.c config.h /usr/include/math.h \
  include/amino/clapack_impl.h include/amino/time.h include/amino/debug.h \
  include/amino/plot.h include/amino/kin.h include/amino/type.h \
  include/amino/endconv.h include/amino/unit.h include/amino/validate.h \
- include/amino/io.h include/amino/cv.h include/amino/const.h
+ include/amino/io.h include/amino/cv.h include/amino/const.h \
+ include/amino/heap.h
 
 config.h:
 
@@ -224,3 +225,5 @@ include/amino/io.h:
 include/amino/cv.h:
 
 include/amino/const.h:
+
+include/amino/heap.h:

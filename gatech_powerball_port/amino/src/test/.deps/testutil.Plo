@@ -51,8 +51,8 @@ src/test/testutil.lo: src/test/testutil.c include/amino.h \
  include/amino/time.h include/amino/debug.h include/amino/plot.h \
  include/amino/kin.h include/amino/type.h include/amino/endconv.h \
  include/amino/unit.h include/amino/validate.h include/amino/io.h \
- include/amino/cv.h include/amino/const.h include/amino/test.h \
- /usr/include/x86_64-linux-gnu/sys/resource.h \
+ include/amino/cv.h include/amino/const.h include/amino/heap.h \
+ include/amino/test.h /usr/include/x86_64-linux-gnu/sys/resource.h \
  /usr/include/x86_64-linux-gnu/bits/resource.h
 
 include/amino.h:
@@ -222,6 +222,8 @@ include/amino/io.h:
 include/amino/cv.h:
 
 include/amino/const.h:
+
+include/amino/heap.h:
 
 include/amino/test.h:
 

@@ -50,7 +50,8 @@ src/la2.lo: src/la2.c include/amino.h /usr/include/assert.h \
  include/amino/time.h include/amino/debug.h include/amino/plot.h \
  include/amino/kin.h include/amino/type.h include/amino/endconv.h \
  include/amino/unit.h include/amino/validate.h include/amino/io.h \
- include/amino/cv.h include/amino/const.h src/la_impl.c
+ include/amino/cv.h include/amino/const.h include/amino/heap.h \
+ src/la_impl.c
 
 include/amino.h:
 
@@ -219,5 +220,7 @@ include/amino/io.h:
 include/amino/cv.h:
 
 include/amino/const.h:
+
+include/amino/heap.h:
 
 src/la_impl.c:

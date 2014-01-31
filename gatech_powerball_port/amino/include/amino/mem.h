@@ -43,6 +43,12 @@
 #ifndef AA_MEM_H
 #define AA_MEM_H
 
+
+#ifndef AA_ALLOC_STACK_MAX
+/// maximum size of objects to stack allocate
+#define AA_ALLOC_STACK_MAX (4096-64)
+#endif //AA_ALLOC_STACK_MAX
+
 /**
  * \file amino/mem.h
  */
@@ -63,6 +69,7 @@ static inline void *aa_malloc0( size_t size ) {
     if(p) memset(p,0,size);
     return p;
 }
+
 
 /** Frees ptr unless NULL == ptr */
 static inline void aa_free_if_valid( void *ptr ) {
@@ -87,10 +94,6 @@ static inline void aa_free_if_valid( void *ptr ) {
 
 
 /*----------- Local Allocation ------------------*/
-#ifndef AA_ALLOC_STACK_MAX
-/// maximum size of objects to stack allocate
-#define AA_ALLOC_STACK_MAX (4096-64)
-#endif //AA_ALLOC_STACK_MAX
 
 /** Allocate a local memory block.
  *
@@ -290,6 +293,9 @@ AA_API void aa_mem_region_local_release( void );
 #define AA_MEM_REGION_NEW_CPY( reg, src, type ) ( (type*) aa_mem_region_dup((reg), (src), sizeof(type)) )
 #define AA_MEM_REGION_NEW_N( reg, type, n ) ( (type*) aa_mem_region_alloc((reg), (n)*sizeof(type)) )
 
+#define AA_MEM_REGION_LOCAL_NEW( type ) ( (type*) aa_mem_region_local_alloc( sizeof(type)) )
+#define AA_MEM_REGION_LOCAL_NEW_N( type, n ) ( (type*) aa_mem_region_local_alloc( (n)*sizeof(type)) )
+
 /*----------- Pooled Allocation ------------------*/
 
 /** Data Structure for Object pools.
@@ -391,42 +397,69 @@ void aa_mem_rlist_enqueue_ptr( struct aa_mem_rlist *list, void *p );
  */
 void *aa_mem_rlist_pop( struct aa_mem_rlist *list );
 
+#define AA_RLIST_DEF( element_type, list_type )                  \
+    typedef struct {                                             \
+        aa_mem_rlist_t rlist;                                    \
+    } list_type;                                                 \
+    static inline list_type*                                     \
+    list_type ## _alloc( aa_mem_region *reg )                    \
+    {                                                            \
+        return (list_type*)aa_mem_rlist_alloc(reg);              \
+    }
+
 /**********/
 /* Arrays */
 /**********/
 
-
+/* Copy n_elem elements from src to dst.
+ *
+ * May evaluate arguments multiple times.
+ */
 #define AA_MEM_CPY(dst, src, n_elem)                            \
     {                                                           \
         /* _Static_assert(sizeof(*dst) == sizeof(*src));*/      \
         memcpy( dst, src, sizeof((dst)[0])*n_elem );            \
     }
 
+/* Set n_elem elements at dst to val.
+ *
+ * May evaluate arguments multiple times.
+ */
 #define AA_MEM_SET(dst, val, n_elem)                                    \
     {                                                                   \
         for( size_t aa_$_set_i = 0; aa_$_set_i < n_elem; aa_$_set_i++ ) \
             dst[aa_$_set_i] = val;                                      \
     }
 
+/* Set n_elem elements at dst to zero.
+ *
+ * May evaluate arguments multiple times.
+ */
+#define AA_MEM_ZERO(dst, n_elem)  (memset((dst),0,(n_elem)*sizeof(*(dst))))
+
 /// make a floating point array literal
 #define AA_FAR(...) ((double[]){__VA_ARGS__})
 
 /// copy n double floats from src to dst
+static inline void aa_fcpy( double *dst, const double *src, size_t n ) AA_DEPRECATED;
 static inline void aa_fcpy( double *dst, const double *src, size_t n ) {
     AA_MEM_CPY( dst, src, n );
 }
 
 /// set n double floats to val
+static inline void aa_fset( double *dst, double val, size_t n ) AA_DEPRECATED;
 static inline void aa_fset( double *dst, double val, size_t n ) {
     AA_MEM_SET( dst, val, n );
 }
 
 /// set n bytes of p to zero
+static inline void aa_zero( void *p, size_t n ) AA_DEPRECATED;
 static inline void aa_zero( void *p, size_t n ) {
     memset(p,0,n);
 }
 
 /// zero array p of length n
+static inline void aa_fzero( double *p, size_t n ) AA_DEPRECATED;
 static inline void aa_fzero( double *p, size_t n ) {
     AA_MEM_SET( p, 0, n );
 }
@@ -439,5 +472,126 @@ static inline void aa_fzero( double *p, size_t n ) {
     for( size_t aa_$_set_ar_i = 0;                              \
          aa_$_set_ar_i < sizeof(var)/sizeof(var[0]);            \
          aa_$_set_ar_i ++ ) var[aa_$_set_ar_i] = val;
+
+
+/**************/
+/* Bit Array */
+/**************/
+
+typedef int aa_bits;
+
+#define AA_BITS_BITS (8*sizeof(aa_bits))
+
+/** Size of bit vector in octets */
+static inline size_t
+aa_bits_size( size_t n )
+{
+    size_t words = n / AA_BITS_BITS;
+    if( words*sizeof(aa_bits)*8 < n ) words++;
+    return words*sizeof(aa_bits);
+}
+
+#define AA_BITS_JK( i, j, k )                 \
+    j = (i) / AA_BITS_BITS;                   \
+    k = (i) - (j)*AA_BITS_BITS;
+
+static inline int
+aa_bits_get( aa_bits *b, size_t i )
+{
+    size_t j,k;
+    AA_BITS_JK(i,j,k);
+
+    return (b[j] >> k) & 0x1;
+}
+
+
+static inline int
+aa_bits_getn( aa_bits *b, size_t n, size_t i )
+{
+    if( aa_bits_size(i) > n ) return 0;
+    else return aa_bits_get( b, i );
+}
+
+static inline void
+aa_bits_set( aa_bits *b, size_t i, int val )
+{
+    size_t j,k;
+    AA_BITS_JK(i,j,k);
+    if( val ) {
+        b[j] |=  0x1<<k;
+    } else {
+        b[j] &= ~ ( 0x1<<k );
+    }
+}
+
+
+/************/
+/* Swapping */
+/************/
+
+typedef long aa_memswap_type;
+
+/** Swap size bytes of memory at a and b */
+static inline void aa_memswap( void *AA_RESTRICT a, void *AA_RESTRICT b, size_t size )
+{
+
+    // TODO: consider alignment
+    aa_memswap_type *la = (aa_memswap_type*)a, *lb = (aa_memswap_type*)b;
+    for( size_t i = 0; i < size/sizeof(*la); i++ ) {
+        aa_memswap_type tmp = la[i];
+        la[i] = lb[i];
+        lb[i] = tmp;
+    }
+
+    uint8_t *ca = (uint8_t*)a, *cb = (uint8_t*)b;
+    for( size_t i = size - size%sizeof(*la); i < size; i ++ ) {
+        uint8_t tmp = ca[i];
+        ca[i] = cb[i];
+        cb[i] = tmp;
+    }
+
+}
+
+/** Swap n_elements at and b */
+#define AA_MEM_SWAP( a, b, n_elem ) (aa_memswap( (a), (b), n_elem*sizeof(*(a)) ))
+
+/***********/
+/* VECTORS */
+/***********/
+
+/** Append an item to the end of the vector
+ *
+ * @param max Maximum number of elements ptr can hold.  May be
+ * evaluated multiple times.
+ *
+ * @param fill Number of elements to store in vector. May be evaluated
+ * multiple times.
+ *
+ * @param ptr Base pointer of the vector.  May be evaluated multiple times.
+ *
+ * @param value Value to append
+ */
+#define AA_VECTOR_PUSH( max, fill, ptr, value )         \
+    if( (fill) >= (max) ) {                             \
+        (max) = 2*(fill+1);                             \
+        (ptr) = (typeof(ptr))realloc(sizeof(*ptr)*max); \
+    }                                                   \
+    ptr[(fill)++] = (value);
+
+#define AA_VECTOR_DEF( element_type, vector_type )               \
+    typedef struct {                                             \
+        size_t max;                                              \
+        size_t fill;                                             \
+        element_type *ptr;                                       \
+    } vector_type;                                               \
+    static inline vector_type ## _init                           \
+    ( vector_type *vec, size_t max ) {                           \
+        vec->ptr = (element_type*)malloc(max*sizeof(*ptr));      \
+        vec->max = max;                                          \
+        vec->fill = 0;                                           \
+    };
+
+
+
 
 #endif //AA_MEM_H

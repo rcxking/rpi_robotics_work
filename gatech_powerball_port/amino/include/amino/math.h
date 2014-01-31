@@ -305,8 +305,22 @@ static inline double aa_ang_delta( double a, double b) {
 /* Dense Linear Algebra */
 /************************/
 
-/** Reference an element in a column-major matrix. */
-#define AA_MATREF(ptr, n, i, j) ((ptr)[(j)*(n)+(i)])
+/** Pointer to a column of a matrix
+ *
+ * @param A Matrix pointer
+ * @param lda Leading dimension of A
+ * @param col column of the matrix (indexed from zero)
+ */
+#define AA_MATCOL(A, lda, col) ((A)+(col)*(lda))
+
+/** Reference an element in a column-major matrix.
+ *
+ * @param A Matrix pointer
+ * @param lda Leading dimension of A
+ * @param row row of the matrix (indexed from zero)
+ * @param col column of the matrix (indexed from zero)
+ */
+#define AA_MATREF(A, lda, row, col) (AA_MATCOL(A,lda,col)[row])
 
 /*--- Scalar Ops ---*/
 
@@ -449,7 +463,7 @@ aa_la_diag( size_t n, double *A, double x ) {
 /** Set A to the identity matrix */
 static inline void
 aa_la_ident( size_t n, double *A ) {
-    aa_fset(A, 0, n*n);
+    AA_MEM_ZERO(A, n*n);
     aa_la_diag(n,A,1.0);
 }
 

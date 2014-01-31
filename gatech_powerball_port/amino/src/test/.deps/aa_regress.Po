@@ -51,7 +51,8 @@ src/test/aa_regress.o: src/test/aa_regress.c include/amino.h \
  include/amino/time.h include/amino/debug.h include/amino/plot.h \
  include/amino/kin.h include/amino/type.h include/amino/endconv.h \
  include/amino/unit.h include/amino/validate.h include/amino/io.h \
- include/amino/cv.h include/amino/const.h include/amino/test.h
+ include/amino/cv.h include/amino/const.h include/amino/heap.h \
+ include/amino/test.h
 
 include/amino.h:
 
@@ -220,5 +221,7 @@ include/amino/io.h:
 include/amino/cv.h:
 
 include/amino/const.h:
+
+include/amino/heap.h:
 
 include/amino/test.h:

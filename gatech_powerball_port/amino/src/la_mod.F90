@@ -103,11 +103,12 @@ module amino_la
 
   !! interface to inversion function (via lapack) in amino
   Interface
-     Function aa_la_inv( n, A ) result(info)
+     Function aa_la_inv( n, A ) result(info) &
+       bind(C,name="aa_la_inv")
        use ISO_C_BINDING
        integer(C_SIZE_T), intent(in), value :: n
        real(C_DOUBLE), intent(inout) :: A(n,n)
-       integer :: info
+       integer(C_INT) :: info
      End Function aa_la_inv
   End Interface
 
@@ -120,6 +121,16 @@ module amino_la
        integer :: info
      End Function aa_la_care_laub
   End Interface
+
+  !! determinant
+  interface aa_la_det
+     function aa_la_det3x3( R ) result(d) &
+          bind(C,NAME="aa_la_det3x3")
+       use ISO_C_BINDING
+       real(C_DOUBLE), intent(in) :: R(3,3)
+       real(C_DOUBLE) :: d
+     end function aa_la_det3x3
+  end interface
 
   !> Cross product
   interface aa_la_cross_sub

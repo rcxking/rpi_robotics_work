@@ -1,5 +1,0 @@
-#!/bin/sh -e
-
-update-inetd --remove '.*achd.*'
-
-#DEBHELPER#

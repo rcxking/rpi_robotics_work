@@ -46,6 +46,7 @@
 
 #include <inttypes.h>
 #include <getopt.h>
+#include <unistd.h>
 #include "sns.h"
 
 
@@ -96,15 +97,31 @@ static void plot(gnuplot_live_t *pl);
 static double opt_range_min = -10;
 static double opt_range_max = 10;
 static size_t opt_samples = 100;
-static double opt_frequency = 10;
+static double opt_frequency = 0;
 
 
 static const char *opt_channel = "foo";
 static const char *opt_type = "void";
+static const char *opt_linepoint = "lines";
+static int opt_persist = 0;
+
+static aa_bits *opt_exclude = NULL;
+static size_t opt_n_exclude = 0;
+static aa_bits *opt_include = NULL;
+static size_t opt_n_include = 0;
+
 
 /* ------- */
 /* HELPERS */
 /* ------- */
+
+static int use_index( size_t i ) {
+    if( opt_include ) {
+        return aa_bits_getn( opt_include, opt_n_include, i );
+    } else if ( opt_exclude ) {
+        return ! aa_bits_getn( opt_exclude, opt_n_exclude, i );
+    } else return 1;
+}
 
 static void init(cx_t *cx) {
     sns_start();
@@ -114,7 +131,12 @@ static void init(cx_t *cx) {
                    opt_channel, NULL );
 
     // open gnuplot
-    cx->plot.gnuplot = popen("gnuplot -persist", "w");
+    {
+        char *cmd = aa_mem_region_printf( aa_mem_region_local_get(),
+                                          "gnuplot%s", opt_persist ? " -persist" : "");
+        cx->plot.gnuplot = popen(cmd, "w");
+        aa_mem_region_local_pop(cmd);
+    }
 
     fprintf(cx->plot.gnuplot, "set title 'Channel: %s\n",
             opt_channel);
@@ -148,7 +170,7 @@ static void next_msg(cx_t *cx, double **samples, char ***labels, size_t *n) {
 
     SNS_REQUIRE( (ACH_OK == r) || (ACH_MISSED_FRAME == r),
                  "Couldn't get frame: %s\n", ach_result_to_string(r) );
-    if( ACH_MISSED_FRAME == r ) {
+    if( ACH_MISSED_FRAME == r && opt_frequency <= 0 ) {
         fprintf(stderr, "missed frame\n");
     }
     cx->fun( buf, samples, labels, n );
@@ -172,7 +194,9 @@ static void run(cx_t *cx) {
         update(cx);
         plot(&cx->plot);
         aa_mem_region_local_release();
-        //usleep( (useconds_t) (1e6 / opt_frequency));
+        if( opt_frequency > 0 ) {
+            usleep( (useconds_t) (1e6 / opt_frequency));
+        }
     }
 }
 
@@ -190,17 +214,23 @@ static void plot(gnuplot_live_t *pl) {
     // header
     if( ! pl->printed_header ) {
         pl->printed_header = 1;
-        if( pl->labels )
-            fprintf(pl->gnuplot, "plot '-' with points title '%s'",
-                pl->labels[0]);
-        else
-            fprintf(pl->gnuplot, "plot '-' with points title '0'");
-        for( size_t j = 1; j < pl->n_each; j++ ) {
-            if( pl->labels )
-                fprintf(pl->gnuplot, ", '-' with points title '%s'",
-                    pl->labels[j]);
-            else
-                fprintf(pl->gnuplot, ", '-' with points title '%"PRIuPTR"'", j);
+        for( size_t j = 0, k=0; j < pl->n_each; j++ ) {
+            if( ! use_index(j) ) continue;
+            // plot
+            if( 0 == k ) {
+                fprintf(pl->gnuplot, "plot '-' ");
+            } else {
+                fprintf(pl->gnuplot, ", '-' ");
+            }
+            // lines/points
+            fprintf(pl->gnuplot, "with %s ", opt_linepoint);
+            // title
+            if( pl->labels ) {
+                fprintf(pl->gnuplot, "title '%s'", pl->labels[j]);
+            } else {
+                fprintf(pl->gnuplot, "title '%lu'", j );
+            }
+            k++;
         }
         fprintf(pl->gnuplot, "\n");
     } else {
@@ -208,11 +238,13 @@ static void plot(gnuplot_live_t *pl) {
     }
     // data
     for (size_t j = 0; j < pl->n_each; j++ ) {
+        if( ! use_index(j) ) continue;
         for( size_t k = 0;  k < pl->n_samples; k ++ ) {
             size_t i = (k+pl->i) % pl->n_samples;
             size_t idx = j + i*pl->n_each;
+            // TODO: actual  time
             fprintf(pl->gnuplot, "%f, %f\n",
-                    ((double)k/opt_frequency), (double)(pl->data)[idx] );
+                    (double)k, (double)(pl->data)[idx] );
         }
         fprintf(pl->gnuplot, "e\n" );
     }
@@ -234,6 +266,20 @@ static void posarg( char *arg, int i ) {
     }
 }
 
+static void set_bit( aa_bits **pbits, size_t *psize, char *arg )
+{
+    size_t i = (size_t)atoi( arg );
+    size_t size = aa_bits_size(i);
+
+    if( size >= *psize ) {
+        *pbits = (aa_bits*)realloc( *pbits, 2*size );
+        memset( *pbits + *psize, 0, 2*size - *psize );
+        *psize = 2*size;
+    }
+
+    aa_bits_set( *pbits, i, 1 );
+}
+
 int main( int argc, char **argv ) {
     (void) argc; (void) argv;
     static cx_t cx;
@@ -241,15 +287,26 @@ int main( int argc, char **argv ) {
 
     /*-- Parse Options --*/
     int i = 0;
-    for( int c; -1 != (c = getopt(argc, argv, "V?hH0:1:" SNS_OPTSTRING)); ) {
+    for( int c; -1 != (c = getopt(argc, argv, "pf:V?hH0:1:x:i:" SNS_OPTSTRING)); ) {
         switch(c) {
             SNS_OPTCASES
-
+        case 'p':
+            opt_persist = 1;
+            break;
         case '0':
             opt_range_min = atof(optarg);
             break;
         case '1':
             opt_range_max = atof(optarg);
+            break;
+        case 'f':
+            opt_frequency = atof(optarg);
+            break;
+        case 'x':
+            set_bit( &opt_exclude, &opt_n_exclude, optarg );
+            break;
+        case 'i':
+            set_bit( &opt_include, &opt_n_include, optarg );
             break;
         case 'V':   /* version     */
             puts( "snsplot " PACKAGE_VERSION "\n"
@@ -268,9 +325,13 @@ int main( int argc, char **argv ) {
                   "Shell tool for CANopen\n"
                   "\n"
                   "Options:\n"
+                  "  -f frequency,                Max message frequency (0 for no sleep)\n"
                   "  -0 value,                    Minimum range value\n"
                   "  -1 value,                    Maximum range value\n"
                   "  -v,                          Make output more verbose\n"
+                  "  -p,                          Persist the plot after closing\n"
+                  "  -x INDEX,                    Exclude value from plot, `ALL' excludes everything\n"
+                  "  -i INDEX,                    Include value in plot\n"
                   "  -?,                          Give program help list\n"
                   "  -V,                          Print program version\n"
                   "\n"

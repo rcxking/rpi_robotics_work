@@ -53,13 +53,10 @@ void rand_tf( double _E[7], double S[8],  double T[12] ) {
     double tmp[7];
     double *E = _E ? _E : tmp;
 
-    aa_test_qurand( E+AA_TF_QUTR_Q );
-    aa_vrand( 3, E+AA_TF_QUTR_V );
+    aa_tf_qutr_rand( E );
 
     if( S ) aa_tf_qutr2duqu( E, S );
     if( T ) aa_tf_duqu2tfmat( S, T );
-
-
 }
 
 static void rotvec() {
@@ -194,8 +191,8 @@ static void chain() {
 
 static void quat() {
     double q1[4], q2[4], u;
-    aa_test_qurand( q1 );
-    aa_test_qurand( q2 );
+    aa_tf_qurand( q1 );
+    aa_tf_qurand( q2 );
     u = aa_frand();
 
     {
@@ -214,8 +211,8 @@ static void quat() {
     {
         double Ql[16], Qr[16];
         double y0[4], y1[4], y2[4];
-        aa_tf_qmatrix_l(q1, Ql);
-        aa_tf_qmatrix_r(q2, Qr);
+        aa_tf_qmatrix_l(q1, Ql, 4);
+        aa_tf_qmatrix_r(q2, Qr, 4);
         aa_tf_qmul(q1,q2, y0);
         cblas_dgemv( CblasColMajor, CblasNoTrans, 4, 4,
                      1.0, Ql, 4,
@@ -236,7 +233,7 @@ static void quat() {
         memcpy( qq, q1, sizeof(q1) );
         memcpy( qq+4, q2, sizeof(q2) );
         double w[2] = {.5,.5};
-        aa_tf_quat_davenport( 2, w, qq, p );
+        aa_tf_quat_davenport( 2, w, qq, 4, p );
         aa_tf_qslerp( .5, q1, q2, s );
         aa_tf_qminimize( p );
         aa_tf_qminimize( s );
@@ -257,7 +254,7 @@ static void quat() {
     {
         double qmin[4], axang[4];
         aa_tf_qminimize2( q1, qmin );
-        test( "quat-minimize",  fabs(q1[3]) == qmin[3] );
+        test( "quat-minimize",  aa_feq( fabs(q1[3]), qmin[3], 0) );
         aa_tf_quat2axang( qmin, axang );
         test( "quat-minimize-angle",  fabs(axang[3]) <= M_PI );
     }
@@ -340,16 +337,42 @@ static void duqu() {
     // random tf
     aa_tf_tfmat_t T;
     aa_tf_duqu_t H;
+    double E[7];
     double S_ident[8] = AA_TF_DUQU_IDENT_INITIALIZER;
     double Q_ident[4] = AA_TF_QUAT_IDENT_INITIALIZER;
     double v_ident[3] = {0};
     double p0[3];
-    rand_tf( NULL, H.data, T.data );
+    rand_tf( E, H.data, T.data );
     aa_vrand( 3, p0 );
+
+    // mull
+    {
+        double A[8], B[8];
+        double A_L[8*8], B_R[8*8];
+        double C[8], Cl[8], Cr[8];
+        aa_vrand(8,A);
+        aa_vrand(8,B);
+        aa_tf_duqu_mul(A,B,C);
+
+        aa_tf_duqu_matrix_l(A, A_L, 8);
+        cblas_dgemv( CblasColMajor, CblasNoTrans, 8, 8,
+                     1.0, A_L, 8,
+                     B, 1,
+                     0, Cl, 1 );
+
+        aveq( "duqu-mul-L", 8, C, Cl, 1e-6 );
+
+        aa_tf_duqu_matrix_r(B, B_R, 8);
+        cblas_dgemv( CblasColMajor, CblasNoTrans, 8, 8,
+                     1.0, B_R, 8,
+                     A, 1,
+                     0, Cr, 1 );
+        aveq( "duqu-mul-R", 8, C, Cr, 1e-6 );
+    }
 
     //double q[4], v[3], p0[3];
     //aa_vrand( 3, v );
-    //aa_test_qurand( q );
+    //aa_tf_qurand( q );
     //AA_MEM_SET( v, 0, 3 );
 
     // tfmat
@@ -382,14 +405,23 @@ static void duqu() {
     {
 
         double S_conj[8];
-        double E_conj[7];
+        double qv_conj[7], E_conj[7];
         double SSc[8], EEc[7];
+        double Scv[3];
 
         aa_tf_duqu_conj(H.data, S_conj);
-        aa_tf_qv_conj(H.real.data, T.v.data, E_conj, E_conj+4);
+        aa_tf_qv_conj(H.real.data, T.v.data, qv_conj, qv_conj+4);
+        aa_tf_qutr_conj(E, E_conj);
+
+        aa_tf_duqu_trans(S_conj, Scv);
+
+        aveq( "duqu/qutr conj q", 4, S_conj, E_conj, 1e-6 );
+        aveq( "duqu/qv conj q", 4, S_conj, qv_conj, 1e-6 );
+        aveq( "duqu/qutr conj v", 3, Scv, E_conj+4, 1e-6 );
+        aveq( "duqu/qv conj v", 3, Scv, qv_conj+4, 1e-6 );
 
         aa_tf_duqu_mul( H.data, S_conj, SSc );
-        aa_tf_qv_chain( H.real.data, T.v.data, E_conj, E_conj+4, EEc, EEc+4 );
+        aa_tf_qv_chain( H.real.data, T.v.data, qv_conj, qv_conj+4, EEc, EEc+4 );
 
         aveq( "duqu conj", 8, SSc, S_ident, 1e-6 );
         aveq( "qv conj q", 4, EEc, Q_ident, 1e-6 );
@@ -561,7 +593,7 @@ void rel_d() {
 static void slerp() {
     double q[4], qy[4], u, du;
     double dq1[4], dq2[4], dqy[4];
-    aa_test_qurand(q);
+    aa_tf_qurand(q);
     u = aa_frand();
     du = aa_frand();
     aa_vrand(4,dq1);
@@ -604,7 +636,7 @@ static void theta2quat() {
 
 static void rotmat() {
     double q[4], R[9], w[3], dR[9], dRw[3];
-    aa_test_qurand( q );
+    aa_tf_qurand( q );
     aa_vrand( 3, w );
     aa_tf_quat2rotmat(q, R);
     aa_tf_rotmat_vel2diff( R, w, dR );
@@ -634,7 +666,7 @@ static void integrate() {
     double *v = e+AA_TF_QUTR_V;
     double *q = e+AA_TF_QUTR_Q;
     aa_vrand( 3, v );
-    aa_test_qurand( q );
+    aa_tf_qurand( q );
     aa_vrand( 6, dx );
     double dt = aa_frand() / 100;
 
@@ -691,6 +723,68 @@ void qvmul(void)  {
     aveq( "qmul_v", 4, r1, r2, 1e-7 );
 }
 
+
+void tf_conj(void) {
+    double S0[8], S1[8], S2[8], SE[7];
+    double E0[8], E1[8], E2[8];
+    rand_tf(E0, S0, NULL);
+    rand_tf(E1, S1, NULL);
+
+    aa_tf_duqu_conj(S0, S2);
+    aa_tf_qutr_conj(E0, E2);
+    aa_tf_duqu2qutr(S2, SE);
+    aveq( "duqu/qutr conj", 7, E2, SE, 1e-7 );
+
+
+    aa_tf_duqu_mul(S0, S1, S2);
+    aa_tf_qutr_mul(E0, E1, E2);
+    aa_tf_duqu2qutr(S2, SE);
+    aveq( "duqu/qutr mul", 7, E2, SE, 1e-7 );
+
+    aa_tf_duqu_mulc(S0, S1, S2);
+    aa_tf_qutr_mulc(E0, E1, E2);
+    aa_tf_duqu2qutr(S2, SE);
+    aveq( "duqu/qutr mulc", 7, E2, SE, 1e-7 );
+
+    aa_tf_duqu_cmul(S0, S1, S2);
+    aa_tf_qutr_cmul(E0, E1, E2);
+    aa_tf_duqu2qutr(S2, SE);
+    aveq( "duqu/qutr cmul", 7, E2, SE, 1e-7 );
+}
+
+void fuzz_sort(void) {
+    static const size_t n = 512;
+    double a0[n];
+    aa_vrand(n, a0 );
+
+    double ar_qsort[n];
+    double ar_hsort[n];
+    AA_MEM_CPY( ar_qsort, a0, n );
+    AA_MEM_CPY( ar_hsort, a0, n );
+
+    qsort( ar_qsort, n, sizeof(a0[0]), aa_la_d_compar );
+    aa_aheap_sort( ar_hsort, n, sizeof(a0[0]), aa_la_d_compar );
+    aveq( "heap-sort", n, ar_qsort, ar_hsort, 0 );
+
+}
+
+void mem(void) {
+    static const size_t n = 1024;
+    double a[n], b[n], a2[n], b2[n];
+    aa_vrand(n, a);
+    aa_vrand(n, b);
+    AA_MEM_CPY(a2, a, n);
+    AA_MEM_CPY(b2, b, n);
+
+    aveq( "mem-cpy-a", n, a, a2, 0 );
+    aveq( "mem-cpy-b", n, b, b2, 0 );
+
+    AA_MEM_SWAP(a,b,n);
+
+    aveq( "mem-cpy-a", n, b, a2, 0 );
+    aveq( "mem-cpy-b", n, a, b2, 0 );
+}
+
 int main( void ) {
     // init
     srand((unsigned int)time(NULL)); // might break in 2038
@@ -710,6 +804,9 @@ int main( void ) {
         rotmat();
         tfmat();
         integrate();
+        tf_conj();
+        fuzz_sort();
+        mem();
     }
 
     return 0;

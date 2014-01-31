@@ -1,4 +1,4 @@
-src/plot_test.o: src/plot_test.c /home/powerball/include/amino.h \
+src/plot_test.o: src/plot_test.c /usr/local/include/amino.h \
  /usr/include/assert.h /usr/include/features.h \
  /usr/include/x86_64-linux-gnu/bits/predefs.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -43,29 +43,24 @@ src/plot_test.o: src/plot_test.c /home/powerball/include/amino.h \
  /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
  /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/cblas.h /home/powerball/include/amino/mem.h \
- /home/powerball/include/amino/math.h /home/powerball/include/amino/la.h \
- /home/powerball/include/amino/la_impl.h \
- /home/powerball/include/amino/def.h \
- /home/powerball/include/amino/mangle.h \
- /home/powerball/include/amino/undef.h /home/powerball/include/amino/tf.h \
- /home/powerball/include/amino/lapack.h \
- /home/powerball/include/amino/lapack_impl.h \
- /home/powerball/include/amino/clapack.h \
- /home/powerball/include/amino/clapack_impl.h \
- /home/powerball/include/amino/time.h \
- /home/powerball/include/amino/debug.h \
- /home/powerball/include/amino/plot.h /home/powerball/include/amino/kin.h \
- /home/powerball/include/amino/type.h \
- /home/powerball/include/amino/endconv.h \
- /home/powerball/include/amino/unit.h \
- /home/powerball/include/amino/validate.h \
- /home/powerball/include/amino/io.h /home/powerball/include/amino/cv.h \
- /home/powerball/include/amino/const.h include/reflex.h \
- include/reflex/kinematics.h include/reflex/trajectory.h \
+ /usr/include/cblas.h /usr/local/include/amino/mem.h \
+ /usr/local/include/amino/math.h /usr/local/include/amino/la.h \
+ /usr/local/include/amino/la_impl.h /usr/local/include/amino/def.h \
+ /usr/local/include/amino/mangle.h /usr/local/include/amino/undef.h \
+ /usr/local/include/amino/tf.h /usr/local/include/amino/lapack.h \
+ /usr/local/include/amino/lapack_impl.h \
+ /usr/local/include/amino/clapack.h \
+ /usr/local/include/amino/clapack_impl.h /usr/local/include/amino/time.h \
+ /usr/local/include/amino/debug.h /usr/local/include/amino/plot.h \
+ /usr/local/include/amino/kin.h /usr/local/include/amino/type.h \
+ /usr/local/include/amino/endconv.h /usr/local/include/amino/unit.h \
+ /usr/local/include/amino/validate.h /usr/local/include/amino/io.h \
+ /usr/local/include/amino/cv.h /usr/local/include/amino/const.h \
+ /usr/local/include/amino/heap.h include/reflex.h include/reflex/lqg.h \
+ include/reflex/kinematics.h include/reflex/trajq.h \
  include/reflex/trajx.h include/reflex/body.h include/reflex/tf.h
 
-/home/powerball/include/amino.h:
+/usr/local/include/amino.h:
 
 /usr/include/assert.h:
 
@@ -187,57 +182,61 @@ src/plot_test.o: src/plot_test.c /home/powerball/include/amino.h \
 
 /usr/include/cblas.h:
 
-/home/powerball/include/amino/mem.h:
+/usr/local/include/amino/mem.h:
 
-/home/powerball/include/amino/math.h:
+/usr/local/include/amino/math.h:
 
-/home/powerball/include/amino/la.h:
+/usr/local/include/amino/la.h:
 
-/home/powerball/include/amino/la_impl.h:
+/usr/local/include/amino/la_impl.h:
 
-/home/powerball/include/amino/def.h:
+/usr/local/include/amino/def.h:
 
-/home/powerball/include/amino/mangle.h:
+/usr/local/include/amino/mangle.h:
 
-/home/powerball/include/amino/undef.h:
+/usr/local/include/amino/undef.h:
 
-/home/powerball/include/amino/tf.h:
+/usr/local/include/amino/tf.h:
 
-/home/powerball/include/amino/lapack.h:
+/usr/local/include/amino/lapack.h:
 
-/home/powerball/include/amino/lapack_impl.h:
+/usr/local/include/amino/lapack_impl.h:
 
-/home/powerball/include/amino/clapack.h:
+/usr/local/include/amino/clapack.h:
 
-/home/powerball/include/amino/clapack_impl.h:
+/usr/local/include/amino/clapack_impl.h:
 
-/home/powerball/include/amino/time.h:
+/usr/local/include/amino/time.h:
 
-/home/powerball/include/amino/debug.h:
+/usr/local/include/amino/debug.h:
 
-/home/powerball/include/amino/plot.h:
+/usr/local/include/amino/plot.h:
 
-/home/powerball/include/amino/kin.h:
+/usr/local/include/amino/kin.h:
 
-/home/powerball/include/amino/type.h:
+/usr/local/include/amino/type.h:
 
-/home/powerball/include/amino/endconv.h:
+/usr/local/include/amino/endconv.h:
 
-/home/powerball/include/amino/unit.h:
+/usr/local/include/amino/unit.h:
 
-/home/powerball/include/amino/validate.h:
+/usr/local/include/amino/validate.h:
 
-/home/powerball/include/amino/io.h:
+/usr/local/include/amino/io.h:
 
-/home/powerball/include/amino/cv.h:
+/usr/local/include/amino/cv.h:
 
-/home/powerball/include/amino/const.h:
+/usr/local/include/amino/const.h:
+
+/usr/local/include/amino/heap.h:
 
 include/reflex.h:
 
+include/reflex/lqg.h:
+
 include/reflex/kinematics.h:
 
-include/reflex/trajectory.h:
+include/reflex/trajq.h:
 
 include/reflex/trajx.h:
 
