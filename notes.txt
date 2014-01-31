@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 11/13/13 - 3:39 PM
+Notes.txt - Last Updated: 1/30/14 - 1:06 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -72,5 +72,84 @@ Installing Powerball Software (ROS Groovy):
 
 	sudo apt-get update && sudo apt-get install libach-dev ach-utils
 	sudo dpkg-reconfigure ach-utils
+
+1/27/14
+-------
+
+All libraries from source are installed in /usr/local/lib
+
+- Removed Golems PPA from /etc/apt/sources.list
+- Built socanmatic and installed from source - verified
+- Built ach and installed from source - verified
+- Built amino and installed from source - verified
+- Built reflex and installed from source - verified
+    - use ./configure --prefix=/usr/local FCFLAGS="-I/usr/local/include" 
+- Removed all packages from source
+- In /home/powerball, created the following directories:
+    - share
+        - config.site 
+
+- socanmatic installed in /home/powerball/lib
+- ach installed in /home/powerball/lib
+- amino installed in /home/powerball/lib
+- reflex installed in /home/powerball/lib
+
+1/29/14
+-------
+- Change BLAS Implementation to ATLAS (libatlas-base-dev)
+
+1/30/14
+-------
+- FRESH START on GA Tech Port
+- FRESH GIT CLONES
+- Powerball Libraries now installed into:
+
+/home/powerball/powerball_libraries/lib
+
+Prefix: /home/powerball/powerball_libraries
+
+1) Install Socanmatic Driver:
+
+autoreconf -i
+./configure --prefix /home/powerball/powerball_libraries
+make
+sudo make install
+
+2) Install ACH:
+
+autoreconf -i
+./configure --prefix /home/powerball/powerball_libraries
+make
+sudo make install
+
+3) Install Amino:
+
+autoreconf -i
+./configure --prefix /home/powerball/powerball_libraries
+make
+sudo make install
+
+4) Install Reflex:
+
+autoreconf -i
+./configure --prefix /home/powerball/powerball_libraries
+make
+sudo make install
+
+5) Install SNS:
+
+autoreconf -i
+
+1/31/14
+-------
+Installed ACH from DEB package
+- sudo apt-get install libach1 libach-dev
+
+All other packages come from golems repo
+
+./configure
+make
+sudo make install
+
 
 
