@@ -15,3 +15,14 @@ sudo apt-get install autoconf automake libtool autoconf-archive
 Notes for Wednesday 1/22/14:
 ----------------------------
 sudo apt-get install libblas-dev
+
+Install ach from GIT
+install everything else from golems
+
+Order of Installation - FINAL:
+ach
+amino
+sns
+reflex
+socanmatic
+netcanft
