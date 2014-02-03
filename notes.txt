@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 1/30/14 - 1:06 PM
+Notes.txt - Last Updated: 2/3/14 - 1:46 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -151,5 +151,6 @@ All other packages come from golems repo
 make
 sudo make install
 
-
-
+2/3/14
+------
+Socanmatic Package - Macro __ATOMIC_RELAXED undefined - changed simlink from /usr/bin/gcc to /usr/bin/gcc-4.8
