@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 2/3/14 - 1:46 PM
+Notes.txt - Last Updated: 2/4/14 - 12:37 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -154,3 +154,12 @@ sudo make install
 2/3/14
 ------
 Socanmatic Package - Macro __ATOMIC_RELAXED undefined - changed simlink from /usr/bin/gcc to /usr/bin/gcc-4.8
+
+2/4/14
+------
+Changed Makefile.am to add -lamino for linking the amino package 
+- Socanmatic installed
+- Reflex installed
+- netcanft installed
+
+
