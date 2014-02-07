@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 2/7/14 - 1:46 PM
+Notes.txt - Last Updated: 2/7/14 - 3:35 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -185,5 +185,9 @@ Required Features to Comply with CANOpen Protocol:
 	- Allows device configuration
 - Application - performs function of the device
 
-  
+- CIA 301 - Basic CANOpen Device/Communication Profiles
+- CIA 401 - I/0 Modules
+- CIA 402 - Motion Control
+
+From can-cia.org request for 301 and 401  
 
