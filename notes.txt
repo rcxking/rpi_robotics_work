@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 2/4/14 - 12:37 PM
+Notes.txt - Last Updated: 2/7/14 - 1:46 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -162,4 +162,28 @@ Changed Makefile.am to add -lamino for linking the amino package
 - Reflex installed
 - netcanft installed
 
+2/6/14
+------
+- Installed ach-utils from ppa (sudo apt-get install ach-utils)
+- To run the Powerball software:
+/usr/local/etc/init.d/sns start (this starts the sns-log service)
+- Next start the can402 driver:
+can402 
+- Finally,      
+
+2/7/14
+------
+CANOpen Protocol:
+- implements layers 3 - 7 of the OSI Model:
+	(Network - Transport - Session - Presentation - Application)
+- CANOpen Device Profile released in CiA 301 Specification  
+
+Required Features to Comply with CANOpen Protocol:
+- Communication Unit
+- State Machine w/states Initialization, Pre-operational, Operational, Stopped
+- Object Dictionary: array of variables with a 16-bit index
+	- Allows device configuration
+- Application - performs function of the device
+
+  
 
