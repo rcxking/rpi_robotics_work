@@ -1,0 +1,15 @@
+SoCANmatic
+==========
+
+CAN Protocol Library for CANopen.
+
+Electronic Data Sheets (EDS)
+----------------------------
+The included `canmatc` program translates CiA EDS files to C code. The
+socanmatic library provides routines for communicating with CANopen
+nodes using this generated code
+
+See Also
+--------
+* http://www.can-cia.org/
+
