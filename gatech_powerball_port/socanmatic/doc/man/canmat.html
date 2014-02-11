@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Man page of CANMAT</TITLE>
+</HEAD><BODY>
+<H1>CANMAT</H1>
+Section: User Commands (1)<BR>Updated: February 2014<BR><A HREF="#index">Index</A>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+canmat - canmat shell tool
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>canmat</B>
+
+[<I>OPTIONS</I>...] <I>COMMAND </I>[<I>command-args</I>...]
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+Shell tool for CANopen
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>-v</B>,<DD>
+Make output more verbose
+<DT><B>-a</B> api_type,<DD>
+CAN API, e.g, socketcan, ntcan
+<DT><B>-f</B> interface,<DD>
+CAN interface (multiple allowed)
+<DT><B>-t</B>,<DD>
+Timestamp output
+<DT>-?,<DD>
+Give program help list
+<DT><B>-V</B>,<DD>
+Print program version
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>EXAMPLES</H2>
+
+<DL COMPACT>
+<DT>canmat dump<DD>
+Print CAN messages to standard output
+<DT>canmat info<DD>
+Print info about interface
+<DT>canmat display<DD>
+Pretty-print CAN messages to standard output
+<DT>canmat send id b0 ... b7<DD>
+Send a can message (values in hex)
+<DT>canmat dict-dl node param-name value<DD>
+Download SDO to node
+<DT>canmat dict-ul node param-name<DD>
+Upload SDO from node
+<DT>canmat dl node idx subidx bytes-or-val<DD>
+Download SDO to node
+<DT>canmat dl-resp node idx subidx<DD>
+Simulate node download response
+<DT>canmat ul node idx subidx<DD>
+Upload SDO from node
+<DT>canmat ul-resp node idx subidx bytes-or-val<DD>
+Simulate node upload response
+<DT>canmat set bitrate value<DD>
+Set bitrate in kbps
+<DT><DD>
+canmat nmt node (start|stop|preop|reset-(node|com))
+<DT><DD>
+Send an NMT message
+<DT>canmat map-rpdo node pdo-num param-name<DD>
+Establish RPDO mapping
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<H2>AUTHOR</H2>
+
+Written by Neil T. Dantam
+<A NAME="lbAH">&nbsp;</A>
+<H2>REPORTING BUGS</H2>
+
+Report bugs to &lt;<A HREF="mailto:ntd{at}gatech.edu">ntd{at}gatech.edu</A>&gt;
+<A NAME="lbAI">&nbsp;</A>
+<H2>COPYRIGHT</H2>
+
+Copyright &#169; 2008-2013, Georgia Tech Research Corporation
+<BR>
+
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">EXAMPLES</A><DD>
+<DT><A HREF="#lbAG">AUTHOR</A><DD>
+<DT><A HREF="#lbAH">REPORTING BUGS</A><DD>
+<DT><A HREF="#lbAI">COPYRIGHT</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 17:47:55 GMT, February 04, 2014
+</BODY>
+</HTML>
