@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 2/7/14 - 3:35 PM
+Notes.txt - Last Updated: 2/11/14 - 4:41 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -190,4 +190,11 @@ Required Features to Comply with CANOpen Protocol:
 - CIA 402 - Motion Control
 
 From can-cia.org request for 301 and 401  
+
+2/11/14
+-------
+
+sudo modprobe peak_pci
+
+achd in /usr/bin
 
