@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 2/11/14 - 4:41 PM
+Notes.txt - Last Updated: 2/21/14 - 1:33 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -197,4 +197,19 @@ From can-cia.org request for 301 and 401
 sudo modprobe peak_pci
 
 achd in /usr/bin
+
+2/20/14
+-------
+man 5 interfaces for information on /etc/network/interfaces
+
+SocketCAN:
+----------
+- character device driver: device driver that transfers data directly to/from
+  user process
+- implementation of CAN Protocols
+- Linux implements CAN device drivers as NETWORK INTERFACES 
+- provides a SOCKET INTERFACE that is registered as a network device
+- can support multiple sockets and multiple frames  
+- to select a CAN protocol, interface, and ID, SocketCAN passes the protocol
+  as an argument, use socket()/bind() to get the interface/ID
 
