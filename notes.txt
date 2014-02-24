@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 2/21/14 - 1:33 PM
+Notes.txt - Last Updated: 2/24/14 - 2:20 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -213,3 +213,10 @@ SocketCAN:
 - to select a CAN protocol, interface, and ID, SocketCAN passes the protocol
   as an argument, use socket()/bind() to get the interface/ID
 
+2/24/14
+-------
+Script set up Powerball Communications:
+
+ach mk sns-log
+ach mk ref 
+ach mk state
