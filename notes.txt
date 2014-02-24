@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 2/24/14 - 2:20 PM
+Notes.txt - Last Updated: 2/24/14 - 3:09 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -220,3 +220,7 @@ Script set up Powerball Communications:
 ach mk sns-log
 ach mk ref 
 ach mk state
+
+Created Powerball Startup Script 
+
+
