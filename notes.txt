@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 2/24/14 - 3:09 PM
+Notes.txt - Last Updated: 2/25/14 - 2:12 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -223,4 +223,24 @@ ach mk state
 
 Created Powerball Startup Script 
 
+2/25/14
+-------
+cia 301 protocol bit rates:
+
+1 Mbit/s
+800 kbit/s x
+500 kbit/s x
+250 kbit/s x
+125 kbit/s x
+50 kbit/s x
+20 kbit/s x
+10 kbit/s
+
+Powerball CANOpen speaks at 500,000 bit/sec
+
+To drive the Powerball Arm from the Windows PC:
+- Log into Windows using Rishab's Account (no password needed)
+- Connection to Computer:
+- USB Front Port - CAN-USB Bus - RS232 - Powerball
+- Program is LWA_TOOL.exe in Libraries\Documents\Public Documents\powerball_code\CANopenToolsExt
 
