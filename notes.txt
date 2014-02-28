@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 2/25/14 - 2:12 PM
+Notes.txt - Last Updated: 2/27/14 - 2:41 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -243,4 +243,9 @@ To drive the Powerball Arm from the Windows PC:
 - Connection to Computer:
 - USB Front Port - CAN-USB Bus - RS232 - Powerball
 - Program is LWA_TOOL.exe in Libraries\Documents\Public Documents\powerball_code\CANopenToolsExt
+
+2/27/14
+-------
+PEAK Card has 2 Serial Ports
+
 
