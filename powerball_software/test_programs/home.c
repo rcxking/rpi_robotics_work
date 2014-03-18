@@ -1,6 +1,5 @@
 /*
- * test.c - Program to test out the capabilities of Georgia TEch's Powerball
- * software.
+ * home.c - Program to start the  
  * 
  * Bryant Pong
  * 2/4/14
