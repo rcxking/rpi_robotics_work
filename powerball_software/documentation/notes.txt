@@ -26,3 +26,10 @@ sns
 reflex
 socanmatic
 netcanft
+
+Notes for Tuesday, 3/18/14:
+---------------------------
+To start the Powerball:
+
+./powerball_script.sh
+snsref -v -p -d ref <P0 angle> <P1 angle> <P2 angle> <P3 angle> <P4 angle> <P5 angle>
