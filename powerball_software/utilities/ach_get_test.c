@@ -57,26 +57,44 @@ int main(int argc, char **argv) {
 		curVel5 = msg->X[4].vel;
 		curVel6 = msg->X[5].vel;
 
-		// Is there a drastic difference between the new positions and old positions?
-		if( (abs(curPos1 - oldPos1) < 0.00001) ||
-			(abs(curPos2 - oldPos2) < 0.00001) ||
-			(abs(curPos3 - oldPos3) < 0.00001) ||
-			(abs(curPos4 - oldPos4) < 0.00001) ||
-			(abs(curPos5 - oldPos5) < 0.00001) ||
-			(abs(curPos6 - oldPos6) < 0.00001) ||
+#ifdef DEBUG
+		fprintf(stdout, "Old Position and Velocities are:\n");
+        fprintf(stdout, "Positions are: 1: %f 2: %f 3: %f 4: %f 5: %f 6: %f\n", oldPos1, oldPos2, oldPos3, oldPos4, oldPos5, oldPos6);
+        fprintf(stdout, "Velocities are: 1: %f 2: %f 3: %f 4: %f 5: %f 6: %f\n", oldVel1, oldVel2, oldVel3, oldVel4, oldVel5, oldVel6);
+		fprintf(stdout, "\n");
 
-			(abs(curVel1 - oldVel1) < 0.00001) ||
-			(abs(curVel2 - oldVel2) < 0.00001) ||
-			(abs(curVel3 - oldVel3) < 0.00001) ||
-			(abs(curVel4 - oldVel4) < 0.00001) ||
-			(abs(curVel5 - oldVel5) < 0.00001) ||
-			(abs(curVel6 - oldVel6) < 0.00001) ) {
+		fprintf(stdout, "Current Position and Velocities are:\n");
+		fprintf(stdout, "Positions are: 1: %f 2: %f 3: %f 4: %f 5: %f 6: %f\n", msg->X[0].pos, msg->X[1].pos, msg->X[2].pos, msg->X[3].pos, msg->X[4].pos, msg->X[5].pos);
+        fprintf(stdout, "Velocities are: 1: %f 2: %f 3: %f 4: %f 5: %f 6: %f\n", msg->X[0].vel, msg->X[1].vel, msg->X[2].vel, msg->X[3].vel, msg->X[4].vel, msg->X[5].vel);
+
+		fprintf(stdout, "Current differences for POS:\n");	
+		fprintf(stdout, "%f %f %f %f %f %f\n", (curPos1 - oldPos1), (curPos2 - oldPos2), (curPos3 - oldPos3), (curPos4 - oldPos4), (curPos5 - oldPos6));
+
+		// Is there a drastic difference between the new positions and old positions?
+		if( (abs(curPos1 - oldPos1) > 0.001) ||
+			(abs(curPos2 - oldPos2) > 0.001) ||
+			(abs(curPos3 - oldPos3) > 0.001) ||
+			(abs(curPos4 - oldPos4) > 0.001) ||
+			(abs(curPos5 - oldPos5) > 0.001) ||
+			(abs(curPos6 - oldPos6) > 0.001) ||
+
+			(abs(curVel1 - oldVel1) > 0.001) ||
+			(abs(curVel2 - oldVel2) > 0.001) ||
+			(abs(curVel3 - oldVel3) > 0.001) ||
+			(abs(curVel4 - oldVel4) > 0.001) ||
+			(abs(curVel5 - oldVel5) > 0.001) ||
+			(abs(curVel6 - oldVel6) > 0.001) ) {
 
 				fprintf(stdout, "WE HAVE A CHANGE!\n");
 				fprintf(stdout, "Positions are: 1: %f 2: %f 3: %f 4: %f 5: %f 6: %f\n", msg->X[0].pos, msg->X[1].pos, msg->X[2].pos, msg->X[3].pos, msg->X[4].pos, msg->X[5].pos);
 				fprintf(stdout, "Velocities are: 1: %f 2: %f 3: %f 4: %f 5: %f 6: %f\n", msg->X[0].vel, msg->X[1].vel, msg->X[2].vel, msg->X[3].vel, msg->X[4].vel, msg->X[5].vel);
 		} // End if
+#endif
 
+		fprintf(stdout, "Positions are: 1: %f 2: %f 3: %f 4: %f 5: %f 6: %f\n", msg->X[0].pos, msg->X[1].pos, msg->X[2].pos, msg->X[3].pos, msg->X[4].pos, msg->X[5].pos);
+        fprintf(stdout, "Velocities are: 1: %f 2: %f 3: %f 4: %f 5: %f 6: %f\n", msg->X[0].vel, msg->X[1].vel, msg->X[2].vel, msg->X[3].vel, msg->X[4].vel, msg->X[5].vel);
+
+	
 		oldPos1 = curPos1;
 		oldPos2 = curPos2;
 		oldPos3 = curPos3;
@@ -90,7 +108,6 @@ int main(int argc, char **argv) {
 		oldVel4 = curVel4;
 		oldVel5 = curVel5;
 		oldVel6 = curVel6;
-
 
 	} // End while()
 
