@@ -1,0 +1,19 @@
+These are the joint limits for the Powerball LWA 4.6 Arm:
+Joint 0 - Distal Joint (closest to the window):
+-2.849 to 2.86 radians
+
+Joint 1
+
+
+Joint 2
+-2.284322 to 2.600541
+
+Joint 3
+-2.589650 to 2.706290
+
+Joint 4 
+-2.782090 to 2.197579
+
+Joint 5 - Proximal Joint (Hand)
+-2.789595 to 2.79388888
+
