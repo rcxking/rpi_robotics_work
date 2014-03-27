@@ -5,8 +5,7 @@
  * RPI CS Robotics Lab
  * 3/26/14
  *
- * Last Updated: 3/26/14 - 5:21 PM
- *
+ * Last Updated: 3/27/14 - 1:48 PM
  */
 #ifndef _trap_vel_h_
 #define _trap_vel_h_
@@ -17,7 +16,7 @@
 // End section Libraries
 
 // Function Prototypes:
-int rotateToPosition(int motor, double targetPosition, double targetVelocity, double timeToRamp);  
+int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor, double targetPosition, double targetVelocity, double timeToRamp);  
 // End section Function Prototypes
 
 #endif
