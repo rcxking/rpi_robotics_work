@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 3/18/14 - 2:59 PM
+Notes.txt - Last Updated: 3/24/14 - 1:53 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -248,8 +248,8 @@ To drive the Powerball Arm from the Windows PC:
 -------
 PEAK Card has 2 Serial Ports
 
-3/18/14
+3/24/14
 -------
-
+Use 'snsdump state motor_state' to get the position and velocity values
 
 
