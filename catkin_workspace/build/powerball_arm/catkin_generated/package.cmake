@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "powerball_arm")
-set(powerball_arm_MAINTAINER "bryant <bryant@todo.todo>")
-set(powerball_arm_DEPRECATED "")
-set(powerball_arm_VERSION "0.0.0")
-set(powerball_arm_BUILD_DEPENDS "rospy" "std_msgs")
-set(powerball_arm_RUN_DEPENDS "rospy" "std_msgs")
-set(powerball_arm_BUILDTOOL_DEPENDS "catkin")
