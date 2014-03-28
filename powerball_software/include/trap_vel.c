@@ -6,7 +6,7 @@
  * RPI CS Robotics Lab
  * 3/26/14
  *
- * Last Updated: 3/28/14 - 12:38 PM
+ * Last Updated: 3/28/14 - 2:47 PM
  */
 
 // Libraries:
@@ -80,7 +80,18 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
 		deltaMotorVelocity = kp * error;
 		currentMotorVelocity += deltaMotorVelocity;
 
-		// Send the motor command:
+		// We're sending a velocity message command:
+		motor_msg->mode = opt_mode;
+        motor_msg->header.n = n_opt_u;
+		
+		// Send the message!
+        memcpy(motor_msg->u, opt_u, n_opt_u * sizeof(motor_msg->u[0]));
+        struct timespec now;
+        clock_gettime(ACH_DEFAULT_CLOCK, &now);
+        sns_msg_set_time(&motor_msg->header, &now, 1e9);
+
+        ach_put(refChan, motor_msg, sns_msg_motor_ref_size(motor_msg));
+		
 		
   
 	} // End while
