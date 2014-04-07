@@ -84,6 +84,7 @@ int main(int argc, char **argv) {
 				motor_info->X[5].vel);
 		printf("\t**********************************************\n");
 
+
 		printf("Current velocity is %lf\n", velocity);
 		char nextInput, space;
 		if(scanf("%c%c", &nextInput, &space) < 0) {

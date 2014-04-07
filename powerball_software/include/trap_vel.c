@@ -6,7 +6,7 @@
  * RPI CS Robotics Lab
  * 3/26/14
  *
- * Last Updated: 3/28/14 - 2:47 PM
+ * Last Updated: 4/7/14 - 3:21 PM
  */
 
 // Libraries:
@@ -26,7 +26,7 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
 
 	// PID Variables:
 	double kp, ki, kd; // Proportional, Integral, and Derivative constants, respectively
-	kp = 0.05;
+	kp = 0.1;
 	ki = 0.0;
 	kd = 0.05;
 
@@ -64,16 +64,26 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
 	// Variables for constructing the message to send to the Powerball:
     enum sns_motor_mode opt_mode = SNS_MOTOR_MODE_VEL; // We're going to send a velocity message to the Powerball
     sns_real_t *opt_u = (sns_real_t *) malloc(sizeof(sns_real_t) * 6); // Velocities of each joint
-    uint32_t n_opt_u = 6; // Number of joints to controol
+    uint32_t n_opt_u = 6; // Number of joints to control
 
+	printf("DEBUG ONLY - currentMotorPosition is %lf\n", currentMotorPosition);
+	printf("DEBUG ONLY - targetPosition is %lf\n", targetPosition);
+	printf("DEBUG ONLY - before entering loop, difference between currentMotorPosition and targetPosition is %lf\n", fabs(currentMotorPosition - targetPosition));
+	double absError = fabs(currentMotorPosition - targetPosition);
+	printf("DEBUG ONLY - Before entering loop, absError is %lf\n", absError); 
+ 
 
 	// Start the PID loop:
-	while(abs(currentMotorPosition - targetPosition) > 0.001) {
+	while(absError > 0.001) {
+
+		printf("DEBUG ONLY - Difference between currentMotorPosition and targetPosition is %lf\n", absError);
+
 		r = ach_get(stateChan, motor_info, 1024, &frame_size, NULL, ACH_O_WAIT | ACH_O_LAST);
 		currentMotorPosition = motor_info->X[motor].pos;
 	
 		// Calculate the error between the currentMotorPosition and the targetPosition:
 		error = currentMotorPosition - targetPosition;
+		absError = fabs(error);
 		printf("DEBUG ONLY - current error is %f\n", error);
 
 		// Calculate the change in velocity:
@@ -91,16 +101,14 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
         sns_msg_set_time(&motor_msg->header, &now, 1e9);
 
         ach_put(refChan, motor_msg, sns_msg_motor_ref_size(motor_msg));
-		
-		
-  
 	} // End while
+	printf("DEBUG ONLY - DONE ROTATING TO TARGET DESTINATION!\n");
 
 		
 
 	// Excellent policy to free up allocated memory:
-	free(motor_msg);
-	free(motor_info);
+	//free(motor_msg);
+	//free(motor_info);
 
 	// If we reach this point, the motor has reached its target position successfully:
 	return 0;  
