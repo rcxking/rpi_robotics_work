@@ -252,4 +252,8 @@ PEAK Card has 2 Serial Ports
 -------
 Use 'snsdump state motor_state' to get the position and velocity values
 
+4/8/14
+------
+Eigen Library (sudo apt-get install libeigen3) for Linear Algebra/Matrices
 
+Use Eigen::MatrixXd for simple applications.
