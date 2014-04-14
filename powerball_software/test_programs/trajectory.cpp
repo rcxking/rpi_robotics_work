@@ -12,35 +12,13 @@
 #include <cmath>
 #include <iostream>
 
-// Eigen Libraries:
-#include <Eigen/Dense> 
-#include <vector>
-using namespace Eigen;
-using namespace std;
+#include "../include/trajectory.h"
 
 int main(int argc, char **argv) {
 
-	Eigen::MatrixXf A(6, 6);
-	Eigen::VectorXf b(6);
-
-	const int destinationTime = 2;
-
-
-	A << 0, 0, 0, 0, 0, 1,
-	     32, 16, 8, 4, 2, 1,
-		 0, 0, 0, 0, 1, 0,
-		 80, 32, 12, 4, 1, 0,
-		 0, 0, 0, 2, 0, 0, 
-		 160, 48, 12, 2, 0, 0;
-
-	b << 0, destinationTime, 0, 0, 0, 0;
-
-	cout << "Matrix A:\n" << A << endl;
-	cout << "Matrix B:\n" << b << endl;
-
 	Eigen::VectorXf x(6);
-	x = A.colPivHouseholderQr().solve(b);
-	cout << "Solution x:\n" << x << endl;
+	x = generateTrajectory(2);
+	std::cout << "Solution x:\n" << x << std::endl;
 
 	
 	return 0;
