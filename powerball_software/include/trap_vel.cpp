@@ -1,18 +1,20 @@
 /*
- * trap_vel.c - Implementation of a Position Controller with PID and
+ * trap_vel.cpp - Implementation of a Position Controller with PID and
  * trapezoidal velocity profile.
  *
  * Bryant Pong
  * RPI CS Robotics Lab
  * 3/26/14
  *
- * Last Updated: 4/7/14 - 3:21 PM
+ * Last Updated: 4/14/14 - 1:59 PM
  */
 
 // Libraries:
-#include <stdio.h>
+#include <iostream>
+#include <cmath>
+#include <cstdio>
+#include "trajectory.h"
 #include "sns.h" 
-
 
 /* This function uses a PID loop to rotate the motor to a target position.
  *

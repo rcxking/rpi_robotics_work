@@ -19,7 +19,7 @@
  * polynomial equation representing the trajectory position function.  
  * This function returns a 6x1 Vector containing the constants of the equation.
  */ 
-Eigen::VectorXf generateTrajectory(const int totalTime) {
+Eigen::VectorXf generateTrajectory(const int totalTime, const double startPos, const double targetPos) {
 
 	/*
 	 * A quintic function allows the velocity and acceleration to be constant and
@@ -39,8 +39,8 @@ Eigen::VectorXf generateTrajectory(const int totalTime) {
 	 * 
 	 * We can solve this system of linear equation using the de factor Ax = B equation, where Matrix A (6x6) and B (6x1) are:
 	 *                                   [Matrix A]                                                [Vector x]             [Vector B]
-	 * [ 0,              0,              0,             0,           0,           1         ]         [A]                    [0]
-	 * [ totalTime^5,    totalTime^4,    totalTime^3,   totalTime^2, totalTime,   1         ]         [B]                    [totalTime]
+	 * [ 0,              0,              0,             0,           0,           1         ]         [A]                    [startPos]
+	 * [ totalTime^5,    totalTime^4,    totalTime^3,   totalTime^2, totalTime,   1         ]         [B]                    [targetPos]
 	 * [ 0,              0,              0,             0,           1,           0         ]         [C]         =          [0]
 	 * [ 5*totalTime^4,  4*totalTime^3,  3*totalTime^2, 2*totalTime, 1,           0         ]         [D]                    [0]
 	 * [ 0,              0,              0,             2,           0,           0         ]         [E]                    [0]
@@ -59,7 +59,7 @@ Eigen::VectorXf generateTrajectory(const int totalTime) {
 		  0,                    0,                    0,                   2,                 0,         0,
 		  20*pow(totalTime, 3), 12*pow(totalTime, 2), 6*totalTime,         2,                 0,         0;
 
-	B << 0, totalTime, 0, 0, 0, 0;
+	B << startPos, targetPos, 0, 0, 0, 0;
 
 	// Solve for the result vector x:
 

@@ -7,7 +7,7 @@
  * Bryant Pong
  * 4/12/14
  *
- * Last Updated: 4/12/14 - 6:01 PM
+ * Last Updated: 4/14/14 - 1:36 PM
  */   
 
 
@@ -18,6 +18,6 @@
 
 
 // Function Prototypes:
-Eigen::VectorXf generateTrajectory(const int totalTime);
+Eigen::VectorXf generateTrajectory(const int totalTime, const double startPos, const double targetPos);
 
 #endif

@@ -5,13 +5,14 @@
  * RPI CS Robotics Lab
  * 3/26/14
  *
- * Last Updated: 3/27/14 - 1:48 PM
+ * Last Updated: 4/14/14 - 2:00 PM
  */
 #ifndef _trap_vel_h_
 #define _trap_vel_h_
 
 // Libraries:
-#include <stdio.h>
+#include <cstdio>
+
 #include "sns.h"
 // End section Libraries
 

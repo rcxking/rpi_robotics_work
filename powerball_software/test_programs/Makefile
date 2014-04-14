@@ -2,7 +2,7 @@ clean:
 	rm -rf *o test test_trap_vel trajectory
 
 test_trap_vel:
-	gcc -Werror -O3 -std=gnu99 test_trap_vel.c ../include/trap_vel.c -L/usr/local/lib -lreflex -lsns -lamino -lblas -llapack -o test_trap_vel
+	gcc -Wall -Werror -O3  test_trap_vel.cpp ../include/trajectory.cpp ../include/trap_vel.cpp -L/usr/local/lib -I /usr/include/eigen3/ -lreflex -lsns -lamino -lblas -llapack -o test_trap_vel
 
 trajectory:
 	g++ -Wall  -O3 ../include/trajectory.cpp -I /usr/include/eigen3/ trajectory.cpp -o trajectory
