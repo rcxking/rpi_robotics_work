@@ -2,24 +2,44 @@
  * trajectory.cpp - Implementation of the trajectory generator.
  *
  * Bryant Pong
+ * RPI CS Robotics Lab
  * 4/14/14
  *
- * Last Updated: 4/14/14 - 10:45 AM
+ * Last Updated: 4/14/14 - 2:12 PM
  */
  
 // Headers:
 #include "trajectory.h"
 #include <iostream>
 #include <cmath>
+#include <map>
 #include <Eigen/Dense>
 
+Trajectory::Trajectory(const int totalTime, const int startPos, const int targetPos, const int numSteps) {
+	totalTime_ = totalTime;
+	startPos_ = startPos;
+	targetPos_ = targetPos;
+	numSteps_ = numSteps;
+
+	// Calculate the trajectory's constants:
+
+	std::cout << "Now calculateTrajectory()\n";
+	trajectoryConstants = calculateTrajectory();
+	std::cout << "Done calculateTrajectory()\n";
+
+	std::cout << "trajectoryConstants:\n" << trajectoryConstants << std::endl; 
+
+	// With the contants now defined, let's generate the trajectory:
+	generateTrajectory();
+} // End Trajectory constructor
+
 /*
- * generateTrajectory takes in the time a user wants a Powerball joint to 
+ * calculateTrajectory takes in the time a user wants a Powerball joint to 
  * rotate to a target destination and generates a 5th-order (quintic) 
  * polynomial equation representing the trajectory position function.  
  * This function returns a 6x1 Vector containing the constants of the equation.
  */ 
-Eigen::VectorXf generateTrajectory(const int totalTime, const double startPos, const double targetPos) {
+Eigen::VectorXf Trajectory::calculateTrajectory() {
 
 	/*
 	 * A quintic function allows the velocity and acceleration to be constant and
@@ -51,6 +71,10 @@ Eigen::VectorXf generateTrajectory(const int totalTime, const double startPos, c
 	Eigen::MatrixXf A(6, 6);
 	Eigen::VectorXf B(6);
 
+	int totalTime = getTotalTime();
+	int startPos = getStartPos();
+	int targetPos = getTargetPos();
+
 	// Populate the A matrix and B vector:
 	A <<  0,                    0,                    0,                   0,                 0,         1,
 	      pow(totalTime, 5),    pow(totalTime, 4),    pow(totalTime, 3),   pow(totalTime, 2), totalTime, 1,
@@ -68,7 +92,65 @@ Eigen::VectorXf generateTrajectory(const int totalTime, const double startPos, c
 	
 
 	return solution;
+} // End function calculateTrajectory()
+
+/*
+ * generateTrajectory() generates the actual trajectory of the Powerball.
+ */  
+void Trajectory::generateTrajectory() {
+
+	// Let's calculate the range of times we need from 0..totalTime:
+	double timeRange = getTotalTime();
+	timeRange /= getNumSteps();
+
+	std::cout << "timeRange: " << timeRange << std::endl;
+
+	/*
+ 	 * The trajectory will be stored in the trajectory_ map with time keys and
+	 * position values.
+	 */   	
+	for(double i = 0; i <= getTotalTime(); i += timeRange) {
+
+		double pos = trajectoryConstants(0) * pow(i, 5) + 
+					 trajectoryConstants(1) * pow(i, 4) + 
+                     trajectoryConstants(2) * pow(i, 3) + 
+                     trajectoryConstants(3) * pow(i, 2) + 
+                     trajectoryConstants(4) * i + 
+                     trajectoryConstants(5);
+
+		std::cout << "pos is: " << pos << std::endl;
+
+		trajectory_.insert(std::pair<double, double>(i, pos));
+	} // End for
+	std::cout << "Done inserting pairs\n";
 } // End function generateTrajectory()
+
+/*
+ * printTrajectory() prints out the trajectory.
+ */
+void Trajectory::printTrajectory() {
+
+	std::map<double, double>::iterator iter = trajectory_.begin();
+
+	std::cout << "Trajectory from " << getStartPos() << " to " << getTargetPos() << " with " << getNumSteps() << " steps:" << std::endl;
+	std::cout << "Time\tPosition" << std::endl;
+	for(; iter != trajectory_.end(); iter++) {
+		std::cout << iter->first << "\t" << iter->second << std::endl;
+	} // End for
+
+} // End function printTrajectory()
+
+/*
+ * getPosAtTime() returns the position the Powerball should be at a designated time.
+ */
+double Trajectory::getPosAtTime(const double time, const Eigen::VectorXf& solution) {
+
+	double pos = 0.0;
+
+	pos = solution(0) * pow(time, 5) + solution(1) * pow(time, 4) + solution(2) * pow(time, 3) + solution(3) * pow(time, 2) + solution(4) * time + solution(5);
+
+	return pos;
+} // End function getPosAtTime() 
 
 
 

@@ -6,7 +6,7 @@
  * RPI CS Robotics Lab
  * 3/26/14
  *
- * Last Updated: 4/14/14 - 1:59 PM
+ * Last Updated: 4/14/14 - 2:08 PM
  */
 
 // Libraries:
@@ -28,7 +28,7 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
 
 	// PID Variables:
 	double kp, ki, kd; // Proportional, Integral, and Derivative constants, respectively
-	kp = 0.1;
+	kp = 0.01;
 	ki = 0.0;
 	kd = 0.05;
 
@@ -45,15 +45,15 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
     struct sns_msg_motor_ref *motor_msg = (struct sns_msg_motor_ref *) malloc(sizeof(char) * 1024);
     struct sns_msg_motor_state *motor_info = (struct sns_msg_motor_state *) malloc(sizeof(char) * 1024);
 
-
 	// We first need to get the motor's initial position:
 	size_t frame_size;
-	enum ach_status r = ach_get(stateChan, motor_info, 1024, &frame_size, NULL, ACH_O_WAIT | ACH_O_LAST);
+	//enum ach_status r = ach_get(stateChan, motor_info, 1024, &frame_size, NULL, ACH_O_WAIT | ACH_O_LAST);
 
 	// Print out the motor information:
-	printf("DEBUG ONLY - target motor current position is %f\n", motor_info->X[motor].pos);
-	currentMotorPosition = motor_info->X[motor].pos;
+	//printf("DEBUG ONLY - target motor current position is %f\n", motor_info->X[motor].pos);
+	//currentMotorPosition = motor_info->X[motor].pos;
 
+#ifdef DEBUG
 	// Determine the motor's inital velocity:
 	if(currentMotorPosition < targetPosition) {
 		// The motor is currently behind the target; positive velocity:
@@ -62,11 +62,19 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
 		// The motor is currently ahead of the target; negative velocity:
 		currentMotorVelocity = -0.5;
 	} // End else
+#endif
 
+#ifdef DEBUG
 	// Variables for constructing the message to send to the Powerball:
     enum sns_motor_mode opt_mode = SNS_MOTOR_MODE_VEL; // We're going to send a velocity message to the Powerball
     sns_real_t *opt_u = (sns_real_t *) malloc(sizeof(sns_real_t) * 6); // Velocities of each joint
     uint32_t n_opt_u = 6; // Number of joints to control
+#endif
+
+	std::cout << "Now creating trajectory" << std::endl;
+	// We need to get the planned trajectory:
+	Trajectory traj(timeToRamp, 0, targetPosition,  10);
+	traj.printTrajectory();
 
 	printf("DEBUG ONLY - currentMotorPosition is %lf\n", currentMotorPosition);
 	printf("DEBUG ONLY - targetPosition is %lf\n", targetPosition);
@@ -74,7 +82,6 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
 	double absError = fabs(currentMotorPosition - targetPosition);
 	printf("DEBUG ONLY - Before entering loop, absError is %lf\n", absError); 
  
-
 	// Start the PID loop:
 	while(absError > 0.001) {
 
@@ -105,8 +112,6 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
         ach_put(refChan, motor_msg, sns_msg_motor_ref_size(motor_msg));
 	} // End while
 	printf("DEBUG ONLY - DONE ROTATING TO TARGET DESTINATION!\n");
-
-		
 
 	// Excellent policy to free up allocated memory:
 	//free(motor_msg);
