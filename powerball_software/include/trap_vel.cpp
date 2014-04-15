@@ -6,15 +6,28 @@
  * RPI CS Robotics Lab
  * 3/26/14
  *
- * Last Updated: 4/14/14 - 2:08 PM
+ * Last Updated: 4/15/14 - 3:57 PM
  */
 
 // Libraries:
 #include <iostream>
 #include <cmath>
 #include <cstdio>
+#include <ctime>
 #include "trajectory.h"
 #include "sns.h" 
+
+inline unsigned long long rdtsc(void) {
+	unsigned long long result = 0;
+	unsigned hi, lo;
+	do {
+		__asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
+		result = ((unsigned long long) lo) | (((unsigned long long) hi) << 32);
+	} while(__builtin_expect((int) result == -1, 0));
+
+	return result;
+} 
+
 
 /* This function uses a PID loop to rotate the motor to a target position.
  *
@@ -47,13 +60,12 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
 
 	// We first need to get the motor's initial position:
 	size_t frame_size;
-	//enum ach_status r = ach_get(stateChan, motor_info, 1024, &frame_size, NULL, ACH_O_WAIT | ACH_O_LAST);
+	enum ach_status r = ach_get(stateChan, motor_info, 1024, &frame_size, NULL, ACH_O_WAIT | ACH_O_LAST);
 
 	// Print out the motor information:
-	//printf("DEBUG ONLY - target motor current position is %f\n", motor_info->X[motor].pos);
-	//currentMotorPosition = motor_info->X[motor].pos;
+	printf("DEBUG ONLY - target motor current position is %f\n", motor_info->X[motor].pos);
+	currentMotorPosition = motor_info->X[motor].pos;
 
-#ifdef DEBUG
 	// Determine the motor's inital velocity:
 	if(currentMotorPosition < targetPosition) {
 		// The motor is currently behind the target; positive velocity:
@@ -62,19 +74,20 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
 		// The motor is currently ahead of the target; negative velocity:
 		currentMotorVelocity = -0.5;
 	} // End else
-#endif
 
-#ifdef DEBUG
 	// Variables for constructing the message to send to the Powerball:
     enum sns_motor_mode opt_mode = SNS_MOTOR_MODE_VEL; // We're going to send a velocity message to the Powerball
     sns_real_t *opt_u = (sns_real_t *) malloc(sizeof(sns_real_t) * 6); // Velocities of each joint
     uint32_t n_opt_u = 6; // Number of joints to control
-#endif
 
-	std::cout << "Now creating trajectory" << std::endl;
 	// We need to get the planned trajectory:
 	Trajectory traj(timeToRamp, 0, targetPosition,  10);
 	traj.printTrajectory();
+
+	// Timer objects for calculating where the Powerball should be:
+	unsigned long long initialTime, currentTime;
+	initialTime = currentTime = 0;
+	initialTime = rdtsc();
 
 	printf("DEBUG ONLY - currentMotorPosition is %lf\n", currentMotorPosition);
 	printf("DEBUG ONLY - targetPosition is %lf\n", targetPosition);
@@ -88,6 +101,29 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
 		printf("DEBUG ONLY - Difference between currentMotorPosition and targetPosition is %lf\n", absError);
 
 		r = ach_get(stateChan, motor_info, 1024, &frame_size, NULL, ACH_O_WAIT | ACH_O_LAST);
+		
+		currentTime = rdtsc();
+		double duration = (currentTime - initialTime) / (double) 3800000000;
+		printf("It has been %lf seconds since the program started:\n", duration);
+
+		switch(r) {
+        	case ACH_MISSED_FRAME:
+            	printf("Missed Frame!\n");
+                break;
+            case ACH_OK:
+                printf("ACH_get succeeded!\n");
+                break;
+            case ACH_TIMEOUT:
+                printf("ACH timed out\n");
+                break;
+            case ACH_CANCELED:
+                printf("Cancel received... shutting down\n");
+                exit(EXIT_SUCCESS);
+            default:
+                printf("ach_get_failed()\n");
+                break;
+        } // End switch
+	
 		currentMotorPosition = motor_info->X[motor].pos;
 	
 		// Calculate the error between the currentMotorPosition and the targetPosition:
@@ -102,7 +138,9 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
 		// We're sending a velocity message command:
 		motor_msg->mode = opt_mode;
         motor_msg->header.n = n_opt_u;
-		
+
+#ifdef DEBUG	
+	
 		// Send the message!
         memcpy(motor_msg->u, opt_u, n_opt_u * sizeof(motor_msg->u[0]));
         struct timespec now;
@@ -110,12 +148,14 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
         sns_msg_set_time(&motor_msg->header, &now, 1e9);
 
         ach_put(refChan, motor_msg, sns_msg_motor_ref_size(motor_msg));
+#endif
 	} // End while
+
 	printf("DEBUG ONLY - DONE ROTATING TO TARGET DESTINATION!\n");
 
 	// Excellent policy to free up allocated memory:
-	//free(motor_msg);
-	//free(motor_info);
+	free(motor_msg);
+	free(motor_info);
 
 	// If we reach this point, the motor has reached its target position successfully:
 	return 0;  
