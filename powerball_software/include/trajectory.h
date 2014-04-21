@@ -8,7 +8,7 @@
  * RPI CS Robotics Lab
  * 4/12/14
  *
- * Last Updated: 4/14/14 - 2:09 PM
+ * Last Updated: 4/18/14 - 2:54 PM
  */   
 
 // Headers:
@@ -26,7 +26,7 @@ public:
 	Eigen::VectorXf calculateTrajectory();
 	void generateTrajectory();
 	void printTrajectory();
-	double getPosAtTime(const double time, const Eigen::VectorXf& solution);
+	double getPosAtTime(const double time);
 
 	// Accessor functions
 	inline double getTotalTime() const { return totalTime_; }

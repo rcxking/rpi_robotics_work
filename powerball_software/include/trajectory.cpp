@@ -5,7 +5,7 @@
  * RPI CS Robotics Lab
  * 4/14/14
  *
- * Last Updated: 4/14/14 - 2:12 PM
+ * Last Updated: 4/18/14 - 2:53 PM
  */
  
 // Headers:
@@ -143,11 +143,16 @@ void Trajectory::printTrajectory() {
 /*
  * getPosAtTime() returns the position the Powerball should be at a designated time.
  */
-double Trajectory::getPosAtTime(const double time, const Eigen::VectorXf& solution) {
+double Trajectory::getPosAtTime(const double time) {
 
 	double pos = 0.0;
 
-	pos = solution(0) * pow(time, 5) + solution(1) * pow(time, 4) + solution(2) * pow(time, 3) + solution(3) * pow(time, 2) + solution(4) * time + solution(5);
+	pos = trajectoryConstants(0) * pow(time, 5) + 
+          trajectoryConstants(1) * pow(time, 4) + 
+          trajectoryConstants(2) * pow(time, 3) +  
+          trajectoryConstants(3) * pow(time, 2) + 
+          trajectoryConstants(4) * time + 
+          trajectoryConstants(5);
 
 	return pos;
 } // End function getPosAtTime() 

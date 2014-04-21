@@ -6,11 +6,12 @@
  * RPI CS Robotics Lab
  * 3/26/14
  *
- * Last Updated: 4/15/14 - 3:57 PM
+ * Last Updated: 4/18/14 - 2:49 PM
  */
 
 // Libraries:
 #include <iostream>
+#include <unistd.h>
 #include <cmath>
 #include <cstdio>
 #include <ctime>
@@ -41,7 +42,7 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
 
 	// PID Variables:
 	double kp, ki, kd; // Proportional, Integral, and Derivative constants, respectively
-	kp = 0.01;
+	kp = 0.1;
 	ki = 0.0;
 	kd = 0.05;
 
@@ -106,6 +107,7 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
 		double duration = (currentTime - initialTime) / (double) 3800000000;
 		printf("It has been %lf seconds since the program started:\n", duration);
 
+		// This switch statement handles when a SIGINT (KeyboardInterrupt/Ctrl-C) is received:
 		switch(r) {
         	case ACH_MISSED_FRAME:
             	printf("Missed Frame!\n");
@@ -129,17 +131,27 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
 		// Calculate the error between the currentMotorPosition and the targetPosition:
 		error = currentMotorPosition - targetPosition;
 		absError = fabs(error);
-		printf("DEBUG ONLY - current error is %f\n", error);
+		//printf("DEBUG ONLY - current error is %f\n", error);
+
+
+		// Now that we have the current time, let's get the position where the robot should be:
+		double nextPos = traj.getPosAtTime(duration);
+		std::cout << "At time: " << duration << " the joint should be at position: " << nextPos << std::endl;
+		std::cout << "At time: " << duration << " the joint currently is at position: " << currentMotorPosition << std::endl;
+		double positionError = nextPos - currentMotorPosition;  
 
 		// Calculate the change in velocity:
-		deltaMotorVelocity = kp * error;
+		deltaMotorVelocity = kp * positionError;
 		currentMotorVelocity += deltaMotorVelocity;
 
 		// We're sending a velocity message command:
 		motor_msg->mode = opt_mode;
         motor_msg->header.n = n_opt_u;
 
-#ifdef DEBUG	
+		opt_u[0] = opt_u[1] = opt_u[2] = opt_u[3] = opt_u[4] = 0.0;
+		opt_u[5] = -1.0 * currentMotorVelocity;
+
+		printf("currentMotorVelocity is %f\n", currentMotorVelocity);
 	
 		// Send the message!
         memcpy(motor_msg->u, opt_u, n_opt_u * sizeof(motor_msg->u[0]));
@@ -147,8 +159,11 @@ int rotateToPosition(ach_channel_t *refChan, ach_channel_t *stateChan, int motor
         clock_gettime(ACH_DEFAULT_CLOCK, &now);
         sns_msg_set_time(&motor_msg->header, &now, 1e9);
 
+		//usleep(1000);
+
         ach_put(refChan, motor_msg, sns_msg_motor_ref_size(motor_msg));
-#endif
+
+		//usleep(10000);		
 	} // End while
 
 	printf("DEBUG ONLY - DONE ROTATING TO TARGET DESTINATION!\n");
