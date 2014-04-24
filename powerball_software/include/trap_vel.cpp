@@ -6,7 +6,7 @@
  * RPI CS Robotics Lab
  * 3/26/14
  *
- * Last Updated: 4/18/14 - 2:49 PM
+ * Last Updated: 4/24/14 - 2:20 PM
  */
 
 // Libraries:
@@ -18,6 +18,7 @@
 #include "trajectory.h"
 #include "sns.h" 
 
+// This function reads in the program's running time from the CPU's rdtsc register
 inline unsigned long long rdtsc(void) {
 	unsigned long long result = 0;
 	unsigned hi, lo;
@@ -27,8 +28,7 @@ inline unsigned long long rdtsc(void) {
 	} while(__builtin_expect((int) result == -1, 0));
 
 	return result;
-} 
-
+} // End function rdtsc()
 
 /* This function uses a PID loop to rotate the motor to a target position.
  *
