@@ -1,0 +1,49 @@
+Schunk Powerball LWA 4.6 Robotic Arm
+------------------------------------
+
+Last Updated: Bryant Pong: 4/27/14 - 5:04
+
+Overview
+--------
+The Schunk Powerball LWA (Light Weight Arm) 4.6 is a 6 Degree-of-Freedom spherical wrist robotic arm.  
+Unfortunately, software from the Schunk company has not been maintained, so this Wiki article will facilitate
+in installing, using, and developing new software for the Powerball.
+
+Hardware Overview
+-----------------
+The Powerball has 6 joints; each of the silver balls on the Powerball contains 2 joints (see Figure 1).  
+
+Software Overview
+-----------------
+The current software stack on the Powerball is running on Ubuntu 12.04 Linux. The backend code is written by
+Neil Dantam from Georgia Tech (please see https://github.com/golems for GA Tech's code).  ROS was deemed too slow
+to effectively run the Powerball; the bottleneck lies in "roscore", since all messages have to pass through the 
+roscore node to reach their destination.  As a result, Neil developed the following software for the Powerball:
+
+ACH
+---
+ACH is a library and set of utilities that acts as a replacement for ROS. This software performs high-performance
+Interprocess Communication (IPC), much like how ROS utilizes subscribers and publishers to send messages between nodes.
+
+SNS
+---
+SNS provides the message definitions of messages that can be sent through ACH.  This is the equivalent of the standard
+messages library in ROS "std_msgs".
+
+Socanmatic
+----------
+This is the a SocketCAN Device Driver that allows the Powerball computer to communicate with the Powerball.  Please
+see the section titled "SocketCan Device Driver" for more information.
+
+Reflex
+------
+Reflex is a set of libraries to help plan trajectory motions for the Powerball.
+
+Software Prerequisites:
+-----------------------
+You will need the following packages BEFORE installing GA Tech's software:
+
+sudo apt-get install gfortran build-essential autoconf automake libtool autoconf-archive autotools-dev libblas-dev liblapack-dev
+
+
+   
