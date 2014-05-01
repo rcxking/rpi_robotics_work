@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 3/24/14 - 1:53 PM
+Notes.txt - Last Updated: 4/28/14 - 2:22 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -257,3 +257,7 @@ Use 'snsdump state motor_state' to get the position and velocity values
 Eigen Library (sudo apt-get install libeigen3) for Linear Algebra/Matrices
 
 Use Eigen::MatrixXd for simple applications.
+
+4/28/14
+-------
+Next Task: Understand how sns_msg_motor_state messages are processed by the Powerball.   

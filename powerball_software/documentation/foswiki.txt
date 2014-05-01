@@ -1,7 +1,7 @@
 Schunk Powerball LWA 4.6 Robotic Arm
 ------------------------------------
 
-Last Updated: Bryant Pong: 4/27/14 - 5:04
+Last Updated: Bryant Pong: 4/28/14 - 12:21 PM
 
 Overview
 --------
@@ -43,7 +43,129 @@ Software Prerequisites:
 -----------------------
 You will need the following packages BEFORE installing GA Tech's software:
 
-sudo apt-get install gfortran build-essential autoconf automake libtool autoconf-archive autotools-dev libblas-dev liblapack-dev
+sudo apt-get install gfortran build-essential autoconf automake libtool \
+autoconf-archive autotools-dev libblas-dev liblapack-dev git git-core gcc-4.8
+
+You will also need to associate gcc to gcc-4.8.  In your .bashrc file, please add
+this line:
+
+export CC=/usr/bin/gcc-4.8 
+
+After installing these prerequisites, you can now proceed to installing Georgia Tech's 
+packages. As of this writing, you will need to install the ACH packages from 
+the Georgia Tech Golems PPA and git clone the remaining packages from their
+git repositories.  
+
+To add GA Tech's ACH PPA to your computer, please edit /etc/apt/sources.list and add
+the following line:
+
+deb http://code.golems.org/debian precise golems.org
+
+Now you can install the ACH libraries:
+
+sudo apt-get update
+sudo apt-get install ach-utils libach-dev libach1
+
+Next, please install the remaining packages in the exact order as follows (otherwise, 
+the packages will fail to build).  The build order is:
+
+ach
 
 
-   
+First, clone all the repositories using git:
+git clone http://thebrain.golems.org/git/lib/amino 
+git clone http://thebrain.golems.org/git/lib/sns
+git clone http://thebrain.golems.org/git/lib/socanmatic 
+git clone http://thebrain.golems.org/git/lib/reflex
+git clone http://thebrain.golems.org/netcanft
+
+In each of these repositories, you will need to cd into each directory and run the following
+commands:
+
+# Build the configure file:
+autoreconf -i 
+./configure 
+make
+sudo make install
+
+By default these libraries will install in your /usr/local/lib directory.  Thus you will
+need to modify your LD_LIBRARY_PATH and LD_RUN_PATH variables to include this directory:
+
+In your .bashrc file:
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+export LD_RUN_PATH=$LD_RUN_PATH:/usr/local/lib
+
+CONGRATULATIONS!  You have now successfully installed Georgia Tech's Powerball Libraries! :D
+
+SocketCan Device Driver
+-----------------------
+The GA Tech Libraries utilize SocketCan, a CAN Protocol that talks through UNIX sockets. Please refer
+to the CAN CIA-301 (Canopen Protocols) document for more information about SocketCan.
+
+The SocketCan device driver on Ubuntu is named "peak_pci".  Fortunately for us, the Linux kernel 
+contains this driver! :D  Execute the following command to insert the SocketCan Driver:
+
+sudo modprobe peak_pci
+
+and verify this with:
+
+lsmod | grep peak_pci
+
+You should see that peak_pci is inserted.
+
+Next, we have to modify the /etc/network/interfaces file to create our SocketCan drivers.
+
+sudo vim /etc/network/interfaces
+
+Your /etc/network/interfaces should look like this:
+
+auto lo
+iface lo inet loopback
+
+# can0:
+auto can0
+iface can0 inet manual
+		pre-up ip link set $IFACE type can bitrate 500000
+		up /sbin/ifconfig $IFACE up
+		down /sbin/ifconfig $IFACE down
+
+auto can1
+iface can1 inet manual
+		pre-up ip link set $IFACE type can bitrate 500000
+		up /sbin/ifconfig $IFACE up
+		down /sbin/ifconfig $IFACE down
+
+After this, please restart your computer for these network interfaces to take into effect.
+Now, use:
+
+ifconfig
+
+and look for can0 and can1 to show up. 
+
+Powerball Startup
+-----------------
+I created a small Bash script to facilitate starting up the Powerball.  This script 
+"powerball_script.sh" is located in ~/rpi_robotics_work/powerball_software and has
+the following lines:
+
+# Start the SNS logging daemon and create sns-log channel for debugging:
+sudo /usr/local/etc/init.d/sns start
+
+# Create the ACH state and reference channels (these are the channels that send data to and from the Powerball:)
+ach mk ref
+ach mk state
+
+# Finally, start the can402 SocketCan interface:
+can402 -f can1 -a socketcan -n 3 -n 4 -n 5 -n 6 -n 7 -n 8 -c ref -s state
+
+The last command seems cryptic... let's break it down:
+
+-f: This specifies the CAN interface to talk to.  On our Powerball, this interface is can1 (left 9-Pin serial port)
+-a: This specifies what CAN protocol to use.  We're using SocketCan.
+-n: These are the numbers corresponding to each of the joints on the Powerball.  As mentioned in the hardware overview,
+    these joints are numbered 3 (joint attached to the wall) to 8 (the end-effector wrist joint).
+-c: This is the reference channel (created by "ach mk ref").
+-s: This is the state channel (created by "ach mk state"). 
+
+

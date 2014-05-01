@@ -1,0 +1,9 @@
+Notes on Electric Motors and Control:
+-------------------------------------
+
+Direct-Drive Robots - Theory and Practice
+-----------------------------------------
+
+DC Motors:
+- Torque exerted in air gap between stator and rotor
+-  
