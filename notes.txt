@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 8/25/14 - 11:44 AM
+Notes.txt - Last Updated: 8/26/14 - 1:22 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -268,4 +268,18 @@ Begin work on understanding how motor drivers work for a robotic arm.
 
 The Powerball Arm's motors are: 24V DC Brushless Servo Motors with permanent magnet brakes.    
 
+8/26/14
+-------
+Adding the SDL Library to the remote control program to make it easier to drive the Powerball. 
 
+SDL (Simple Direct media Layer) is a library that handles audio/keyboard events/graphics.
+
+https://www.libsdl.org 
+
+I will be using SDL 1.2.  On Ubuntu 12.04 - 14.04, run:
+
+sudo apt-get install libsdl1.2-dev  
+
+The main file (SDL.h) is located by default in 
+
+/usr/include/SDL/SDL.h
