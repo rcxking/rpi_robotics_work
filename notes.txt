@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 4/28/14 - 2:22 PM
+Notes.txt - Last Updated: 8/25/14 - 11:44 AM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -261,3 +261,11 @@ Use Eigen::MatrixXd for simple applications.
 4/28/14
 -------
 Next Task: Understand how sns_msg_motor_state messages are processed by the Powerball.   
+
+8/25/14
+-------
+Begin work on understanding how motor drivers work for a robotic arm.
+
+The Powerball Arm's motors are: 24V DC Brushless Servo Motors with permanent magnet brakes.    
+
+
