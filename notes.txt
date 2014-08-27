@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 8/26/14 - 1:22 PM
+Notes.txt - Last Updated: 8/27/14 - 2:57 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -283,3 +283,7 @@ sudo apt-get install libsdl1.2-dev
 The main file (SDL.h) is located by default in 
 
 /usr/include/SDL/SDL.h
+
+8/27/14
+-------
+
