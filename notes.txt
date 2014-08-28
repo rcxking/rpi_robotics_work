@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 8/27/14 - 2:57 PM
+Notes.txt - Last Updated: 8/28/14 - 11:58 AM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -284,6 +284,11 @@ The main file (SDL.h) is located by default in
 
 /usr/include/SDL/SDL.h
 
-8/27/14
+8/28/14
 -------
+Installed ROS Hydro on Powerball computer. 
+
+Install Frauenhoefer Institute's updated schunk_robots package:
+
+
 
