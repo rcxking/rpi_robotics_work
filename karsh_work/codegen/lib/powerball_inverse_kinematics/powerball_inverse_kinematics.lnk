@@ -1,7 +1,0 @@
-powerball_inverse_kinematics_initialize.obj
-powerball_inverse_kinematics_terminate.obj
-powerball_inverse_kinematics.obj
-norm.obj
-rt_nonfinite.obj
-rtGetNaN.obj
-rtGetInf.obj
