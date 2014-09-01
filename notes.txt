@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 8/28/14 - 11:58 AM
+Notes.txt - Last Updated: 9/1/14 - 2:47 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -290,5 +290,10 @@ Installed ROS Hydro on Powerball computer.
 
 Install Frauenhoefer Institute's updated schunk_robots package:
 
+9/1/14
+------
+On Vagrant Box:
 
+- Dependencies for ROS Hydro:
+sudo apt-get install ros-hydro-libpcan ros-hydro-brics-actuator ros-hydro-cobs-srvs
 

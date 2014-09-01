@@ -10,6 +10,9 @@
 #
 # Last Updated: 8/31/14 - 3:25 PM   
 
+apt-get update
+apt-get upgrade -y
+
 # Install vim, g++:
 apt-get install -y vim g++
 
@@ -17,7 +20,7 @@ apt-get install -y vim g++
 sh -c 'echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list'  
 
 # Get the keys for ROS Hydro installation:
-https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -O - | sudo apt-key add -
+wget https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -O - | sudo apt-key add -
 
 # Update the package repositories:
 apt-get update 
