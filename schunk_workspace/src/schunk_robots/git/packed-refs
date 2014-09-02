@@ -1,0 +1,14 @@
+# pack-refs with: peeled 
+6d85890881b9ad29721cdf2d332fec386565e0bb refs/remotes/origin/electric
+3cb27079872faf0109364502f7aed90a513e55ce refs/remotes/origin/electric_dev
+6d85890881b9ad29721cdf2d332fec386565e0bb refs/remotes/origin/fuerte
+1e617a32cede1bb8efa1d1d15037bf0069615828 refs/remotes/origin/fuerte_dev
+fde9021bfc913c964755dd51187130e07b7f009a refs/remotes/origin/groovy_dev
+c28f88b178b89b124e4dad1f3fcc8e591b860a9d refs/remotes/origin/hydro_dev
+6220a2765cf4dc410d3814077fa2f46a19a07cc8 refs/remotes/origin/hydro_release_candidate
+c28f88b178b89b124e4dad1f3fcc8e591b860a9d refs/remotes/origin/indigo_dev
+26c33a75266d2f4728432b85910e4e352121f9f6 refs/remotes/origin/release_electric
+26c33a75266d2f4728432b85910e4e352121f9f6 refs/remotes/origin/release_fuerte
+2d72c23c0b32210b096aea024971f93f7e49bdfe refs/tags/schunk_robots-0.1.0
+d27794be705287e45e8db288b408792c48316f9f refs/tags/schunk_robots-0.1.1
+6d85890881b9ad29721cdf2d332fec386565e0bb refs/tags/schunk_robots-0.1.2

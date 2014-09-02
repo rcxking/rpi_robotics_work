@@ -1,0 +1,22 @@
+# pack-refs with: peeled 
+09dc2c993493306d8d3afaeb13b27575216f3ee0 refs/remotes/origin/electric_dev
+201b9715a89211e7949dcffb19ecc7bcf379fbf2 refs/remotes/origin/fuerte_dev
+af7819f194d566ae6450c92c31ef26bd2e9048d4 refs/remotes/origin/fuerte_release_candidate
+401839870e7dcbd7d61f35b163b38ce32bf9d60c refs/remotes/origin/groovy
+ee1e37f2c0d6ea7d8f88fa82b4aee790a4202f11 refs/remotes/origin/groovy_dev
+401839870e7dcbd7d61f35b163b38ce32bf9d60c refs/remotes/origin/groovy_release_candidate
+b36e070f44fc2706c0b97db26e16c6c1f2d859f9 refs/remotes/origin/hydro_dev
+a8ae3dfc7f6786aeb24a39fd7206bdc71fce6a5d refs/remotes/origin/hydro_release_candidate
+5844f2b8deff75b447c1f28ceaa0d3d5718cf684 refs/remotes/origin/indigo_dev
+0ad904a7d4a27b8b0041230b3b2ff7b4ec9cfef1 refs/remotes/origin/indigo_release_candidate
+957bc827db62bd7183f88277db6ca4aa62ccf896 refs/tags/0.5.1
+a51e822b6e3aa7e939983cab37eb8d6b337c1472 refs/tags/0.5.2
+89e8fb7776616b5bd5fd4714e2e4d137eea900fe refs/tags/0.5.3
+7c68ea433aa2358a13c87d3bc20fd49f5c235d73 refs/tags/0.5.4
+5a3b92bc0cf728b339836a05b24a3140c493d5bc refs/tags/0.5.5
+a8ae3dfc7f6786aeb24a39fd7206bdc71fce6a5d refs/tags/0.5.6
+0ad904a7d4a27b8b0041230b3b2ff7b4ec9cfef1 refs/tags/0.5.7
+c248516252793f5a871f82d00fbd149c93100cd2 refs/tags/ipa_canopen-0.4.0
+875a06bcfa9f9d9d3b4400e7a944c271ae39e5bc refs/tags/ipa_canopen-0.5.0
+401839870e7dcbd7d61f35b163b38ce32bf9d60c refs/tags/ipa_canopen-0.5.1
+af7819f194d566ae6450c92c31ef26bd2e9048d4 refs/tags/tested
