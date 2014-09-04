@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 9/1/14 - 2:47 PM
+Notes.txt - Last Updated: 9/4/14 - 11:43 AM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -297,3 +297,31 @@ On Vagrant Box:
 - Dependencies for ROS Hydro:
 sudo apt-get install ros-hydro-libpcan ros-hydro-brics-actuator ros-hydro-cobs-srvs
 
+9/4/14
+------
+Install PEAK Linux Driver: 7.12
+www.peak-system.com 
+
+After installing pcan:
+
+sudo modprobe pcan
+
+To test if the module has been initialized:
+cat /proc/pcan
+
+Because of GA Tech's libraries, comment out the socketcan devices in /etc/network/interfaces  
+
+Installed:
+ros-hydro-pr2-controllers
+ros-hydro-audio-common
+ros-hydro-pr2-power-drivers
+ros-hydro-moveit-full-pr2
+
+ros-groovy-
+
+ros-fuerte-schunk-robots
+
+Inside schunk_lwa4p/config/canopen.yaml:
+	- changed device from /dev/pcan32 to /dev/pcan1 
+Inside schunk_lwa4p/config/controller.yaml:
+	- changed all devices from /dev/pcan32 to /dev/pcan1
