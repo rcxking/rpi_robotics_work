@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
+
+Name: schunk_description
+Description: Description of schunk_description
+Version: 0.5.4
+Cflags: 
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib 
+Requires: 

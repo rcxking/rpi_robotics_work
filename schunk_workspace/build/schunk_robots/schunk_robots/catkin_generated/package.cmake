@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "schunk_robots")
+set(schunk_robots_MAINTAINER "Florian Weisshardt <fmw@ipa.fhg.de>")
+set(schunk_robots_DEPRECATED "")
+set(schunk_robots_VERSION "0.5.0")
+set(schunk_robots_BUILD_DEPENDS )
+set(schunk_robots_RUN_DEPENDS "schunk_lwa4p" "schunk_lwa4p_extended")
+set(schunk_robots_BUILDTOOL_DEPENDS "catkin")

@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "schunk_lwa4p_extended")
+set(schunk_lwa4p_extended_MAINTAINER "Thiago de Freitas <tdf@ipa.fhg.de>")
+set(schunk_lwa4p_extended_DEPRECATED "")
+set(schunk_lwa4p_extended_VERSION "0.5.0")
+set(schunk_lwa4p_extended_BUILD_DEPENDS )
+set(schunk_lwa4p_extended_RUN_DEPENDS "ipa_canopen_ros" "cob_command_gui" "cob_dashboard" "joy" "cob_teleop" "robot_state_publisher" "cob_trajectory_controller" "gazebo_ros" "rostopic" "joint_trajectory_action" "diagnostic_aggregator" "pr2_dashboard_aggregator" "pr2_controller_manager" "pr2_mechanism_diagnostics")
+set(schunk_lwa4p_extended_BUILDTOOL_DEPENDS "catkin")

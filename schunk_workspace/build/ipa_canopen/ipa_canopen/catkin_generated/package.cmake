@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "ipa_canopen")
+set(ipa_canopen_MAINTAINER "Thiago de Freitas <tdf@ipa.fhg.de>, Florian Weisshardt <fmw@ipa.fhg.de>")
+set(ipa_canopen_DEPRECATED "")
+set(ipa_canopen_VERSION "0.5.6")
+set(ipa_canopen_BUILD_DEPENDS )
+set(ipa_canopen_RUN_DEPENDS "ipa_canopen_core" "ipa_canopen_ros")
+set(ipa_canopen_BUILDTOOL_DEPENDS "catkin")

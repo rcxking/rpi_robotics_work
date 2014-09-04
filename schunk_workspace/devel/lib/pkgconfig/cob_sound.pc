@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
+
+Name: cob_sound
+Description: Description of cob_sound
+Version: 0.5.5
+Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/devel/include
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib 
+Requires: rospy roscpp geometry_msgs sound_play actionlib actionlib_msgs std_msgs cob_srvs diagnostic_msgs message_runtime

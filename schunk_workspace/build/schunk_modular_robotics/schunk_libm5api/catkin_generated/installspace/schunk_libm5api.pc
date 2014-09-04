@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
+
+Name: schunk_libm5api
+Description: Description of schunk_libm5api
+Version: 0.5.4
+Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/install/include
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib -lm5api
+Requires: libpcan libntcan roslib

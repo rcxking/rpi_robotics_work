@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/powerball/rpi_robotics_work/schunk_workspace/src/cob_driver/cob_sick_lms1xx/common/include/lms1xx.h
+string
+-
+stdint.h
+-
+
+/home/powerball/rpi_robotics_work/schunk_workspace/src/cob_driver/cob_sick_lms1xx/common/src/lms1xx.cpp
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+cstdio
+-
+cstdlib
+-
+cstring
+-
+unistd.h
+-
+iostream
+-
+errno.h
+-
+lms1xx.h
+/home/powerball/rpi_robotics_work/schunk_workspace/src/cob_driver/cob_sick_lms1xx/common/src/lms1xx.h
+

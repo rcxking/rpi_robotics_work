@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
+
+Name: raw_description
+Description: Description of raw_description
+Version: 0.5.3
+Cflags: 
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib 
+Requires: 

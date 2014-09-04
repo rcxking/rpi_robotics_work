@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
+
+Name: ipa_canopen_core
+Description: Description of ipa_canopen_core
+Version: 0.5.6
+Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/install/include
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib -lipa_canopen_core
+Requires: roscpp libpcan

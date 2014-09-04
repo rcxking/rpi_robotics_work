@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "cob_sick_s300")
+set(cob_sick_s300_MAINTAINER "Joshua Hampp <joshua.hampp@ipa.fhg.de>")
+set(cob_sick_s300_DEPRECATED "")
+set(cob_sick_s300_VERSION "0.5.5")
+set(cob_sick_s300_BUILD_DEPENDS "roscpp" "rostest" "sensor_msgs" "message_filters" "diagnostic_msgs" "tf" "tf2_ros" "laser_geometry")
+set(cob_sick_s300_RUN_DEPENDS "roscpp" "rostest" "sensor_msgs" "message_filters" "diagnostic_msgs" "tf" "tf2_ros" "laser_geometry")
+set(cob_sick_s300_BUILDTOOL_DEPENDS "catkin")

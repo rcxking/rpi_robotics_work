@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/powerball/rpi_robotics_work/schunk_workspace/install/setup.sh

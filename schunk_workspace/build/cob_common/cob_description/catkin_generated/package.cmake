@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "cob_description")
+set(cob_description_MAINTAINER "Nadia Hammoudeh Garcia <nhg@ipa.fhg.de>")
+set(cob_description_DEPRECATED "")
+set(cob_description_VERSION "0.5.3")
+set(cob_description_BUILD_DEPENDS )
+set(cob_description_RUN_DEPENDS )
+set(cob_description_BUILDTOOL_DEPENDS "catkin")

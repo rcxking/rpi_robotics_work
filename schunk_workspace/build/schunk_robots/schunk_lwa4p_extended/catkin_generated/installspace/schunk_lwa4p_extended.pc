@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
+
+Name: schunk_lwa4p_extended
+Description: Description of schunk_lwa4p_extended
+Version: 0.5.0
+Cflags: 
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib 
+Requires: ipa_canopen_ros cob_command_gui cob_dashboard joy cob_teleop robot_state_publisher cob_trajectory_controller gazebo_ros rostopic joint_trajectory_action diagnostic_aggregator pr2_dashboard_aggregator pr2_controller_manager pr2_mechanism_diagnostics

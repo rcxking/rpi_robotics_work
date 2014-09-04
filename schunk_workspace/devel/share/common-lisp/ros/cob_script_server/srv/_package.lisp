@@ -1,0 +1,10 @@
+(cl:defpackage cob_script_server-srv
+  (:use )
+  (:export
+   "COMPOSETRAJECTORY"
+   "<COMPOSETRAJECTORY-REQUEST>"
+   "COMPOSETRAJECTORY-REQUEST"
+   "<COMPOSETRAJECTORY-RESPONSE>"
+   "COMPOSETRAJECTORY-RESPONSE"
+  ))
+

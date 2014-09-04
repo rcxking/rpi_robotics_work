@@ -1,0 +1,9 @@
+\subsubsection usage Usage
+\verbatim
+<node name="cob_voltage_control" pkg="cob_voltage_control" type="cob_voltage_control">
+  <param name="scanner_em_input" type="int" value="0" />
+  <param name="voltage_level_input" type="int" value="0" />
+  <param name="global_em_input" type="int" value="1" />
+</node>
+\endverbatim
+

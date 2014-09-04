@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "cob_command_gui")
+set(cob_command_gui_MAINTAINER "Florian Weisshardt <fmw@ipa.fhg.de>")
+set(cob_command_gui_DEPRECATED "")
+set(cob_command_gui_VERSION "0.5.1")
+set(cob_command_gui_BUILD_DEPENDS )
+set(cob_command_gui_RUN_DEPENDS "rospy" "cob_script_server" "cob_relayboard")
+set(cob_command_gui_BUILDTOOL_DEPENDS "catkin")

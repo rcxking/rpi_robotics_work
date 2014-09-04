@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "libpcan")
+set(libpcan_MAINTAINER "Florian Weisshardt <fmw@ipa.fhg.de>")
+set(libpcan_DEPRECATED "")
+set(libpcan_VERSION "0.5.2")
+set(libpcan_BUILD_DEPENDS "libpopt-dev" "mk" "rosbuild" "rospack" "roslib" "linux-headers-generic")
+set(libpcan_RUN_DEPENDS )
+set(libpcan_BUILDTOOL_DEPENDS "catkin")

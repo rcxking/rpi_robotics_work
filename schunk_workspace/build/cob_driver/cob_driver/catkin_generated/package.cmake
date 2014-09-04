@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "cob_driver")
+set(cob_driver_MAINTAINER "Florian Weisshardt <fmw@ipa.fhg.de>, Nadia Hammoudeh Garcia <nhg@ipa.fhg.de>")
+set(cob_driver_DEPRECATED "")
+set(cob_driver_VERSION "0.5.5")
+set(cob_driver_BUILD_DEPENDS )
+set(cob_driver_RUN_DEPENDS "cob_base_drive_chain" "cob_camera_sensors" "cob_canopen_motor" "cob_generic_can" "cob_head_axis" "cob_hokuyo" "cob_hwboard" "cob_light" "cob_phidgets" "cob_relayboard" "cob_sick_lms1xx" "cob_sick_s300" "cob_sound" "cob_undercarriage_ctrl" "cob_utilities" "cob_voltage_control")
+set(cob_driver_BUILDTOOL_DEPENDS "catkin")

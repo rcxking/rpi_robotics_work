@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "cob_phidgets")
+set(cob_phidgets_MAINTAINER "Benjamin Maidel <benjamin.maidel@ipa.fraunhofer.de>")
+set(cob_phidgets_DEPRECATED "")
+set(cob_phidgets_VERSION "0.5.5")
+set(cob_phidgets_BUILD_DEPENDS "roscpp" "rospy" "libphidgets" "std_msgs" "sensor_msgs" "message_generation")
+set(cob_phidgets_RUN_DEPENDS "roscpp" "rospy" "libphidgets" "std_msgs" "sensor_msgs" "message_runtime")
+set(cob_phidgets_BUILDTOOL_DEPENDS "catkin")

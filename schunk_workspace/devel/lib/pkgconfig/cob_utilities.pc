@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
+
+Name: cob_utilities
+Description: Description of cob_utilities
+Version: 0.5.5
+Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/src/cob_driver/cob_utilities/common/include
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib -lcob_utilities
+Requires: roscpp

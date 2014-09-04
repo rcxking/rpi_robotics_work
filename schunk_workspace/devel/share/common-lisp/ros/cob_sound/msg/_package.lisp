@@ -1,0 +1,19 @@
+(cl:defpackage cob_sound-msg
+  (:use )
+  (:export
+   "<SAYGOAL>"
+   "SAYGOAL"
+   "<SAYACTIONFEEDBACK>"
+   "SAYACTIONFEEDBACK"
+   "<SAYRESULT>"
+   "SAYRESULT"
+   "<SAYACTION>"
+   "SAYACTION"
+   "<SAYACTIONGOAL>"
+   "SAYACTIONGOAL"
+   "<SAYFEEDBACK>"
+   "SAYFEEDBACK"
+   "<SAYACTIONRESULT>"
+   "SAYACTIONRESULT"
+  ))
+

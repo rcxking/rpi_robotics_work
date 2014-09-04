@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "cob_teleop")
+set(cob_teleop_MAINTAINER "Florian Weisshardt <fmw@ipa.fhg.de>")
+set(cob_teleop_DEPRECATED "")
+set(cob_teleop_VERSION "0.5.1")
+set(cob_teleop_BUILD_DEPENDS "cob_srvs" "roscpp" "geometry_msgs" "sensor_msgs" "trajectory_msgs" "cob_srvs" "std_msgs" "brics_actuator")
+set(cob_teleop_RUN_DEPENDS "roscpp" "cob_srvs" "geometry_msgs" "sensor_msgs" "trajectory_msgs" "std_msgs" "brics_actuator")
+set(cob_teleop_BUILDTOOL_DEPENDS "catkin")

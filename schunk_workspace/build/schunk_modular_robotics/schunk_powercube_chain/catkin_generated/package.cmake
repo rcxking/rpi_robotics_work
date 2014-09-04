@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "schunk_powercube_chain")
+set(schunk_powercube_chain_MAINTAINER "Florian Weisshardt <fmw@ipa.fhg.de>")
+set(schunk_powercube_chain_DEPRECATED "")
+set(schunk_powercube_chain_VERSION "0.5.4")
+set(schunk_powercube_chain_BUILD_DEPENDS "roscpp" "sensor_msgs" "urdf" "diagnostic_updater" "schunk_libm5api" "libntcan" "libpcan" "cob_srvs" "brics_actuator" "diagnostic_msgs" "control_msgs" "rostest" "rostest")
+set(schunk_powercube_chain_RUN_DEPENDS "sensor_msgs" "urdf" "diagnostic_updater" "schunk_libm5api" "libntcan" "libpcan" "cob_srvs" "brics_actuator" "diagnostic_msgs" "control_msgs")
+set(schunk_powercube_chain_BUILDTOOL_DEPENDS "catkin")

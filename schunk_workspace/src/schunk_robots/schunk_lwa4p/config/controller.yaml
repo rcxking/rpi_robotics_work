@@ -6,7 +6,7 @@ OperationMode: position
 
 joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint"]
 module_ids: [3,4,5,6,7,8]
-devices: ["/dev/pcan32", "/dev/pcan32", "/dev/pcan32","/dev/pcan32","/dev/pcan32","/dev/pcan32"]
+devices: ["/dev/pcan1", "/dev/pcan1", "/dev/pcan1","/dev/pcan1","/dev/pcan1","/dev/pcan1"]
 
 # trajectory controller parameters
 ptp_vel: 0.4 # rad/sec

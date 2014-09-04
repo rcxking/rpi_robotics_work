@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "ipa_canopen_ros")
+set(ipa_canopen_ros_MAINTAINER "Thiago de Freitas <tdf@ipa.fhg.de>")
+set(ipa_canopen_ros_DEPRECATED "")
+set(ipa_canopen_ros_VERSION "0.5.6")
+set(ipa_canopen_ros_BUILD_DEPENDS "std_msgs" "control_msgs" "diagnostic_msgs" "brics_actuator" "rospy" "urdf" "roscpp" "libpcan" "cob_srvs" "sensor_msgs" "ipa_canopen_core" "yaml-cpp")
+set(ipa_canopen_ros_RUN_DEPENDS "roscpp" "cob_srvs" "brics_actuator" "sensor_msgs" "control_msgs" "diagnostic_msgs" "ipa_canopen_core" "std_msgs" "rospy" "libpcan")
+set(ipa_canopen_ros_BUILDTOOL_DEPENDS "catkin")

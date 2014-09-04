@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
+
+Name: cob_camera_sensors
+Description: Description of cob_camera_sensors
+Version: 0.5.5
+Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/install/include
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib 
+Requires: roscpp sensor_msgs std_msgs pluginlib message_runtime message_filters nodelet

@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
+
+Name: cob_command_gui
+Description: Description of cob_command_gui
+Version: 0.5.1
+Cflags: 
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib 
+Requires: 

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="torso_gazebo" params="name">
+
+    <gazebo reference="${name}_base_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <gazebo reference="${name}_1_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+    
+    <gazebo reference="${name}_2_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+    
+    <gazebo reference="${name}_3_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "desire_description")
+set(desire_description_MAINTAINER "Nadia Hammoudeh Garcia <nhg@ipa.fhg.de>")
+set(desire_description_DEPRECATED "")
+set(desire_description_VERSION "0.5.3")
+set(desire_description_BUILD_DEPENDS )
+set(desire_description_RUN_DEPENDS "cob_description")
+set(desire_description_BUILDTOOL_DEPENDS "catkin")

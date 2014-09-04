@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
+
+Name: cob_dashboard
+Description: Description of cob_dashboard
+Version: 0.5.1
+Cflags: 
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib 
+Requires: rospy roslib std_srvs pr2_msgs rqt_pr2_dashboard

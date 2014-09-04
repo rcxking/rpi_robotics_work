@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "cob_base_drive_chain")
+set(cob_base_drive_chain_MAINTAINER "Matthias Gruhler <mig@ipa.fhg.de>")
+set(cob_base_drive_chain_DEPRECATED "")
+set(cob_base_drive_chain_VERSION "0.5.5")
+set(cob_base_drive_chain_BUILD_DEPENDS "roscpp" "sensor_msgs" "std_msgs" "geometry_msgs" "diagnostic_msgs" "cob_srvs" "cob_generic_can" "cob_canopen_motor" "message_generation" "cob_utilities" "libpcan" "libntcan" "control_msgs")
+set(cob_base_drive_chain_RUN_DEPENDS "roscpp" "sensor_msgs" "diagnostic_msgs" "std_msgs" "geometry_msgs" "cob_srvs" "cob_generic_can" "cob_canopen_motor" "cob_utilities" "libpcan" "message_runtime" "control_msgs")
+set(cob_base_drive_chain_BUILDTOOL_DEPENDS "catkin")

@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
+
+Name: schunk_simulated_tactile_sensors
+Description: Description of schunk_simulated_tactile_sensors
+Version: 0.5.4
+Cflags: 
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib 
+Requires: rospy schunk_sdh geometry_msgs

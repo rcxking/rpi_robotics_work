@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "libntcan")
+set(libntcan_MAINTAINER "Florian Weisshardt <fmw@ipa.fhg.de>")
+set(libntcan_DEPRECATED "")
+set(libntcan_VERSION "0.5.2")
+set(libntcan_BUILD_DEPENDS "dpkg")
+set(libntcan_RUN_DEPENDS )
+set(libntcan_BUILDTOOL_DEPENDS "catkin")

@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
+
+Name: cob_relayboard
+Description: Description of cob_relayboard
+Version: 0.5.5
+Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/devel/include -I/home/powerball/rpi_robotics_work/schunk_workspace/src/cob_driver/cob_relayboard/common/include
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib -lSerialIO -lcob_relayboard
+Requires: message_runtime roscpp rostest std_msgs cob_utilities pr2_msgs

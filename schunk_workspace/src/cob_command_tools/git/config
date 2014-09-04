@@ -1,0 +1,11 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	url = git://github.com/ipa320/cob_command_tools.git
+[branch "hydro_dev"]
+	remote = origin
+	merge = refs/heads/hydro_dev

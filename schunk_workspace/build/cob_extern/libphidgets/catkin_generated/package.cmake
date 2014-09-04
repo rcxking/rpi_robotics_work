@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "libphidgets")
+set(libphidgets_MAINTAINER "Benjamin Maidel <benjamin.maidel@ipa.fraunhofer.de>")
+set(libphidgets_DEPRECATED "")
+set(libphidgets_VERSION "0.5.2")
+set(libphidgets_BUILD_DEPENDS "mk" "rosbuild" "rospack" "roslib" "libusb-dev")
+set(libphidgets_RUN_DEPENDS "libusb")
+set(libphidgets_BUILDTOOL_DEPENDS "catkin")

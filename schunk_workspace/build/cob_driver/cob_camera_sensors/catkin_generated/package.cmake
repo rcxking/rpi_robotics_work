@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "cob_camera_sensors")
+set(cob_camera_sensors_MAINTAINER "Jan Fischer <jsf@ipa.fhg.de>")
+set(cob_camera_sensors_DEPRECATED "")
+set(cob_camera_sensors_VERSION "0.5.5")
+set(cob_camera_sensors_BUILD_DEPENDS "roscpp" "sensor_msgs" "pluginlib" "std_msgs" "message_generation" "message_filters" "nodelet")
+set(cob_camera_sensors_RUN_DEPENDS "roscpp" "sensor_msgs" "pluginlib" "std_msgs" "message_runtime" "message_filters" "nodelet")
+set(cob_camera_sensors_BUILDTOOL_DEPENDS "catkin")

@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
+
+Name: libntcan
+Description: Description of libntcan
+Version: 0.5.2
+Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/src/cob_extern/libntcan/common/include -I/home/powerball/rpi_robotics_work/schunk_workspace/src/cob_extern/libntcan/common/include/libntcan
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib -lntcan
+Requires: 
