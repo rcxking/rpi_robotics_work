@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "schunk_sdh")
-set(schunk_sdh_MAINTAINER "Mathias Luedtke <mdl@ipa.fhg.de>")
-set(schunk_sdh_DEPRECATED "")
-set(schunk_sdh_VERSION "0.5.4")
-set(schunk_sdh_BUILD_DEPENDS "roscpp" "actionlib" "urdf" "std_msgs" "sensor_msgs" "trajectory_msgs" "actionlib" "cob_srvs" "control_msgs" "libusb-dev" "libntcan" "libpcan" "diagnostic_msgs" "brics_actuator" "message_generation" "dpkg")
-set(schunk_sdh_RUN_DEPENDS "roscpp" "urdf" "std_msgs" "sensor_msgs" "trajectory_msgs" "actionlib" "cob_srvs" "control_msgs" "libusb-dev" "libntcan" "libpcan" "diagnostic_msgs" "brics_actuator" "message_runtime")
-set(schunk_sdh_BUILDTOOL_DEPENDS "catkin")

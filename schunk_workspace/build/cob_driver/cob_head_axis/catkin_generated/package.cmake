@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "cob_head_axis")
-set(cob_head_axis_MAINTAINER "Matthias Gruhler <mig@ipa.fhg.de>")
-set(cob_head_axis_DEPRECATED "")
-set(cob_head_axis_VERSION "0.5.5")
-set(cob_head_axis_BUILD_DEPENDS "roscpp" "sensor_msgs" "cob_srvs" "actionlib" "cob_generic_can" "cob_canopen_motor" "cob_utilities" "urdf" "libntcan" "diagnostic_msgs" "control_msgs")
-set(cob_head_axis_RUN_DEPENDS "roscpp" "sensor_msgs" "cob_srvs" "actionlib" "cob_generic_can" "cob_canopen_motor" "cob_utilities" "urdf" "rostest" "libntcan" "diagnostic_msgs" "control_msgs")
-set(cob_head_axis_BUILDTOOL_DEPENDS "catkin")

@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC    -shared -Wl,-soname,libcob_undercarriage_ctrl.so -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/libcob_undercarriage_ctrl.so CMakeFiles/cob_undercarriage_ctrl.dir/common/src/UndercarriageCtrlGeom.cpp.o 

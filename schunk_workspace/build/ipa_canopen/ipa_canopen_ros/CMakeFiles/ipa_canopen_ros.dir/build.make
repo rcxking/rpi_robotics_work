@@ -118,7 +118,7 @@ ipa_canopen_ros_EXTERNAL_OBJECTS =
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_ros/ipa_canopen_ros: /usr/lib/liblog4cxx.so
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_ros/ipa_canopen_ros: /usr/lib/libboost_regex-mt.so
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_ros/ipa_canopen_ros: /opt/ros/hydro/lib/libxmlrpcpp.so
-/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_ros/ipa_canopen_ros: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/libpcan.so
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_ros/ipa_canopen_ros: /opt/ros/hydro/lib/libpcan.so
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_ros/ipa_canopen_ros: /opt/ros/hydro/lib/libroscpp_serialization.so
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_ros/ipa_canopen_ros: /opt/ros/hydro/lib/librostime.so
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_ros/ipa_canopen_ros: /usr/lib/libboost_date_time-mt.so

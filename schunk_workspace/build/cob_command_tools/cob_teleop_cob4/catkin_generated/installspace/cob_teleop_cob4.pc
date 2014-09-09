@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
-
-Name: cob_teleop_cob4
-Description: Description of cob_teleop_cob4
-Version: 0.1.0
-Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/install/include
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib 
-Requires: roscpp dynamic_reconfigure sensor_msgs geometry_msgs brics_actuator std_msgs trajectory_msgs cob_script_server cob_srvs

@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
-
-Name: cob_head_axis
-Description: Description of cob_head_axis
-Version: 0.5.5
-Cflags: 
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib 
-Requires: roscpp rostest sensor_msgs cob_srvs actionlib cob_generic_can cob_canopen_motor cob_utilities urdf libntcan diagnostic_msgs control_msgs

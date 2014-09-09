@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "cob_light")
-set(cob_light_MAINTAINER "Benjamin Maidel <bnm@ipa.fhg.de>")
-set(cob_light_DEPRECATED "")
-set(cob_light_VERSION "0.5.5")
-set(cob_light_BUILD_DEPENDS "rospy" "roscpp" "std_msgs" "visualization_msgs" "actionlib" "actionlib_msgs" "actionlib_msgs" "geometry_msgs" "diagnostic_msgs" "message_generation")
-set(cob_light_RUN_DEPENDS "rospy" "message_runtime" "roscpp" "std_msgs" "visualization_msgs" "actionlib" "actionlib_msgs" "geometry_msgs" "diagnostic_msgs")
-set(cob_light_BUILDTOOL_DEPENDS "catkin")

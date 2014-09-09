@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
-
-Name: cob_sick_s300
-Description: Description of cob_sick_s300
-Version: 0.5.5
-Cflags: 
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib 
-Requires: roscpp rostest sensor_msgs message_filters diagnostic_msgs tf tf2_ros laser_geometry

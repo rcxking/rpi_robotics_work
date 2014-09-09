@@ -11,8 +11,6 @@ SET(CMAKE_FORCE_UNIX_PATHS 1)
 # The C and CXX include file search paths:
 SET(CMAKE_C_INCLUDE_PATH
   "/home/powerball/rpi_robotics_work/schunk_workspace/src/ipa_canopen/ipa_canopen_core/include"
-  "/home/powerball/rpi_robotics_work/schunk_workspace/src/cob_extern/libpcan/common/include"
-  "/home/powerball/rpi_robotics_work/schunk_workspace/src/cob_extern/libpcan/common/include/libpcan"
   "/opt/ros/hydro/include"
   )
 SET(CMAKE_CXX_INCLUDE_PATH ${CMAKE_C_INCLUDE_PATH})

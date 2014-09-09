@@ -1,4 +1,4 @@
-devices:
+device:
   - name: /dev/pcan1
     baudrate: 500K
     sync_interval: 10

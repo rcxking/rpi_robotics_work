@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "raw_description")
-set(raw_description_MAINTAINER "Alexander Bubeck <aub@ipa.fhg.de>")
-set(raw_description_DEPRECATED "")
-set(raw_description_VERSION "0.5.3")
-set(raw_description_BUILD_DEPENDS )
-set(raw_description_RUN_DEPENDS "cob_description")
-set(raw_description_BUILDTOOL_DEPENDS "catkin")

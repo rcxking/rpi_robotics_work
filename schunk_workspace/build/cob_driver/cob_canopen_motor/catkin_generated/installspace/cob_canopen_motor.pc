@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
-
-Name: cob_canopen_motor
-Description: Description of cob_canopen_motor
-Version: 0.5.5
-Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/install/include
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib -lcob_canopen_motor_harmonica
-Requires: roscpp cob_generic_can cob_utilities

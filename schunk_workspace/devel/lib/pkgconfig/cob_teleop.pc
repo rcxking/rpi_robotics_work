@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
-
-Name: cob_teleop
-Description: Description of cob_teleop
-Version: 0.5.1
-Cflags: 
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib 
-Requires: std_msgs roscpp geometry_msgs sensor_msgs trajectory_msgs cob_srvs brics_actuator

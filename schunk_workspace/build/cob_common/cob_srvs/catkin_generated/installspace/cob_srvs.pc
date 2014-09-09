@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
-
-Name: cob_srvs
-Description: Description of cob_srvs
-Version: 0.5.3
-Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/install/include
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib 
-Requires: message_runtime std_msgs trajectory_msgs geometry_msgs

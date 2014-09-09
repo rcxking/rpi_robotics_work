@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "cob_utilities")
-set(cob_utilities_MAINTAINER "Matthias Gruhler <mig@ipa.fhg.de>")
-set(cob_utilities_DEPRECATED "")
-set(cob_utilities_VERSION "0.5.5")
-set(cob_utilities_BUILD_DEPENDS "roscpp")
-set(cob_utilities_RUN_DEPENDS "roscpp")
-set(cob_utilities_BUILDTOOL_DEPENDS "catkin")

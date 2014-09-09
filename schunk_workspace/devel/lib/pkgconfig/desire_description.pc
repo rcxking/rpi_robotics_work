@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
-
-Name: desire_description
-Description: Description of desire_description
-Version: 0.5.3
-Cflags: 
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib 
-Requires: 

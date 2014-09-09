@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "cob_undercarriage_ctrl")
-set(cob_undercarriage_ctrl_MAINTAINER "Matthias Gruhler <mig@ipa.fhg.de>")
-set(cob_undercarriage_ctrl_DEPRECATED "")
-set(cob_undercarriage_ctrl_VERSION "0.5.5")
-set(cob_undercarriage_ctrl_BUILD_DEPENDS "roscpp" "nav_msgs" "sensor_msgs" "geometry_msgs" "control_msgs" "diagnostic_msgs" "tf" "cob_relayboard" "cob_utilities" "diagnostic_updater")
-set(cob_undercarriage_ctrl_RUN_DEPENDS "roscpp" "nav_msgs" "sensor_msgs" "geometry_msgs" "diagnostic_msgs" "tf" "cob_relayboard" "cob_utilities" "diagnostic_updater")
-set(cob_undercarriage_ctrl_BUILDTOOL_DEPENDS "catkin")

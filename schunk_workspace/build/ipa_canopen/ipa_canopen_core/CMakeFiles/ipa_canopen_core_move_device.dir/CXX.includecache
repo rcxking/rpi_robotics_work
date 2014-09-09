@@ -6,16 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/powerball/rpi_robotics_work/schunk_workspace/src/cob_extern/libpcan/common/include/libpcan/libpcan.h
-pcan.h
--
-
-/home/powerball/rpi_robotics_work/schunk_workspace/src/cob_extern/libpcan/common/include/libpcan/pcan.h
-linux/types.h
--
-linux/ioctl.h
--
-
 /home/powerball/rpi_robotics_work/schunk_workspace/src/ipa_canopen/ipa_canopen_core/include/ipa_canopen_core/canopen.h
 iostream
 -
@@ -59,4 +49,14 @@ utility
 -
 ipa_canopen_core/canopen.h
 /home/powerball/rpi_robotics_work/schunk_workspace/src/ipa_canopen/ipa_canopen_core/tools/ipa_canopen_core/canopen.h
+
+/opt/ros/hydro/include/libpcan.h
+pcan.h
+-
+
+/opt/ros/hydro/include/pcan.h
+linux/types.h
+-
+linux/ioctl.h
+-
 

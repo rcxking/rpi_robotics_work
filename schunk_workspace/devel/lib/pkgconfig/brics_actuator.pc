@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
-
-Name: brics_actuator
-Description: Description of brics_actuator
-Version: 0.5.3
-Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/devel/include
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib 
-Requires: std_msgs geometry_msgs message_runtime

@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "cob_teleop_cob4")
-set(cob_teleop_cob4_MAINTAINER "Maximilian Sieber <max-sieber@gmx.de>")
-set(cob_teleop_cob4_DEPRECATED "")
-set(cob_teleop_cob4_VERSION "0.1.0")
-set(cob_teleop_cob4_BUILD_DEPENDS "roscpp" "dynamic_reconfigure" "actionlib" "sensor_msgs" "geometry_msgs" "brics_actuator" "std_msgs" "trajectory_msgs" "cob_script_server" "cob_srvs")
-set(cob_teleop_cob4_RUN_DEPENDS "roscpp" "dynamic_reconfigure" "actionlib" "sensor_msgs" "geometry_msgs" "brics_actuator" "std_msgs" "trajectory_msgs" "cob_script_server" "cob_srvs")
-set(cob_teleop_cob4_BUILDTOOL_DEPENDS "catkin")

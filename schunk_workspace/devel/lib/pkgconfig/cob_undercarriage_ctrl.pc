@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
-
-Name: cob_undercarriage_ctrl
-Description: Description of cob_undercarriage_ctrl
-Version: 0.5.5
-Cflags: 
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib 
-Requires: roscpp nav_msgs sensor_msgs geometry_msgs diagnostic_msgs tf cob_relayboard cob_utilities diagnostic_updater

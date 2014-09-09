@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
-
-Name: libphidgets
-Description: Description of libphidgets
-Version: 0.5.2
-Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/src/cob_extern/libphidgets/include
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib -lphidget21
-Requires: 

@@ -1,11 +1,10 @@
-957bc827db62bd7183f88277db6ca4aa62ccf896	not-for-merge	tag '0.5.1' of git://github.com/ipa320/ipa_canopen
-a51e822b6e3aa7e939983cab37eb8d6b337c1472	not-for-merge	tag '0.5.2' of git://github.com/ipa320/ipa_canopen
-89e8fb7776616b5bd5fd4714e2e4d137eea900fe	not-for-merge	tag '0.5.3' of git://github.com/ipa320/ipa_canopen
-7c68ea433aa2358a13c87d3bc20fd49f5c235d73	not-for-merge	tag '0.5.4' of git://github.com/ipa320/ipa_canopen
-5a3b92bc0cf728b339836a05b24a3140c493d5bc	not-for-merge	tag '0.5.5' of git://github.com/ipa320/ipa_canopen
-a8ae3dfc7f6786aeb24a39fd7206bdc71fce6a5d	not-for-merge	tag '0.5.6' of git://github.com/ipa320/ipa_canopen
-0ad904a7d4a27b8b0041230b3b2ff7b4ec9cfef1	not-for-merge	tag '0.5.7' of git://github.com/ipa320/ipa_canopen
-c248516252793f5a871f82d00fbd149c93100cd2	not-for-merge	tag 'ipa_canopen-0.4.0' of git://github.com/ipa320/ipa_canopen
-875a06bcfa9f9d9d3b4400e7a944c271ae39e5bc	not-for-merge	tag 'ipa_canopen-0.5.0' of git://github.com/ipa320/ipa_canopen
-401839870e7dcbd7d61f35b163b38ce32bf9d60c	not-for-merge	tag 'ipa_canopen-0.5.1' of git://github.com/ipa320/ipa_canopen
-af7819f194d566ae6450c92c31ef26bd2e9048d4	not-for-merge	tag 'tested' of git://github.com/ipa320/ipa_canopen
+b36e070f44fc2706c0b97db26e16c6c1f2d859f9		branch 'hydro_dev' of git://github.com/ipa320/ipa_canopen
+09dc2c993493306d8d3afaeb13b27575216f3ee0	not-for-merge	branch 'electric_dev' of git://github.com/ipa320/ipa_canopen
+201b9715a89211e7949dcffb19ecc7bcf379fbf2	not-for-merge	branch 'fuerte_dev' of git://github.com/ipa320/ipa_canopen
+af7819f194d566ae6450c92c31ef26bd2e9048d4	not-for-merge	branch 'fuerte_release_candidate' of git://github.com/ipa320/ipa_canopen
+401839870e7dcbd7d61f35b163b38ce32bf9d60c	not-for-merge	branch 'groovy' of git://github.com/ipa320/ipa_canopen
+ee1e37f2c0d6ea7d8f88fa82b4aee790a4202f11	not-for-merge	branch 'groovy_dev' of git://github.com/ipa320/ipa_canopen
+401839870e7dcbd7d61f35b163b38ce32bf9d60c	not-for-merge	branch 'groovy_release_candidate' of git://github.com/ipa320/ipa_canopen
+a8ae3dfc7f6786aeb24a39fd7206bdc71fce6a5d	not-for-merge	branch 'hydro_release_candidate' of git://github.com/ipa320/ipa_canopen
+5844f2b8deff75b447c1f28ceaa0d3d5718cf684	not-for-merge	branch 'indigo_dev' of git://github.com/ipa320/ipa_canopen
+0ad904a7d4a27b8b0041230b3b2ff7b4ec9cfef1	not-for-merge	branch 'indigo_release_candidate' of git://github.com/ipa320/ipa_canopen

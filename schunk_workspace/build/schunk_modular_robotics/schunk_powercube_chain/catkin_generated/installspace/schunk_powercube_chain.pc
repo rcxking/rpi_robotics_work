@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
-
-Name: schunk_powercube_chain
-Description: Description of schunk_powercube_chain
-Version: 0.5.4
-Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/install/include
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib 
-Requires: sensor_msgs urdf diagnostic_updater schunk_libm5api libntcan libpcan cob_srvs brics_actuator diagnostic_msgs control_msgs

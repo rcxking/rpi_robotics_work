@@ -19,5 +19,4 @@ SET(CMAKE_TARGET_DEFINITIONS
 # Targets to which this target links.
 SET(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/powerball/rpi_robotics_work/schunk_workspace/build/ipa_canopen/ipa_canopen_core/CMakeFiles/ipa_canopen_core.dir/DependInfo.cmake"
-  "/home/powerball/rpi_robotics_work/schunk_workspace/build/cob_extern/libpcan/CMakeFiles/pcan.dir/DependInfo.cmake"
   )

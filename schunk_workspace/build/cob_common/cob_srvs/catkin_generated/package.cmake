@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "cob_srvs")
-set(cob_srvs_MAINTAINER "Florian Weisshardt <fmw@ipa.fhg.de>")
-set(cob_srvs_DEPRECATED "")
-set(cob_srvs_VERSION "0.5.3")
-set(cob_srvs_BUILD_DEPENDS "std_msgs" "message_generation" "trajectory_msgs" "geometry_msgs")
-set(cob_srvs_RUN_DEPENDS "std_msgs" "message_runtime" "trajectory_msgs" "geometry_msgs")
-set(cob_srvs_BUILDTOOL_DEPENDS "catkin")

@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
-
-Name: schunk_sdh
-Description: Description of schunk_sdh
-Version: 0.5.4
-Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/devel/include
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib 
-Requires: roscpp message_runtime urdf std_msgs sensor_msgs trajectory_msgs actionlib cob_srvs control_msgs libntcan libpcan diagnostic_msgs brics_actuator

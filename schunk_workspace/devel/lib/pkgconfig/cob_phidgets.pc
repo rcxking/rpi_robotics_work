@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
-
-Name: cob_phidgets
-Description: Description of cob_phidgets
-Version: 0.5.5
-Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/devel/include -I/home/powerball/rpi_robotics_work/schunk_workspace/src/cob_driver/cob_phidgets/common/include
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib 
-Requires: roscpp rospy libphidgets std_msgs sensor_msgs message_runtime

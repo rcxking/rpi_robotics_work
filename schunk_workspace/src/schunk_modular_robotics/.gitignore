@@ -1,7 +1,0 @@
-build/
-bin/
-lib/
-msg_gen/
-*~
-*.pyc
-ROS_NOBUILD

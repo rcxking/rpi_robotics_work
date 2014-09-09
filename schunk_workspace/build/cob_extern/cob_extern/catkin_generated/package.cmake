@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "cob_extern")
-set(cob_extern_MAINTAINER "Florian Weisshardt <fmw@ipa.fhg.de>, Nadia Hammoudeh Garcia <nhg@ipa.fhg.de>")
-set(cob_extern_DEPRECATED "")
-set(cob_extern_VERSION "0.5.2")
-set(cob_extern_BUILD_DEPENDS )
-set(cob_extern_RUN_DEPENDS "libphidgets" "libntcan" "libpcan")
-set(cob_extern_BUILDTOOL_DEPENDS "catkin")

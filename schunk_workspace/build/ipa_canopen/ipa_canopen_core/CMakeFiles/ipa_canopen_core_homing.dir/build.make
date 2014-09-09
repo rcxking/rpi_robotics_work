@@ -95,7 +95,7 @@ ipa_canopen_core_homing_EXTERNAL_OBJECTS =
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_core/ipa_canopen_core_homing: /opt/ros/hydro/lib/libxmlrpcpp.so
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_core/ipa_canopen_core_homing: /opt/ros/hydro/lib/libcpp_common.so
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_core/ipa_canopen_core_homing: /opt/ros/hydro/lib/libconsole_bridge.so
-/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_core/ipa_canopen_core_homing: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/libpcan.so
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_core/ipa_canopen_core_homing: /opt/ros/hydro/lib/libpcan.so
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_core/ipa_canopen_core_homing: ipa_canopen/ipa_canopen_core/CMakeFiles/ipa_canopen_core_homing.dir/build.make
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_core/ipa_canopen_core_homing: ipa_canopen/ipa_canopen_core/CMakeFiles/ipa_canopen_core_homing.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/ipa_canopen_core/ipa_canopen_core_homing"

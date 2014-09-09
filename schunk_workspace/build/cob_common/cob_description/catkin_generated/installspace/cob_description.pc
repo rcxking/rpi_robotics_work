@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
-
-Name: cob_description
-Description: Description of cob_description
-Version: 0.5.3
-Cflags: 
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib 
-Requires: 

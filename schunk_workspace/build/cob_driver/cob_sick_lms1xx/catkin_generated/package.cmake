@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "cob_sick_lms1xx")
-set(cob_sick_lms1xx_MAINTAINER "Joshua Hampp <joshua.hampp@ipa.fhg.de>, Denis Stogl <denis.stogl@kit.edu>")
-set(cob_sick_lms1xx_DEPRECATED "")
-set(cob_sick_lms1xx_VERSION "0.5.5")
-set(cob_sick_lms1xx_BUILD_DEPENDS "roscpp" "sensor_msgs")
-set(cob_sick_lms1xx_RUN_DEPENDS "roscpp" "sensor_msgs")
-set(cob_sick_lms1xx_BUILDTOOL_DEPENDS "catkin")

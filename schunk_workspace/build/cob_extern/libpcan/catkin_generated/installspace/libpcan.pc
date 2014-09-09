@@ -1,8 +1,0 @@
-prefix=/home/powerball/rpi_robotics_work/schunk_workspace/install
-
-Name: libpcan
-Description: Description of libpcan
-Version: 0.5.2
-Cflags: -I/home/powerball/rpi_robotics_work/schunk_workspace/install/include
-Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/install/lib -lpcan
-Requires: 
