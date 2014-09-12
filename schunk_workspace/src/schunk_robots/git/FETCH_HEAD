@@ -1,10 +1,10 @@
-c28f88b178b89b124e4dad1f3fcc8e591b860a9d		branch 'hydro_dev' of git://github.com/ipa320/schunk_robots
+4132b47348d81ccd59d323c960f30c65e5b35974		branch 'hydro_dev' of git://github.com/ipa320/schunk_robots
 6d85890881b9ad29721cdf2d332fec386565e0bb	not-for-merge	branch 'electric' of git://github.com/ipa320/schunk_robots
 3cb27079872faf0109364502f7aed90a513e55ce	not-for-merge	branch 'electric_dev' of git://github.com/ipa320/schunk_robots
 6d85890881b9ad29721cdf2d332fec386565e0bb	not-for-merge	branch 'fuerte' of git://github.com/ipa320/schunk_robots
 1e617a32cede1bb8efa1d1d15037bf0069615828	not-for-merge	branch 'fuerte_dev' of git://github.com/ipa320/schunk_robots
 fde9021bfc913c964755dd51187130e07b7f009a	not-for-merge	branch 'groovy_dev' of git://github.com/ipa320/schunk_robots
 6220a2765cf4dc410d3814077fa2f46a19a07cc8	not-for-merge	branch 'hydro_release_candidate' of git://github.com/ipa320/schunk_robots
-47bfcdd8be3d393ad0fa53a2f3b52316a074e905	not-for-merge	branch 'indigo_dev' of git://github.com/ipa320/schunk_robots
+2ab25d0d2e6d46f913a15d5ca81cfd9ce2fd4517	not-for-merge	branch 'indigo_dev' of git://github.com/ipa320/schunk_robots
 26c33a75266d2f4728432b85910e4e352121f9f6	not-for-merge	branch 'release_electric' of git://github.com/ipa320/schunk_robots
 26c33a75266d2f4728432b85910e4e352121f9f6	not-for-merge	branch 'release_fuerte' of git://github.com/ipa320/schunk_robots
