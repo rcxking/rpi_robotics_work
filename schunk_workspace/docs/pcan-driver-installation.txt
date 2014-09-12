@@ -1,0 +1,13 @@
+How to install the PEAK PCAN Driver for the Schunk LWA 4.6 Powerball. 
+
+Last Updated: 9/9/14
+
+1) Visit http://www.peak-system.com/fileadmin/media/linux/index.htm#download 
+2) Download the latest driver (7.12 as of date).
+3) Unzip this file and cd into the directory.
+4) sudo rmmod pcan
+5) make -j4 NET=NO
+6) sudo make install
+7) cd /driver
+8) sudo insmod pcan.ko
+9) cat /proc/pcan (check for "-NA-" in ndev column)  
