@@ -1,0 +1,29 @@
+These are the ROS nodes that are spawned when executing
+
+"roslaunch schunk_lwa4p lwa4p.launch"   
+
+- Since roslaunch doesn't spawn nodes in sequential order, ordering does not matter here.   
+
+1)  robot_state_publisher (http://wiki.ros.org/robot_state_publisher)
+	- type state_publisher
+	- This node publishes the joint state of the Powerball via the Transforms Tf library 
+
+2) arm_controller 
+
+3) Trajectory Controller is located in:
+cob_trajectory_controller/genericArmCtrl.h
+
+Rostopics:
+----------
+
+/joint_states
+	- gives time stamp in seconds, nanoseconds 
+	- joint positions in radians
+	- joint velocities
+	- joint efforts (all 0.0?)
+
+/arm_controller/command_vel
+	- gives the velocity sent to each joint in radians/second  
+
+
+

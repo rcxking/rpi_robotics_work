@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 9/4/14 - 11:43 AM
+Notes.txt - Last Updated: 9/12/14 - 3:30 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -325,3 +325,5 @@ Inside schunk_lwa4p/config/canopen.yaml:
 	- changed device from /dev/pcan32 to /dev/pcan1 
 Inside schunk_lwa4p/config/controller.yaml:
 	- changed all devices from /dev/pcan32 to /dev/pcan1
+
+
