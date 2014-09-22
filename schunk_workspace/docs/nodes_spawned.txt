@@ -25,5 +25,21 @@ Rostopics:
 /arm_controller/command_vel
 	- gives the velocity sent to each joint in radians/second  
 
+/arm_controller/follow_joint_trajectory/goal
+	- sets the goal for the 
 
+Cob Command GUI
+---------------
+- started by calling
+	roslaunch schunk_lwa4p dashboard.launch
+
+- 1 ROS parameter added: config/command_gui_buttons.yaml
+	- passed in as a parameter in the control_buttons namespace  
+
+- Joint Configurations are stored in config/joint_configurations.yaml
+	- includes definitions for
+		- waveleft, waveright, folded, home 
+
+- config/command_gui_buttons.yaml stores groups for:
+	- arm_settings, arm positions, and arm trajectories  
 
