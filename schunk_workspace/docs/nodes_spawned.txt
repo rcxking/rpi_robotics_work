@@ -43,3 +43,7 @@ Cob Command GUI
 - config/command_gui_buttons.yaml stores groups for:
 	- arm_settings, arm positions, and arm trajectories  
 
+- The file responsible for sending the actual commands to the Powerball is in: simple_script_server.py:
+	cob_command_tools/cob_script_server/src/simple_script_server.py  
+
+	- Look for move_traj() function to see how a trajectory is generated 

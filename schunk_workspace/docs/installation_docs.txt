@@ -1,0 +1,17 @@
+Installing Fraunhofer Institute's Software on a Fresh Install of Ubuntu 12.04:
+
+1) Install ROS Hydro 
+
+sudo apt-get install ros-hydro-desktop-full
+
+2) Create a catkin workspace that will contain the software:
+
+mkdir -p schunk_workspace/src
+
+3) Enter the src directory of your catkin workspace and clone the Fraunhofer software:
+
+cd schunk_workspace/src
+git clone git://github.com/ipa320/ipa_canopen.git
+git clone git://github.com/ipa320/schunk_robots.git
+
+
