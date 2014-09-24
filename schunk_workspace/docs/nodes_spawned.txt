@@ -47,3 +47,34 @@ Cob Command GUI
 	cob_command_tools/cob_script_server/src/simple_script_server.py  
 
 	- Look for move_traj() function to see how a trajectory is generated 
+	- simple_script_server.py utilizes the ROS actionlib library rather than topics/services to reduce message latency times
+
+	- Example command sent by the cob_command_gui for HOME:
+	- Arguments: ('arm', 'home', False) with a default value of "None" sent for the mode
+	- Function: simple_script_server.move()    	
+	- This function will call self.move_traj()  
+		- Arguments are:
+			1) component_name = 'arm'
+			2) parameter_name = 'folded'
+			3) blocking (overrides default value of True) = false
+		
+			- Inside self.move_traj() (WARNING - The github repo differs from the APT-GET version)
+				1) joint_names is a list containing the names of the joint:
+					- ['arm_1_joint', 'arm_2_joint', ..., 'arm_6_joint]
+				2) param are the target joint values to rotate to:
+					(for home position): [[0, 0, 0, 0, 0, 0]] 				
+				3) trajectory traj is generated/is a list of points to rotate to:
+					(for home position): [[0, 0, 0, 0, 0, 0]] 
+				4) Send the new trajectory with a JointTrajectory() message:
+					traj_msg = JointTrajectory()
+					traj_msg.header_stamp = rospy.Time.now() + rospy.Duration(0.5)
+					traj_msg.joint_names = joint_names 
+					point_nr = 0
+
+					for point in traj:
+						point_nr = point_nr + 1
+						point_msg = JointTrajectoryPoint()
+						point_msg.positions = point
+						point_msg.velocities = [0] * len(joint_names)
+						point_msg.time_from_start =  
+			  
