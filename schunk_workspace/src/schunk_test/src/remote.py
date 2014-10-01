@@ -62,7 +62,7 @@ def powerball_remote():
 		point_nr += 1
 		point_msg = JointTrajectoryPoint()
 		point_msg.positions = point
-		point_msg.velocities = [0] * len(joint_names)
+		point_msg.velocities = [0] * 6
 		point_msg.time_from_start = rospy.Duration(3 * point_nr)
 		traj_msg.points.append(point_msg)
 
