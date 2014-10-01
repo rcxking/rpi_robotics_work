@@ -64,7 +64,7 @@ Cob Command GUI
 				2) param are the target joint values to rotate to:
 					(for home position): [[0, 0, 0, 0, 0, 0]] 				
 				3) trajectory traj is generated/is a list of points to rotate to:
-					(for home position): [[0, 0, 0, 0, 0, 0]] 
+					(for home position): [[0, 0, 0, 0, 0, 0]]  
 				4) Send the new trajectory with a JointTrajectory() message:
 					traj_msg = JointTrajectory()
 					traj_msg.header_stamp = rospy.Time.now() + rospy.Duration(0.5)
@@ -76,5 +76,12 @@ Cob Command GUI
 						point_msg = JointTrajectoryPoint()
 						point_msg.positions = point
 						point_msg.velocities = [0] * len(joint_names)
-						point_msg.time_from_start =  
+						point_msg.time_from_start = rospy.Duration(3 * point_nr)
+						traj_msg.points.append(point_msg)
+
+				5) The action server name is of the form:
+					/<component_name>_controller/follow_joint_trajectory 
+
+					In our case, the action server name is:
+					/arm_controller/follow_joint_trajectory
 			  
