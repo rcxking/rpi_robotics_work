@@ -9,7 +9,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/1/14
 
-Last Updated: 10/1/14 - 4:13 PM
+Last Updated: 10/2/14 - 3:33 PM
 '''     
 
 # Standard Python Libraries:
@@ -36,6 +36,12 @@ from cob_srvs.srv import *
 
 
 def powerball_remote():
+
+	ah = action_handle("move", "arm", "home", False, self.parse)
+	if self.parse:
+		return ah
+	else: 
+		ah.set_active()
 	
 	# Ask the user to input the desired joint angles:    
 	print("Joint 1 is the proximal joint (the base), Joint 6 is the distal joint (the wrist)")
