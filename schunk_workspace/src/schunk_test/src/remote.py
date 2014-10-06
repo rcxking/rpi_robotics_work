@@ -9,16 +9,25 @@ Bryant Pong
 RPI CS Robotics Lab
 10/1/14
 
-Last Updated: 10/2/14 - 3:33 PM
+Last Updated: 10/6/14 - 4:31 PM
 '''     
 
 # Standard Python Libraries:
 import time
+import os
+import sys
+import types
+import thread
+import commands
+import math
 
 # ROS-Specific Libraries: 
 import roslib
+roslib.load_manifest('cob_script_server')
 import rospy
 import actionlib
+
+import simple_script_server
 
 # Message Libraries:
 from trajectory_msgs.msg import *
@@ -37,8 +46,8 @@ from cob_srvs.srv import *
 
 def powerball_remote():
 
-	ah = action_handle("move", "arm", "home", False, self.parse)
-	if self.parse:
+	ah = simple_script_server.action_handle("move", "arm", "home", False, False)
+	if False:
 		return ah
 	else: 
 		ah.set_active()
@@ -76,11 +85,22 @@ def powerball_remote():
 	action_server_name = '/arm_controller/follow_joint_trajectory'
 
 	client = actionlib.SimpleActionClient(action_server_name, FollowJointTrajectoryAction)
+	if not client.wait_for_server(rospy.Duration(5)):
+		print("Action server not ready within timeout.  Aborting...")
+		ah.set_failed(4)
+		return ah
+	else:
+		print("Action server ready!")
+
+
 
 	client_goal = FollowJointTrajectoryGoal()
 	client_goal.trajectory = traj_msg
-
 	client.send_goal(client_goal)
+	ah.set_client(client)
+
+	ah.wait_inside()
+	return ah
 
 
 
