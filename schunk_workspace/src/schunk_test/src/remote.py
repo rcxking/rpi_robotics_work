@@ -9,7 +9,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/1/14
 
-Last Updated: 10/6/14 - 4:31 PM
+Last Updated: 10/7/14 - 2:33 PM
 '''     
 
 # Standard Python Libraries:
@@ -106,11 +106,13 @@ def powerball_remote():
 
 
 if __name__ == '__main__':
-	try:
-		# Attempt to initialize the remote node:
-		rospy.init_node('powerball_remote_py') 
-		powerball_remote()
-	except rospy.ROSInterruptException:
-		print("Error.  Powerball Remote Program aborted")
+
+	while True:
+		try:
+			# Attempt to initialize the remote node:
+			rospy.init_node('powerball_remote_py') 
+			powerball_remote()
+		except rospy.ROSInterruptException:
+			print("Error.  Powerball Remote Program aborted")
 
 
