@@ -33,9 +33,13 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  list(APPEND CPACK_ABSOLUTE_DESTINATION_FILES
-   "/home/powerball/rpi_robotics_work/schunk_workspace/install/.catkin")
-FILE(INSTALL DESTINATION "/home/powerball/rpi_robotics_work/schunk_workspace/install" TYPE FILE FILES "/home/powerball/rpi_robotics_work/schunk_workspace/build/catkin_generated/installspace/.catkin")
+  
+      if (NOT EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}")
+        file(MAKE_DIRECTORY "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}")
+      endif()
+      if (NOT EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/.catkin")
+        file(WRITE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/.catkin" "")
+      endif()
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
@@ -90,6 +94,8 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   INCLUDE("/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_robots/schunk_lwa4p_extended/cmake_install.cmake")
   INCLUDE("/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_robots/schunk_robots/cmake_install.cmake")
   INCLUDE("/home/powerball/rpi_robotics_work/schunk_workspace/build/ipa_canopen/ipa_canopen_core/cmake_install.cmake")
+  INCLUDE("/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_test/cmake_install.cmake")
+  INCLUDE("/home/powerball/rpi_robotics_work/schunk_workspace/build/mocap_optitrack/cmake_install.cmake")
   INCLUDE("/home/powerball/rpi_robotics_work/schunk_workspace/build/ipa_canopen/ipa_canopen_ros/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)

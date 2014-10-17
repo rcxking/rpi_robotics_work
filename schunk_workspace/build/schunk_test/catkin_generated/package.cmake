@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "schunk_test")
+set(schunk_test_MAINTAINER "bryant <bryant@todo.todo>")
+set(schunk_test_DEPRECATED "")
+set(schunk_test_VERSION "0.0.0")
+set(schunk_test_BUILD_DEPENDS "roscpp" "rospy" "std_msgs")
+set(schunk_test_RUN_DEPENDS "roscpp" "rospy" "std_msgs")
+set(schunk_test_BUILDTOOL_DEPENDS "catkin")

@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "mocap_optitrack")
+set(mocap_optitrack_MAINTAINER "Alex Bencz <abencz@clearpathrobotics.com>")
+set(mocap_optitrack_DEPRECATED "")
+set(mocap_optitrack_VERSION "0.0.0")
+set(mocap_optitrack_BUILD_DEPENDS "roscpp" "std_msgs" "tf" "geometry_msgs" "roslaunch")
+set(mocap_optitrack_RUN_DEPENDS "roscpp" "std_msgs" "geometry_msgs" "tf")
+set(mocap_optitrack_BUILDTOOL_DEPENDS "catkin")

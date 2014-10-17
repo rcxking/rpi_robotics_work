@@ -1,0 +1,6 @@
+# pack-refs with: peeled 
+e123d75607188a932914c4b28b778a44aff7063c refs/remotes/origin/fuerte
+4a71302227ea71f96b17dfcfc085190f8ab4e7c9 refs/remotes/origin/groovy
+ec826475b6a955368143b2399bcf147f266a75b6 refs/remotes/origin/master
+6d3fd8c47b41169a6c470bbcaca116485c8683fe refs/tags/mocap_optitrack-0.1.0
+4a71302227ea71f96b17dfcfc085190f8ab4e7c9 refs/tags/mocap_optitrack-groovy-0.1.0

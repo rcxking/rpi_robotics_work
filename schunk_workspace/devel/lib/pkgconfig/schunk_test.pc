@@ -1,0 +1,8 @@
+prefix=/home/powerball/rpi_robotics_work/schunk_workspace/devel
+
+Name: schunk_test
+Description: Description of schunk_test
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib 
+Requires: 
