@@ -1,1 +1,1 @@
-ipa_canopen/ipa_canopen:ipa_canopen/ipa_canopen_core:ipa_canopen/ipa_canopen_ros:schunk_robots/schunk_lwa4p:schunk_robots/schunk_lwa4p_extended:schunk_robots/schunk_robots:schunk_test
+ipa_canopen/ipa_canopen:ipa_canopen/ipa_canopen_core:ipa_canopen/ipa_canopen_ros:schunk_api:schunk_robots/schunk_lwa4p:schunk_robots/schunk_lwa4p_extended:schunk_robots/schunk_robots:schunk_test
