@@ -1,0 +1,14 @@
+(cl:in-package schunk_api-msg)
+(cl:export '(JOINT1POSITION-VAL
+          JOINT1POSITION
+          JOINT2POSITION-VAL
+          JOINT2POSITION
+          JOINT3POSITION-VAL
+          JOINT3POSITION
+          JOINT4POSITION-VAL
+          JOINT4POSITION
+          JOINT5POSITION-VAL
+          JOINT5POSITION
+          JOINT6POSITION-VAL
+          JOINT6POSITION
+))

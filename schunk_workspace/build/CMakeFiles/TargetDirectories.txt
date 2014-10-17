@@ -43,6 +43,13 @@
 /home/powerball/rpi_robotics_work/schunk_workspace/build/mocap_optitrack/CMakeFiles/run_tests_mocap_optitrack.dir
 /home/powerball/rpi_robotics_work/schunk_workspace/build/mocap_optitrack/CMakeFiles/run_tests_mocap_optitrack_roslaunch-check.dir
 /home/powerball/rpi_robotics_work/schunk_workspace/build/mocap_optitrack/CMakeFiles/run_tests_mocap_optitrack_roslaunch-check_launch.dir
+/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api/CMakeFiles/schunk_api_gencpp.dir
+/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api/CMakeFiles/schunk_api_generate_messages.dir
+/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api/CMakeFiles/schunk_api_generate_messages_cpp.dir
+/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api/CMakeFiles/schunk_api_generate_messages_lisp.dir
+/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api/CMakeFiles/schunk_api_generate_messages_py.dir
+/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api/CMakeFiles/schunk_api_genlisp.dir
+/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api/CMakeFiles/schunk_api_genpy.dir
 /home/powerball/rpi_robotics_work/schunk_workspace/build/mocap_optitrack/CMakeFiles/sensor_msgs_generate_messages_cpp.dir
 /home/powerball/rpi_robotics_work/schunk_workspace/build/mocap_optitrack/CMakeFiles/sensor_msgs_generate_messages_lisp.dir
 /home/powerball/rpi_robotics_work/schunk_workspace/build/mocap_optitrack/CMakeFiles/sensor_msgs_generate_messages_py.dir

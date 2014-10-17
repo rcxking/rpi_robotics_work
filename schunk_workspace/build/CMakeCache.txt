@@ -372,6 +372,12 @@ rospy_DIR:PATH=/opt/ros/hydro/share/rospy/cmake
 rostime_DIR:PATH=/opt/ros/hydro/share/rostime/cmake
 
 //Value Computed by CMake
+schunk_api_BINARY_DIR:STATIC=/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api
+
+//Value Computed by CMake
+schunk_api_SOURCE_DIR:STATIC=/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api
+
+//Value Computed by CMake
 schunk_lwa4p_BINARY_DIR:STATIC=/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_robots/schunk_lwa4p
 
 //Value Computed by CMake
@@ -529,7 +535,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=11
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=12
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

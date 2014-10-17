@@ -407,6 +407,97 @@ std_msgs_generate_messages_py/fast:
 .PHONY : std_msgs_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named schunk_api_gencpp
+
+# Build rule for target.
+schunk_api_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 schunk_api_gencpp
+.PHONY : schunk_api_gencpp
+
+# fast build rule for target.
+schunk_api_gencpp/fast:
+	$(MAKE) -f schunk_api/CMakeFiles/schunk_api_gencpp.dir/build.make schunk_api/CMakeFiles/schunk_api_gencpp.dir/build
+.PHONY : schunk_api_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named schunk_api_generate_messages
+
+# Build rule for target.
+schunk_api_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 schunk_api_generate_messages
+.PHONY : schunk_api_generate_messages
+
+# fast build rule for target.
+schunk_api_generate_messages/fast:
+	$(MAKE) -f schunk_api/CMakeFiles/schunk_api_generate_messages.dir/build.make schunk_api/CMakeFiles/schunk_api_generate_messages.dir/build
+.PHONY : schunk_api_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named schunk_api_generate_messages_cpp
+
+# Build rule for target.
+schunk_api_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 schunk_api_generate_messages_cpp
+.PHONY : schunk_api_generate_messages_cpp
+
+# fast build rule for target.
+schunk_api_generate_messages_cpp/fast:
+	$(MAKE) -f schunk_api/CMakeFiles/schunk_api_generate_messages_cpp.dir/build.make schunk_api/CMakeFiles/schunk_api_generate_messages_cpp.dir/build
+.PHONY : schunk_api_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named schunk_api_generate_messages_lisp
+
+# Build rule for target.
+schunk_api_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 schunk_api_generate_messages_lisp
+.PHONY : schunk_api_generate_messages_lisp
+
+# fast build rule for target.
+schunk_api_generate_messages_lisp/fast:
+	$(MAKE) -f schunk_api/CMakeFiles/schunk_api_generate_messages_lisp.dir/build.make schunk_api/CMakeFiles/schunk_api_generate_messages_lisp.dir/build
+.PHONY : schunk_api_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named schunk_api_generate_messages_py
+
+# Build rule for target.
+schunk_api_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 schunk_api_generate_messages_py
+.PHONY : schunk_api_generate_messages_py
+
+# fast build rule for target.
+schunk_api_generate_messages_py/fast:
+	$(MAKE) -f schunk_api/CMakeFiles/schunk_api_generate_messages_py.dir/build.make schunk_api/CMakeFiles/schunk_api_generate_messages_py.dir/build
+.PHONY : schunk_api_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named schunk_api_genlisp
+
+# Build rule for target.
+schunk_api_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 schunk_api_genlisp
+.PHONY : schunk_api_genlisp
+
+# fast build rule for target.
+schunk_api_genlisp/fast:
+	$(MAKE) -f schunk_api/CMakeFiles/schunk_api_genlisp.dir/build.make schunk_api/CMakeFiles/schunk_api_genlisp.dir/build
+.PHONY : schunk_api_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named schunk_api_genpy
+
+# Build rule for target.
+schunk_api_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 schunk_api_genpy
+.PHONY : schunk_api_genpy
+
+# fast build rule for target.
+schunk_api_genpy/fast:
+	$(MAKE) -f schunk_api/CMakeFiles/schunk_api_genpy.dir/build.make schunk_api/CMakeFiles/schunk_api_genpy.dir/build
+.PHONY : schunk_api_genpy/fast
+
+#=============================================================================
 # Target rules for targets named _run_tests_mocap_optitrack
 
 # Build rule for target.
@@ -972,6 +1063,13 @@ help:
 	@echo "... std_msgs_generate_messages_cpp"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_py"
+	@echo "... schunk_api_gencpp"
+	@echo "... schunk_api_generate_messages"
+	@echo "... schunk_api_generate_messages_cpp"
+	@echo "... schunk_api_generate_messages_lisp"
+	@echo "... schunk_api_generate_messages_py"
+	@echo "... schunk_api_genlisp"
+	@echo "... schunk_api_genpy"
 	@echo "... _run_tests_mocap_optitrack"
 	@echo "... _run_tests_mocap_optitrack_roslaunch-check"
 	@echo "... _run_tests_mocap_optitrack_roslaunch-check_launch"

@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "schunk_api")
+set(schunk_api_MAINTAINER "Bryant Pong <pongb@rpi.edu>")
+set(schunk_api_DEPRECATED "")
+set(schunk_api_VERSION "1.0.0")
+set(schunk_api_BUILD_DEPENDS "roscpp" "rospy" "std_msgs" "message_generation")
+set(schunk_api_RUN_DEPENDS "roscpp" "rospy" "std_msgs" "message_runtime")
+set(schunk_api_BUILDTOOL_DEPENDS "catkin")
