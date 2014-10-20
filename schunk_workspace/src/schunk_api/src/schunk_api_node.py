@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 10/20/14 - 5:10 PM   
+Last Updated: 10/20/14 - 7:38 PM   
 '''
 
 # Standard Python Libraries:
@@ -51,6 +51,14 @@ def api_handler(req):
 
 	# Generate the trajectory message to send to the Powerball:
 	traj_msg = JointTrajectory()
+	traj_msg.header.stamp = rospy.Time.now() + rospy.Duration(0.5)
+	traj_msg.joint_names = ['arm_1_joint', 'arm_2_joint', 'arm_3_joint', 'arm_4_joint', 'arm_5_joint', 'arm_6_joint']
+	point_nr = 0
+
+	# Set the target velocities of the target joints.  They are set to 0 to denote stopping at the destinations:
+	for point in traj:
+		point_nr += 1
+		point_msg = JointTrajectoryPoint()
 		
 
 def api_server():
