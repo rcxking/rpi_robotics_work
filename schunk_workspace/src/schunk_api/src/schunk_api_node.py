@@ -7,13 +7,24 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 10/20/14 - 7:38 PM   
+Last Updated: 10/21/14 - 2:47 PM   
 '''
 
 # Standard Python Libraries:
 
 # ROS Libraries:
 import rospy
+import roslib
+import actionlib
+import simple_script_server
+
+# Standard ROS Messages:
+from trajectory_msgs.msg import *
+from geometry_msgs.msg import *
+from move_base_msgs.msg import *
+from tf.transformations import *
+from std_msgs.msg import String, ColorRGBA
+from control_msgs.msg import *
 
 # Custom ROS Messages:
 from schunk_api.srv import *
@@ -22,6 +33,9 @@ from schunk_api.srv import *
 from cob_sound.msg import *
 from cob_script_server.msg import *
 from cob_srvs.srv import *
+
+# Manifests to load:
+roslib.load_manifest('cob_script_server')
 
 '''
 This function sends a position control request to the Powerball.  The request
@@ -59,6 +73,29 @@ def api_handler(req):
 	for point in traj:
 		point_nr += 1
 		point_msg = JointTrajectoryPoint()
+		point_msg.positions = point
+		point_msg.velocities = [0] * 6
+		point_msg.time_from_start = rospy.Duration(3 * point_nr)
+		traj_msg.points.append(point_msg)
+
+	# Send the position control message to the action server node:
+	action_server_name = '/arm_controller/follow_joint_trajectory'
+
+	client = actionlib.SimpleActionClient(action_server_name, FollowJointTrajectoryAction)
+	if not client.wait_for_server(rospy.Duration(5)):
+		print("Action server not ready within timeout.  Aborting...")
+		ah.set_failed(4)
+		return ah
+	else:
+		print("Action server ready!")
+
+	client_goal = FollowJointTrajectoryGoal()
+	client_goal.trajectory = traj_msg
+	client.send_goal(client_goal)
+	ah.set_client(client)
+
+	ah.wait_inside()
+	return ah
 		
 
 def api_server():
