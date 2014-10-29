@@ -7,10 +7,11 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 10/23/14 - 9:48 PM   
+Last Updated: 10/28/14 - 10:10 PM   
 '''
 
 # Standard Python Libraries:
+import time
 
 # ROS Libraries:
 import rospy
@@ -104,6 +105,7 @@ def api_server():
 	s = rospy.Service('PositionAPI', PositionAPI, api_handler)
 	rospy.spin() 
 
-# Main function.  This node will listen for a    
+# Main function.  This node will listen for a position control message and will
+# then execute the command.  
 if __name__ == '__main__':
 	api_server()
