@@ -43,6 +43,7 @@ CMAKE_BINARY_DIR = /home/powerball/rpi_robotics_work/schunk_workspace/build
 include schunk_api/CMakeFiles/schunk_api_generate_messages_cpp.dir/progress.make
 
 schunk_api/CMakeFiles/schunk_api_generate_messages_cpp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/Position.h
+schunk_api/CMakeFiles/schunk_api_generate_messages_cpp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionAPI.h
 
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/Position.h: /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/Position.h: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/Position.msg
@@ -51,8 +52,17 @@ schunk_api/CMakeFiles/schunk_api_generate_messages_cpp: /home/powerball/rpi_robo
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating C++ code from schunk_api/Position.msg"
 	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/Position.msg -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api -e /opt/ros/hydro/share/gencpp/cmake/..
 
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionAPI.h: /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionAPI.h: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPI.srv
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionAPI.h: /opt/ros/hydro/share/gencpp/cmake/../msg.h.template
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionAPI.h: /opt/ros/hydro/share/gencpp/cmake/../srv.h.template
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating C++ code from schunk_api/PositionAPI.srv"
+	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPI.srv -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api -e /opt/ros/hydro/share/gencpp/cmake/..
+
 schunk_api_generate_messages_cpp: schunk_api/CMakeFiles/schunk_api_generate_messages_cpp
 schunk_api_generate_messages_cpp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/Position.h
+schunk_api_generate_messages_cpp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionAPI.h
 schunk_api_generate_messages_cpp: schunk_api/CMakeFiles/schunk_api_generate_messages_cpp.dir/build.make
 .PHONY : schunk_api_generate_messages_cpp
 

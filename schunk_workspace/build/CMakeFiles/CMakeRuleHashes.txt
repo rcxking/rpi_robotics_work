@@ -1,8 +1,12 @@
 # Hashes of file build rules.
 783add829de9d9cca11c561bac557ed5 /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/Position.h
+ece76dc5b58c3a54ab5dd7f654dec75f /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionAPI.h
 c970fc34b5a8d5e7405026293fbbe0d9 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_Position.py
 ee509ce6a5371a257c0a08f8fbe6443a /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py
+bf664fd7ac226dc8527cd3771548a716 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPI.py
+709d3241f8fe8cfddc8c552af8bd19fe /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py
 1e84059edc2fb97f5e75cb615d077349 /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/Position.lisp
+f99673ea149d5ec025b4ff1c82641e1f /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/PositionAPI.lisp
 0a1d39a9f26c11e86d231e9565084f54 CMakeFiles/clean_test_results
 1848db76855a6aea6d07c155c3ce6a34 CMakeFiles/doxygen
 1848db76855a6aea6d07c155c3ce6a34 CMakeFiles/run_tests

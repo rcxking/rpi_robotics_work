@@ -43,7 +43,9 @@ CMAKE_BINARY_DIR = /home/powerball/rpi_robotics_work/schunk_workspace/build
 include schunk_api/CMakeFiles/schunk_api_generate_messages_py.dir/progress.make
 
 schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_Position.py
+schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPI.py
 schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py
+schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py
 
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_Position.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_Position.py: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/Position.msg
@@ -51,15 +53,31 @@ schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robot
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python from MSG schunk_api/Position"
 	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/Position.msg -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg
 
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPI.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/gensrv_py.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPI.py: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPI.srv
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python code from SRV schunk_api/PositionAPI"
+	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPI.srv -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv
+
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_Position.py
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_2)
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPI.py
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python msg __init__.py for schunk_api"
 	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg --initpy
 
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_Position.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPI.py
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python srv __init__.py for schunk_api"
+	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv --initpy
+
 schunk_api_generate_messages_py: schunk_api/CMakeFiles/schunk_api_generate_messages_py
 schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_Position.py
+schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPI.py
 schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py
+schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py
 schunk_api_generate_messages_py: schunk_api/CMakeFiles/schunk_api_generate_messages_py.dir/build.make
 .PHONY : schunk_api_generate_messages_py
 

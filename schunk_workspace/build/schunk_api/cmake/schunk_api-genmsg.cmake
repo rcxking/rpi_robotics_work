@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "schunk_api: 1 messages, 0 services")
+message(STATUS "schunk_api: 1 messages, 1 services")
 
 set(MSG_I_FLAGS "-Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg;-Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg")
 
@@ -25,6 +25,12 @@ _generate_msg_cpp(schunk_api
 )
 
 ### Generating Services
+_generate_srv_cpp(schunk_api
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPI.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/schunk_api
+)
 
 ### Generating Module File
 _generate_module_cpp(schunk_api
@@ -54,6 +60,12 @@ _generate_msg_lisp(schunk_api
 )
 
 ### Generating Services
+_generate_srv_lisp(schunk_api
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPI.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/schunk_api
+)
 
 ### Generating Module File
 _generate_module_lisp(schunk_api
@@ -83,6 +95,12 @@ _generate_msg_py(schunk_api
 )
 
 ### Generating Services
+_generate_srv_py(schunk_api
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPI.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/schunk_api
+)
 
 ### Generating Module File
 _generate_module_py(schunk_api

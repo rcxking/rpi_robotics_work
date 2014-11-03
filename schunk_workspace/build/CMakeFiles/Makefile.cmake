@@ -206,7 +206,7 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "/opt/ros/hydro/share/urdf/cmake/urdfConfig.cmake"
   "/opt/ros/hydro/share/xmlrpcpp/cmake/xmlrpcppConfig-version.cmake"
   "/opt/ros/hydro/share/xmlrpcpp/cmake/xmlrpcppConfig.cmake"
-  "/usr/lib/pymodules/python2.7/catkin_pkg/templates/metapackage.cmake.in"
+  "/usr/lib/python2.7/dist-packages/catkin_pkg/templates/metapackage.cmake.in"
   "/usr/share/cmake-2.8/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-2.8/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake"
