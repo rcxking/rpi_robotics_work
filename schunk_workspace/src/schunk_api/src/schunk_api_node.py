@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 10/28/14 - 10:10 PM   
+Last Updated: 11/6/14 - 5:39 PM   
 '''
 
 # Standard Python Libraries:
@@ -57,7 +57,7 @@ def api_handler(req):
 		ah.set_active()
 
 	# Form a list of the target joint angles:
-	targetJointAngles = [req.joint1Position, req.joint2Position, req.joint3Position, req.joint4Position, req.joint5Position, req.joint6Position]
+	targetJointAngles = [req.joint1, req.joint2, req.joint3, req.joint4, req.joint5, req.joint6]
 
 	'''
     Encapsulate the target jointangles into another list (this forms a trajectory)
@@ -96,7 +96,8 @@ def api_handler(req):
 	ah.set_client(client)
 
 	ah.wait_inside()
-	return ah
+	# return ah
+	return 0
 		
 
 def api_server():
