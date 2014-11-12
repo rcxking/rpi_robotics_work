@@ -1,4 +1,4 @@
-Notes.txt - Last Updated: 11/6/14 - 5:57 PM
+Notes.txt - Last Updated: 11/12/14 - 3:01 PM
 
 ROS Arduino Serial Bridge:
 http://wiki.ros.org/ros_arduino_bridge
@@ -332,4 +332,9 @@ Powerball API node works!
 
 Joint states accessible from ROS topic /joint_states
 
+11/12/14
+--------
+- Successfully installed Motive Optitrack Software
+- Camera Systems Live
+- Cleaned Powerball + Machine Shop 
 

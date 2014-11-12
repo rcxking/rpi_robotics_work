@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 11/6/14 - 5:39 PM   
+Last Updated: 11/7/14 - 5:32 PM   
 '''
 
 # Standard Python Libraries:
@@ -98,7 +98,6 @@ def api_handler(req):
 	ah.wait_inside()
 	# return ah
 	return 0
-		
 
 def api_server():
 	# Initialize the API Server node:
