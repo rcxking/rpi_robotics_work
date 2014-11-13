@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 11/12/14 - 5:25 PM
+Last Updated: 11/13/14 - 4:26 PM
 '''
 
 from powerball_constants import *
@@ -17,7 +17,7 @@ This function takes in a 3-element list representing a vector and returns
 a 3 x 3 matrix representing kcross. 
 '''
 def kcross(vector):
-	return np.array( ([0, -1 * vector[2], vector[1]], 
+	return np.matrix( ([0, -1 * vector[2], vector[1]], 
 	                  [vector[2], 0, -1 * vector[0]],
 					  [-1 * vector[1], vector[0], 0]), dtype = float)
 
@@ -28,7 +28,7 @@ rotations.
 The angle to rotate must be in radians.
 '''
 def rot3D(rotAxis, angleToRotate):
-	identity3 = np.array( ([1, 0, 0], [0, 1, 0], [0, 0, 1]), dtype=float )
+	identity3 = np.matrix( ([1, 0, 0], [0, 1, 0], [0, 0, 1]), dtype=float )
 	return identity3 + (math.sin(angleToRotate) * kcross(rotAxis)) + ( (1 - math.cos(angleToRotate)) * kcross(rotAxis) * kcross(rotAxis))
 
 '''
@@ -48,6 +48,13 @@ def fkine(jointAngles):
 	q5 = jointAngles[4]
 	q6 = jointAngles[5]
 
+	print("q1: " + str(q1))
+	print("q2: " + str(q2))
+	print("q3: " + str(q3))
+	print("q4: " + str(q4))
+	print("q5: " + str(q5))
+	print("q6: " + str(q6))
+
 	# The rotation matrices for the joints:
 	R01 = rot3D(JOINT_1_ROTATION_AXIS, q1)
 	R12 = rot3D(JOINT_2_ROTATION_AXIS, q2)
@@ -56,13 +63,30 @@ def fkine(jointAngles):
 	R45 = rot3D(JOINT_5_ROTATION_AXIS, q5)
 	R56 = rot3D(JOINT_6_ROTATION_AXIS, q6)
 
+	print("R01: \n" + str(R01))
+	print("R12: \n" + str(R12))
+	print("R23: \n" + str(R23))
+	print("R34: \n" + str(R34))
+	print("R45: \n" + str(R45))
+	print("R56: \n" + str(R56))
+		
+
 	R02 = R01 * R12
 	R03 = R02 * R23
 	R04 = R03 * R34
 	R05 = R04 * R45
-	R06 = R05 * R56 
- 
-	# Calculate the forward kinematics:
-	forwardKinematics = P01 + (R01 *  P12) + (R02 * P23) + (R03 * P34) + (R04 * P45) + (R05 * P56) + (R05 * P6T)
+	R06 = R05 * R56
 
-	return forwardKinematics
+	print("R02: \n" + str(R02))
+	print("R03: \n" + str(R03))
+	print("R04: \n" + str(R04))
+	print("R05: \n" + str(R05))
+	print("R06: \n" + str(R06))
+
+ 
+	# Calculate the translational forward kinematics:
+	transFK = P01 + (R01 * P12) + (R02 * P23) + (R03 * P34) + (R04 * P45) + (R05 * P56) + (R05 * P6T)
+	# Calculate the rotational forward kinematics:
+	rotFK = sum(jointAngles) 
+
+	return rotFK, transFK
