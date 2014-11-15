@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 11/13/14 - 4:26 PM
+Last Updated: 11/14/14 - 11:37 PM
 '''
 
 from powerball_constants import *
@@ -90,3 +90,17 @@ def fkine(jointAngles):
 	rotFK = sum(jointAngles) 
 
 	return rotFK, transFK
+
+# Inverse Kinematics Functions
+
+'''
+Subproblem 0: Find the angle between two vectors.
+'''
+def subproblem0(p, q, k):
+
+        # Normalize the vectors p and q:
+        normP = p / np.linalg.norm(p)
+        normQ = q / np.linalg.norm(q)
+
+        # Calculate the angle between p and q:
+        
