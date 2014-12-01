@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 11/14/14 - 11:37 PM
+Last Updated: 12/1/14 - 3:08 PM
 '''
 
 from powerball_constants import *
@@ -70,7 +70,6 @@ def fkine(jointAngles):
 	print("R45: \n" + str(R45))
 	print("R56: \n" + str(R56))
 		
-
 	R02 = R01 * R12
 	R03 = R02 * R23
 	R04 = R03 * R34
@@ -95,12 +94,50 @@ def fkine(jointAngles):
 
 '''
 Subproblem 0: Find the angle between two vectors.
+
+Inputs:
+p: numpy.matrix
+q: numpy.matrix 
+k: vector of 3 ints
 '''
 def subproblem0(p, q, k):
 
-        # Normalize the vectors p and q:
-        normP = p / np.linalg.norm(p)
-        normQ = q / np.linalg.norm(q)
+	# Normalize the vectors p and q:
+	normP = p / np.linalg.norm(p)
+	normQ = q / np.linalg.norm(q)
 
-        # Calculate the angle between p and q:
-        
+	# Calculate the angle between p and q:
+	theta = 2 * math.atan2( (np.linalg.norm(normP - normQ)), (np.linalg.norm(normP + normQ)))
+
+	# A Numpy Representation of the Rotation Axis:
+	numpyMatrixK = np.matrix((k[0], k[1], k[2]), dtype=float).T
+
+	# Determine the sign of the angle:
+	temp = numpyMatrixK * np.cross(p, q)
+	# Indices is a matrix that helps filter out for negative values 
+	indices = np.where(temp < 0)
+	finalSignMatrix = temp[indices]
+
+	# The crossproduct was negative; reverse the sign of theta:
+	if finalSignMatrix.size > 0:
+		theta *= -1
+
+	return theta
+
+'''
+subproblem1() finds the angle between two vectors in 3D Space.
+'''
+def subproblem1(p, q, k):
+	
+	# Normalize all arguments:
+	normP = np.linalg.norm(p)
+	normQ = np.linalg.norm(q)
+	normK = np.linalg.norm(k)
+
+	# Calculate the modified P and Q vectors:
+	pPrime = normP - (np.dot(normP, normK) * normK)
+	qPrime = normQ - (np.dot(normQ, normK) * normK)	 
+
+	theta = subproblem0(pPrime, qPrime, normK)
+
+	return theta
