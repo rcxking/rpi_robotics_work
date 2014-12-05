@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 12/1/14 - 3:08 PM
+Last Updated: 12/5/14 - 4:10 PM
 '''
 
 from powerball_constants import *
@@ -88,7 +88,7 @@ def fkine(jointAngles):
 	# Calculate the rotational forward kinematics:
 	rotFK = sum(jointAngles) 
 
-	return rotFK, transFK
+	return rotFK, transFK.ravel().tolist()[0]
 
 # Inverse Kinematics Functions
 
@@ -96,15 +96,20 @@ def fkine(jointAngles):
 Subproblem 0: Find the angle between two vectors.
 
 Inputs:
-p: numpy.matrix
-q: numpy.matrix 
-k: vector of 3 ints
+p: 1st Vector (Python list of 3 floats)
+q: 2nd Vector (Python list of 3 floats)
+k: Rotation Axis (Python list of 3 floats)
 '''
 def subproblem0(p, q, k):
 
+	# Convert P, Q, and K into Numpy Matrices:
+	matP = np.matrix(p)
+	matQ = np.matrix(q)	
+	matK = np.matrix(k)
+
 	# Normalize the vectors p and q:
-	normP = p / np.linalg.norm(p)
-	normQ = q / np.linalg.norm(q)
+	normP = matP / np.linalg.norm(matP)
+	normQ = matQ / np.linalg.norm(matQ)
 
 	# Calculate the angle between p and q:
 	theta = 2 * math.atan2( (np.linalg.norm(normP - normQ)), (np.linalg.norm(normP + normQ)))
@@ -126,18 +131,45 @@ def subproblem0(p, q, k):
 
 '''
 subproblem1() finds the angle between two vectors in 3D Space.
+
+Arguments:
+P: 1st Vector (Python List of 3 floats)
+Q: 2nd Vector (Python List of 3 floats)
+K: Rotation Axis (Python List of 3 floats)
 '''
 def subproblem1(p, q, k):
-	
+		
 	# Normalize all arguments:
-	normP = np.linalg.norm(p)
-	normQ = np.linalg.norm(q)
-	normK = np.linalg.norm(k)
+	normP = p / np.linalg.norm(p)
+	normQ = q / np.linalg.norm(q)
+	normK = k / np.linalg.norm(k)
+
+	print("normP: " + str(normP))
+	print("normQ: " + str(normQ))
+	print("normK: " + str(normK))
 
 	# Calculate the modified P and Q vectors:
 	pPrime = normP - (np.dot(normP, normK) * normK)
 	qPrime = normQ - (np.dot(normQ, normK) * normK)	 
 
-	theta = subproblem0(pPrime, qPrime, normK)
+	theta = subproblem0(pPrime, qPrime, k)
 
 	return theta
+
+'''
+subproblem2() finds 0, 1, or 2 solutions between spinning two vectors
+around two separate rotation axis.
+
+Arguments:
+
+'''
+def subproblem2(p, q, k1, k2):
+
+	# Normalize all arguments:
+	normP = p / np.linalg.norm(p)
+	normQ = q / np.linalg.norm(q)
+	normK1 = k1 / np.linalg.norm(k1)
+	normK2 = k2 / np.linalg.norm(k2)
+
+
+
