@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 12/21/14 - 1:54 PM
+Last Updated: 1/1/15 - 11:32 PM
 '''
 
 from powerball_constants import *
@@ -165,11 +165,11 @@ Arguments:
 '''
 def subproblem2(p, q, k1, k2):
 
-	# Convert all arguments to Numpy matrices:
-	matP = np.matrix(p)
-	matQ = np.matrix(q)
-	matK1 = np.matrix(k1)
-	matK2 = np.matrix(k2)
+	# Convert all arguments to Numpy arrays:
+	matP = np.array(p)
+	matQ = np.array(q)
+	matK1 = np.array(k1)
+	matK2 = np.array(k2)
 
 	# Normalize all arguments:
 	normP = matP / np.linalg.norm(matP)
@@ -177,4 +177,16 @@ def subproblem2(p, q, k1, k2):
 	normK1 = k1 / np.linalg.norm(k1)
 	normK2 = k2 / np.linalg.norm(k2)
 
-		
+	# DEBUG ONLY - Print out the normalized arguments:
+	print("normP: " + str(normP))
+	print("normQ: " + str(normQ))
+	print("normK1: " + str(normK1))
+	print("normK2: " + str(normK2))
+
+	# Solve for alpha and beta:
+	array1 = np.array([[1, np.transpose(normK1) * normK2], [np.transpose(normK2) * normK1, 1]])
+	array2 = np.array([[normK1 * normQ], [normK2 * normP]])
+	[alpha, beta] = np.linalg.inv(array1) * array2  
+
+	print("alpha is: " + str(alpha))
+	print("beta is: " + str(beta))
