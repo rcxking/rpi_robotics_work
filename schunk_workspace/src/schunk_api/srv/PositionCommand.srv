@@ -1,0 +1,5 @@
+float64 xCoord
+float64 yCoord
+float64 zCoord
+---
+int64 status

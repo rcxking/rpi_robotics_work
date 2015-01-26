@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 11/7/14 - 5:32 PM   
+Last Updated: 1/26/15 - 4:54 PM   
 '''
 
 # Standard Python Libraries:
@@ -41,9 +41,9 @@ roslib.load_manifest('cob_script_server')
 '''
 This function sends a position control request to the Powerball.  The request
 message consists of 6 float64 parameters representing the target angles for
-the joints.
+the joints.  This API Function works in JOINT SPACE.
 '''  
-def api_handler(req):
+def position_api_joint_space_handler(req):
 
 	'''
 	This simple_script_server is a custom library that was created by 
@@ -99,10 +99,15 @@ def api_handler(req):
 	# return ah
 	return 0
 
+'''
+This function handles a position command  
+'''
+
 def api_server():
 	# Initialize the API Server node:
 	rospy.init_node('schunk_api_server')
-	s = rospy.Service('PositionAPI', PositionAPI, api_handler)
+	s1 = rospy.Service('PositionAPIJointSpace', PositionAPIJointSpace, position_api_joint_space_handler)
+	# s2 = rospy.Service('PositionAPI', PositionAPI, 
 	rospy.spin() 
 
 # Main function.  This node will listen for a position control message and will

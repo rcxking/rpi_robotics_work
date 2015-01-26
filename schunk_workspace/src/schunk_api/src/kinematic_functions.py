@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 1/1/15 - 11:32 PM
+Last Updated: 1/26/15 - 1:39 PM
 '''
 
 from powerball_constants import *
@@ -184,9 +184,10 @@ def subproblem2(p, q, k1, k2):
 	print("normK2: " + str(normK2))
 
 	# Solve for alpha and beta:
-	array1 = np.array([[1, np.transpose(normK1) * normK2], [np.transpose(normK2) * normK1, 1]])
-	array2 = np.array([[normK1 * normQ], [normK2 * normP]])
+	array1 = np.matrix([[1, np.transpose(normK1) * normK2], [np.transpose(normK2) * normK1, 1]])
+	array2 = np.matrix([[normK1 * normQ], [normK2 * normP]])
 	[alpha, beta] = np.linalg.inv(array1) * array2  
 
 	print("alpha is: " + str(alpha))
 	print("beta is: " + str(beta))
+
