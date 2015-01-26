@@ -62,12 +62,6 @@ functional
 cstdlib
 -
 
-/home/powerball/rpi_robotics_work/schunk_workspace/src/ipa_canopen/ipa_canopen_ros/src/JointLimits.cpp
-ros/ros.h
--
-ipa_canopen_ros/JointLimits.h
-/home/powerball/rpi_robotics_work/schunk_workspace/src/ipa_canopen/ipa_canopen_ros/src/ipa_canopen_ros/JointLimits.h
-
 /home/powerball/rpi_robotics_work/schunk_workspace/src/ipa_canopen/ipa_canopen_ros/src/ipa_canopen_ros.cpp
 ros/ros.h
 /home/powerball/rpi_robotics_work/schunk_workspace/src/ipa_canopen/ipa_canopen_ros/src/ros/ros.h

@@ -1,7 +1,7 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/Position.msg"
-services_str = "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPI.srv"
+messages_str = "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/PositionJointSpace.msg;/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/PositionCoordSpace.msg"
+services_str = "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPIJointSpace.srv;/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPICoordSpace.srv"
 pkg_name = "schunk_api"
 dependencies_str = "std_msgs"
 langs = "gencpp;genlisp;genpy"

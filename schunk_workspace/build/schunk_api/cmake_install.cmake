@@ -33,11 +33,17 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/schunk_api/msg" TYPE FILE FILES "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/Position.msg")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/schunk_api/msg" TYPE FILE FILES
+    "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/PositionJointSpace.msg"
+    "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/PositionCoordSpace.msg"
+    )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/schunk_api/srv" TYPE FILE FILES "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPI.srv")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/schunk_api/srv" TYPE FILE FILES
+    "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPIJointSpace.srv"
+    "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPICoordSpace.srv"
+    )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")

@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "schunk_api: 1 messages, 1 services")
+message(STATUS "schunk_api: 2 messages, 2 services")
 
 set(MSG_I_FLAGS "-Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg;-Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg")
 
@@ -18,7 +18,13 @@ add_custom_target(schunk_api_generate_messages ALL)
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(schunk_api
-  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/Position.msg"
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/PositionJointSpace.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/schunk_api
+)
+_generate_msg_cpp(schunk_api
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/PositionCoordSpace.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/schunk_api
@@ -26,7 +32,13 @@ _generate_msg_cpp(schunk_api
 
 ### Generating Services
 _generate_srv_cpp(schunk_api
-  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPI.srv"
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPIJointSpace.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/schunk_api
+)
+_generate_srv_cpp(schunk_api
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPICoordSpace.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/schunk_api
@@ -53,7 +65,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS schunk_api_generate_messages_cpp)
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(schunk_api
-  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/Position.msg"
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/PositionJointSpace.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/schunk_api
+)
+_generate_msg_lisp(schunk_api
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/PositionCoordSpace.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/schunk_api
@@ -61,7 +79,13 @@ _generate_msg_lisp(schunk_api
 
 ### Generating Services
 _generate_srv_lisp(schunk_api
-  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPI.srv"
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPIJointSpace.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/schunk_api
+)
+_generate_srv_lisp(schunk_api
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPICoordSpace.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/schunk_api
@@ -88,7 +112,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS schunk_api_generate_messages_lisp)
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(schunk_api
-  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/Position.msg"
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/PositionJointSpace.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/schunk_api
+)
+_generate_msg_py(schunk_api
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/PositionCoordSpace.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/schunk_api
@@ -96,7 +126,13 @@ _generate_msg_py(schunk_api
 
 ### Generating Services
 _generate_srv_py(schunk_api
-  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPI.srv"
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPIJointSpace.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/schunk_api
+)
+_generate_srv_py(schunk_api
+  "/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPICoordSpace.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/schunk_api

@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 1/26/15 - 4:54 PM   
+Last Updated: 1/26/15 - 5:55 PM   
 '''
 
 # Standard Python Libraries:
@@ -100,14 +100,19 @@ def position_api_joint_space_handler(req):
 	return 0
 
 '''
-This function handles a position command  
+This function handles a position command given in the coordinate space.  This 
+function expects a message (defined in msg/PositionCoordSpace.msg) in the form 
+of an (X, Y, Z) tuple, where X/Y/Z are floating point numbers indicating the X, Y, Z
+destinations of the end effector. 
 '''
+def position_api_coord_space_handler(req):
+	pass
 
 def api_server():
 	# Initialize the API Server node:
 	rospy.init_node('schunk_api_server')
 	s1 = rospy.Service('PositionAPIJointSpace', PositionAPIJointSpace, position_api_joint_space_handler)
-	# s2 = rospy.Service('PositionAPI', PositionAPI, 
+	s2 = rospy.Service('PositionAPICoordSpace', PositionAPICoordSpace, position_api_coord_space_handler) 
 	rospy.spin() 
 
 # Main function.  This node will listen for a position control message and will

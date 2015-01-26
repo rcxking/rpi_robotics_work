@@ -1,12 +1,24 @@
 # Hashes of file build rules.
 783add829de9d9cca11c561bac557ed5 /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/Position.h
 ece76dc5b58c3a54ab5dd7f654dec75f /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionAPI.h
+7a9b5ab9019e9273f3b0d33ebce24475 /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionAPICoordSpace.h
+4c3e278e2af84646362290a9bbaf0d04 /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionAPIJointSpace.h
+862a00eb4b8627f8143bae9aedceb955 /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionCoordSpace.h
+63a8b81cc9011a2d1006788b75476eaa /home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionJointSpace.h
 c970fc34b5a8d5e7405026293fbbe0d9 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_Position.py
+1bf4f73635600d5e15788b940eeb130c /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_PositionCoordSpace.py
+94ebb72b4e760aebeb44b5b33e91188c /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_PositionJointSpace.py
 ee509ce6a5371a257c0a08f8fbe6443a /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py
 bf664fd7ac226dc8527cd3771548a716 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPI.py
+7662bcc1868e9b65dbb66a3307a3a473 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPICoordSpace.py
+9fcdfd9db28d939d623387381b0e019c /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPIJointSpace.py
 709d3241f8fe8cfddc8c552af8bd19fe /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py
 1e84059edc2fb97f5e75cb615d077349 /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/Position.lisp
+71fe110e60b833f3ac3534e89440a8ee /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/PositionCoordSpace.lisp
+574347be12909828c840a62f9f7784b3 /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/PositionJointSpace.lisp
 f99673ea149d5ec025b4ff1c82641e1f /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/PositionAPI.lisp
+eea50a351f28b1e39a8d128b13186d3d /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/PositionAPICoordSpace.lisp
+286aaf704da291114bc12de7f4ab329b /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/PositionAPIJointSpace.lisp
 0a1d39a9f26c11e86d231e9565084f54 CMakeFiles/clean_test_results
 1848db76855a6aea6d07c155c3ce6a34 CMakeFiles/doxygen
 1848db76855a6aea6d07c155c3ce6a34 CMakeFiles/run_tests
