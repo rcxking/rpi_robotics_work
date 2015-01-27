@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 1/27/15 - 3:31 PM
+Last Updated: 1/27/15 - 5:29 PM
 '''
 
 from powerball_constants import *
@@ -124,7 +124,7 @@ def subproblem0(p, q, k):
 	finalSignMatrix = temp[indices]
 
 	# The crossproduct was negative; reverse the sign of theta:
-	if finalSignMatrix.size > 0:
+	if temp[2,2] < 0:
 		theta *= -1
 
 	return theta
@@ -179,63 +179,14 @@ def subproblem2(p, q, k1, k2):
 
 	# Solve for alpha and beta:
 
-	numerator = np.matrix([ [1, np.dot(normK1, normK2)], \
-	                        [np.dot(normK1, normK2), 1] ])
-	denominator = 1 - (np.dot(k1, k2) ** 2)
-	
-	# DEBUG ONLY - Print out the numerator and denominator:
-	print("numerator: " + str(numerator))
-	print("denominator: " + str(denominator))
+	temp = np.matrix([ [1, np.dot(normK1, normK2)], \
+	                   [np.dot(normK2, normK1), 1] ])
+	print("temp is: " + str(temp)) # TEST PASSED
 
-	# Check if a divide by zero occurs:
-	if denominator == 0:
-		print("No solutions")
-		return [0, 9001, 9001]
-	matrix1 = numerator / denominator
-	matrix2 = np.matrix([ [np.dot(normK1, normQ)], \
-	                      [np.dot(normK2, normP)] ])
+	rhs = np.matrix
+	alphaBeta = (1 / np.linalg.det(temp)) * \
+	            np.matrix([ [1, -np.dot(normK1, normK2)], \
+				            [-np.dot(normK1, normK2), 1] ]) * \
+				
+	print("alphaBeta is: " + str(alphaBeta))
 
-
-	alphaBetaSolutions = np.linalg.solve(matrix1, matrix2).tolist()
-	print("alphaBetaSolutions is: " + str(alphaBetaSolutions))
-	print("type of alphaBetaSolutions is: " + str(type(alphaBetaSolutions)))
-
-	alpha = alphaBetaSolutions[0][0]
-	beta = alphaBetaSolutions[1][0]
-
-	print("alpha is: " + str(alpha))
-	print("beta is: " + str(beta))
-
-	# Next, we need to solve for gamma:
-	try:
-		newNumerator = (np.linalg.norm(p)**2) - (alpha**2) - (beta**2) - (2 * alpha * beta * np.dot(k1, k2))
-		newDenominator = np.linalg.norm(np.cross(k1, k2) ** 2)
-		gamma1 = newNumerator / newDenominator
-		gamma2 = -newNumerator / newDenominator	
-
-		'''
-		Now that we've gotten the gamma values, check how many solutions are there.
-		If the gamma values are 0, only 1 solution exists.  Otherwise, 2 solutions
-		exist.
-		'''
-		
-		z1 = (alpha * normK1) + (beta * normK2) + (gamma1 * np.cross(normK1, normK2))
-		z2 = (alpha * normK1) + (beta * normK2) + (gamma2 * np.cross(normK1, normK2))
-
-		theta1 = subproblem1(q, z1, k1) * -1
-		theta2 = subproblem1(p, z2, k2)
-
-		if gamma1 == 0.0:
-			return [1, theta1, theta2]
-		else:
-			return [2, theta1, theta2]
-
-
-
-	except ZeroDivisionError:
-		'''
-		If the calculation for gamma results in a ValueError, this indicates that 
-		the gamma values are imaginary and thus there are 0 solutions: 
-		'''
-		noSolution = [0, 9001, 9001]
-		return noSolution
