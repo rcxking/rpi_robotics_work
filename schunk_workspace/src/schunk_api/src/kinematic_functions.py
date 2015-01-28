@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 1/27/15 - 5:29 PM
+Last Updated: 1/28/15 - 1:52 PM
 '''
 
 from powerball_constants import *
@@ -183,10 +183,71 @@ def subproblem2(p, q, k1, k2):
 	                   [np.dot(normK2, normK1), 1] ])
 	print("temp is: " + str(temp)) # TEST PASSED
 
-	rhs = np.matrix
+	rhsNum = normK1 * np.transpose(np.matrix([normQ[0], normQ[1], normQ[2]]))
+	rhsNum = rhsNum[0, 0]
+	rhsDen = normK2 * np.transpose(np.matrix([normP[0], normP[1], normP[2]]))
+	rhsDen = rhsDen[0, 0]
+
+	print("rhsNum is: " + str(rhsNum))
+	print("rhsDen is: " + str(rhsDen))
+
 	alphaBeta = (1 / np.linalg.det(temp)) * \
 	            np.matrix([ [1, -np.dot(normK1, normK2)], \
 				            [-np.dot(normK1, normK2), 1] ]) * \
+				np.transpose(np.matrix([rhsNum, rhsDen]))
 				
-	print("alphaBeta is: " + str(alphaBeta))
+	print("alphaBeta is: " + str(alphaBeta)) # TEST PASSED
+
+	# Store the values of alpha and beta:
+	alpha = alphaBeta[0,0]
+	beta = alphaBeta[1,0]
+
+	print("alpha is: " + str(alpha))
+	print("beta is: " + str(beta))
+
+	# Now let's calculate the number of solutions:
+	denominator = (alpha**2) + (2*alpha*beta*np.dot(k1, k2)) + (beta**2)
+	print("denominator is: " + str(denominator)) # TEST PASSED
+
+	# Case 1: No solutions:
+	if np.linalg.norm(p) ** 2 < denominator:
+		print("NO SOLUTIONS!")
+		return [0, [-9001, -9001], [-9001, -9001]]
+	elif np.linalg.norm(p) ** 2 == denominator:
+		# Case 2: 1 Solution found (gamma is 0) 
+		print("1 Solution found!")
+		
+		z = (alpha * normK1) + (beta * normK2)
+		print("z is: " + str(z))
+
+		# Solve for theta 1's and 2's:
+		theta1 = -1 * subproblem1([normK1[0], normK1[1], normK1[2]], \
+		                          q, z)
+		theta2 = subproblem1([normK2[0], normK2[1], normK2[2]], p, z) 
+		
+		return [1, theta1, theta2]
+	else:
+		# Case 3: 2 Solutions Found
+		print("2 solutions found!")
+
+		# Find the gamma values:
+		gamma1 = math.sqrt((np.linalg.norm([normP[0], normP[1], normP[2]])**2 \
+		  - denominator)) / np.linalg.norm(np.cross([normK1[0], normK1[1], normK1[2]], [normK2[0], normK2[1], normK2[2]]))
+		gamma2 = math.sqrt((np.linalg.norm([normP[0], normP[1], normP[2]])**2 \
+		  - denominator)) / (-1* np.linalg.norm(np.cross([normK1[0], normK1[1], normK1[2]], [normK2[0], normK2[1], normK2[2]])))
+		print("gamma1: " + str(gamma1))
+		print("gamma2: " + str(gamma2))
+
+		# We have 2 equations for z:
+		z1 = (alpha * normK1) + (beta * normK2) + (gamma1 * np.cross([normK1[0], normK1[1], normK1[2]], [normK2[0], normK2[1], normK2[2]]))
+		z2 = (alpha * normK1) + (beta * normK2) + (gamma1 * np.cross([normK1[0], normK1[1], normK1[2]], [normK2[0], normK2[1], normK2[2]]))
+
+		# We will have two pairs of answers:
+		theta11 = -1*subproblem1([normK1[0], normK1[1], normK1[2]], q, z1)
+		theta12 = -1*subproblem1([normK1[0], normK1[1], normK1[2]], q, z2)
+		theta21 = subproblem1([normK2[0], normK2[1], normK2[2]], p, z1)
+		theta22 = subproblem1([normK2[0], normK2[1], normK2[2]], p, z2)
+
+		return [2, [theta11, theta21], [theta12, theta22]]
+
 
