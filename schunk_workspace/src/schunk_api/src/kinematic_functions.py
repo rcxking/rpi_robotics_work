@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 1/29/15 - 3:21 PM
+Last Updated: 1/29/15 - 6:13 PM
 '''
 
 from powerball_constants import *
@@ -239,7 +239,7 @@ def subproblem2(p, q, k1, k2):
 
 		# We have 2 equations for z:
 		z1 = (alpha * normK1) + (beta * normK2) + (gamma1 * np.cross([normK1[0], normK1[1], normK1[2]], [normK2[0], normK2[1], normK2[2]]))
-		z2 = (alpha * normK1) + (beta * normK2) + (gamma1 * np.cross([normK1[0], normK1[1], normK1[2]], [normK2[0], normK2[1], normK2[2]]))
+		z2 = (alpha * normK1) + (beta * normK2) + (gamma2 * np.cross([normK1[0], normK1[1], normK1[2]], [normK2[0], normK2[1], normK2[2]]))
 
 		# We will have two pairs of answers:
 		theta11 = -1*subproblem1(q, z1, [normK1[0], normK1[1], normK1[2]])
@@ -306,5 +306,23 @@ def ikine(T06, thP):
 	thIK[6][3] = thIK[6][3] + 2**1
 	thIK[2][4] = thIK[2][5] = thIK[2][6] = thIK[2][7] = -temp
 	print("thIK: " + str(thIK))
+
+	# Solve for Joints 1 and 2:
+	elbowUpPVector = np.array([0, 0, a2]) + \
+	                 np.array([-d4*math.sin(thIK[2][0]), 0, d4*math.cos(thIK[2][0])])  
+	elbowUpPVector = [elbowUpPVector[0], elbowUpPVector[1], elbowUpPVector[2]]
+	print("elbowUpPVector: " + str(elbowUpPVector)) # TEST PASSED
+	
+	elbowDownPVector = np.array([0, 0, a2]) + \
+	                   np.array([-d4*math.sin(thIK[2][4]), 0, d4*math.cos(thIK[2][4])])
+	elbowDownPVector = [elbowDownPVector[0], elbowDownPVector[1], elbowDownPVector[2]]
+	print("elbowDownPVector: " + str(elbowDownPVector))
+
+	# Call subproblem 2 to solve for Joint angles 1 and 2:
+	elbowUpSolution = subproblem2(elbowUpPVector, dElbow, [0, 0, 1], [0, 1, 0])
+	elbowDownSolution = subproblem2(elbowDownPVector, dElbow, [0, 0, 1], [0, 1, 0])
+
+	print("elbowUpSolution: " + str(elbowUpSolution))
+	print("elbowDownSolution: " + str(elbowDownSolution))
 
 	
