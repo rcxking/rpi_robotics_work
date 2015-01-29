@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 1/29/15 - 3:05 PM   
+Last Updated: 1/29/15 - 3:12 PM   
 '''
 
 # Standard Python Libraries:
@@ -106,6 +106,28 @@ of an (X, Y, Z) tuple, where X/Y/Z are floating point numbers indicating the X, 
 destinations of the end effector. 
 '''
 def position_api_coord_space_handler(req):
+	
+	'''
+	This simple_script_server is a custom library that was created by
+	the Fraunhofer institute.  An action_handle will listen for position commands.
+	'''
+	ah = simple_script_server.action_handle("move", "arm", "home", False, False)
+	if False:
+		return ah
+	else:
+		ah.set_active()
+	
+	# Get the target (X, Y, Z) coordinates to move to:
+	targetCoords = [req.x, req.y, req.z]
+
+	'''
+	Currently the Powerball requires a list of the 6 target joint angles to move.
+	We can calculate these target joint angles by calling the inverse kinematics
+	functions:
+	'''
+
+		
+
 
 def api_server():
 	# Initialize the API Server node:
