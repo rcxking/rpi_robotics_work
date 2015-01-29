@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 1/29/15 - 2:26 PM
+Last Updated: 1/29/15 - 3:21 PM
 '''
 
 from powerball_constants import *
@@ -284,3 +284,27 @@ def ikine(T06, thP):
 					 np.transpose(np.matrix([0, 0, d6]))
 	dx = [dx[0, 0], dx[1, 0], dx[2, 0]]
 	print("dx: " + str(dx)) # TEST PASSED
+
+	# Vector with the tool tip distance and base distance removed:
+	dElbow = np.array([T06[0, 3], T06[1, 3], T06[2, 3]]) - np.array(dx) - \
+	         np.array([0, 0, d1])
+	dElbow = [dElbow[0], dElbow[1], dElbow[2]]
+	print("dElbow is: " + str(dElbow)) # TEST PASSED
+
+	dElbowNorm = np.linalg.norm(dElbow)	
+	print("dElbowNorm is: " + str(dElbowNorm)) # TEST PASSED
+
+	# Angle of Elbow (found by Law of Cosines)
+	temp = math.pi - math.acos( ( (a2**2)+(d4**2)-(dElbowNorm**2))/(2*a2*d4))
+	print("temp is: " + str(temp))
+
+	# 8 Solutions - first 4 rows are for elbow up; bottom 4 are elbow down:
+	thIK[2][0] = thIK[2][1] = thIK[2][2] = thIK[2][3] = temp
+	thIK[6][0] = thIK[6][0] + 2**1
+	thIK[6][1] = thIK[6][1] + 2**1
+	thIK[6][2] = thIK[6][2] + 2**1
+	thIK[6][3] = thIK[6][3] + 2**1
+	thIK[2][4] = thIK[2][5] = thIK[2][6] = thIK[2][7] = -temp
+	print("thIK: " + str(thIK))
+
+	
