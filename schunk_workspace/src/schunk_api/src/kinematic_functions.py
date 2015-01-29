@@ -221,9 +221,8 @@ def subproblem2(p, q, k1, k2):
 		print("z is: " + str(z))
 
 		# Solve for theta 1's and 2's:
-		theta1 = -1 * subproblem1([normK1[0], normK1[1], normK1[2]], \
-		                          q, z)
-		theta2 = subproblem1([normK2[0], normK2[1], normK2[2]], p, z) 
+		theta1 = -1 * subproblem1(q, z, [normK1[0], normK1[1], normK1[2]])
+		theta2 = subproblem1(p, z, [normK2[0], normK2[1], normK2[2]]) 
 		
 		return [1, theta1, theta2]
 	else:
@@ -243,10 +242,10 @@ def subproblem2(p, q, k1, k2):
 		z2 = (alpha * normK1) + (beta * normK2) + (gamma1 * np.cross([normK1[0], normK1[1], normK1[2]], [normK2[0], normK2[1], normK2[2]]))
 
 		# We will have two pairs of answers:
-		theta11 = -1*subproblem1([normK1[0], normK1[1], normK1[2]], q, z1)
-		theta12 = -1*subproblem1([normK1[0], normK1[1], normK1[2]], q, z2)
-		theta21 = subproblem1([normK2[0], normK2[1], normK2[2]], p, z1)
-		theta22 = subproblem1([normK2[0], normK2[1], normK2[2]], p, z2)
+		theta11 = -1*subproblem1(q, z1, [normK1[0], normK1[1], normK1[2]])
+		theta12 = -1*subproblem1(q, z2, [normK1[0], normK1[1], normK1[2]])
+		theta21 = subproblem1(p, z1, [normK2[0], normK2[1], normK2[2]])
+		theta22 = subproblem1(p, z2, [normK2[0], normK2[1], normK2[2]])
 
 		return [2, [theta11, theta21], [theta12, theta22]]
 
