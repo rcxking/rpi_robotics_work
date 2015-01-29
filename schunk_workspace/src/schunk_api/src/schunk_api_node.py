@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 1/26/15 - 5:55 PM   
+Last Updated: 1/29/15 - 3:05 PM   
 '''
 
 # Standard Python Libraries:
@@ -106,7 +106,6 @@ of an (X, Y, Z) tuple, where X/Y/Z are floating point numbers indicating the X, 
 destinations of the end effector. 
 '''
 def position_api_coord_space_handler(req):
-	pass
 
 def api_server():
 	# Initialize the API Server node:

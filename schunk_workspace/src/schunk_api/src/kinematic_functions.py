@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 1/28/15 - 1:52 PM
+Last Updated: 1/29/15 - 2:26 PM
 '''
 
 from powerball_constants import *
@@ -249,4 +249,38 @@ def subproblem2(p, q, k1, k2):
 
 		return [2, [theta11, theta21], [theta12, theta22]]
 
+'''
+This function calculates the inverse kinematics for the Powerball arm.
 
+Arguments:
+T06 - a numpy.matrix containing the 4x4 homogenous transformation matrix.
+thP - a Python list containing the current joint angles.   
+'''
+
+def ikine(T06, thP):
+	
+	# Create the matrix that will hold the Inverse Kinematics solution:
+	thIK = [[0, 0, 0, 0, 0, 0, 0, 0] for x in range(7)]  		
+
+	# Debug Only - Print out thIK:
+	print("thIK: ")
+	print(thIK)
+
+	# This list holds the joint limits of the Powerball in radians:
+	thLimits = [JOINT_1_MAX, JOINT_2_MAX, JOINT_3_MAX, JOINT_4_MAX, JOINT_5_MAX, JOINT_6_MAX]	 
+
+	# Denavit-Hartenberg Parameters for the Powerball:
+	d1 = 205
+	a2 = 350
+	d4 = 305
+	d6 = 75
+
+	# Solve for theta 3 (Joint 3 angle): 	 
+
+	# Vector from the spherical wrist to the tooltip:
+	dx = np.matrix([ [T06[0, 0], T06[0, 1], T06[0, 2] ], \
+	                 [T06[1, 0], T06[1, 1], T06[1, 2] ], \
+					 [T06[2, 0], T06[2, 1], T06[2, 2] ] ]) * \
+					 np.transpose(np.matrix([0, 0, d6]))
+	dx = [dx[0, 0], dx[1, 0], dx[2, 0]]
+	print("dx: " + str(dx)) # TEST PASSED
