@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 1/29/15 - 6:13 PM
+Last Updated: 2/2/15 - 4:36 PM
 '''
 
 from powerball_constants import *
@@ -212,7 +212,7 @@ def subproblem2(p, q, k1, k2):
 	# Case 1: No solutions:
 	if np.linalg.norm(p) ** 2 < denominator:
 		print("NO SOLUTIONS!")
-		return [0, [-9001, -9001], [-9001, -9001]]
+		return [[-9001, -9001], [-9001, -9001]]
 	elif np.linalg.norm(p) ** 2 == denominator:
 		# Case 2: 1 Solution found (gamma is 0) 
 		print("1 Solution found!")
@@ -224,7 +224,7 @@ def subproblem2(p, q, k1, k2):
 		theta1 = -1 * subproblem1(q, z, [normK1[0], normK1[1], normK1[2]])
 		theta2 = subproblem1(p, z, [normK2[0], normK2[1], normK2[2]]) 
 		
-		return [1, theta1, theta2]
+		return [[theta1, theta1], [theta2, theta2]]
 	else:
 		# Case 3: 2 Solutions Found
 		print("2 solutions found!")
@@ -247,7 +247,19 @@ def subproblem2(p, q, k1, k2):
 		theta21 = subproblem1(p, z1, [normK2[0], normK2[1], normK2[2]])
 		theta22 = subproblem1(p, z2, [normK2[0], normK2[1], normK2[2]])
 
-		return [2, [theta11, theta21], [theta12, theta22]]
+		return [[theta11, theta21], [theta12, theta22]]
+
+'''
+This function creates a 4x4 Homogenous Transformation Matrix from Denavit-
+Hartenberg parameters.  
+'''
+def homoTrans(th, d, a, al):
+	return np.matrix([ [math.cos(th), -math.sin(th)*math.cos(al), \
+	                    math.sin(th)*math.sin(al), a*math.cos(th)], \
+					   [math.sin(th), math.cos(th)*math.cos(al), \
+					    -math.cos(th)*math.sin(al), a*math.sin(th)], \
+					   [0, math.sin(al), math.cos(al), d],
+					   [0, 0, 0, 1] ])
 
 '''
 This function calculates the inverse kinematics for the Powerball arm.
@@ -260,11 +272,11 @@ thP - a Python list containing the current joint angles.
 def ikine(T06, thP):
 	
 	# Create the matrix that will hold the Inverse Kinematics solution:
-	thIK = [[0, 0, 0, 0, 0, 0, 0, 0] for x in range(7)]  		
+	thIK = np.zeros([7, 8])
 
 	# Debug Only - Print out thIK:
-	print("thIK: ")
-	print(thIK)
+	#print("thIK: ")
+	#print(thIK)
 
 	# This list holds the joint limits of the Powerball in radians:
 	thLimits = [JOINT_1_MAX, JOINT_2_MAX, JOINT_3_MAX, JOINT_4_MAX, JOINT_5_MAX, JOINT_6_MAX]	 
@@ -283,20 +295,20 @@ def ikine(T06, thP):
 					 [T06[2, 0], T06[2, 1], T06[2, 2] ] ]) * \
 					 np.transpose(np.matrix([0, 0, d6]))
 	dx = [dx[0, 0], dx[1, 0], dx[2, 0]]
-	print("dx: " + str(dx)) # TEST PASSED
+	#print("dx: " + str(dx)) # TEST PASSED
 
 	# Vector with the tool tip distance and base distance removed:
 	dElbow = np.array([T06[0, 3], T06[1, 3], T06[2, 3]]) - np.array(dx) - \
 	         np.array([0, 0, d1])
 	dElbow = [dElbow[0], dElbow[1], dElbow[2]]
-	print("dElbow is: " + str(dElbow)) # TEST PASSED
+	#print("dElbow is: " + str(dElbow)) # TEST PASSED
 
 	dElbowNorm = np.linalg.norm(dElbow)	
-	print("dElbowNorm is: " + str(dElbowNorm)) # TEST PASSED
+	#print("dElbowNorm is: " + str(dElbowNorm)) # TEST PASSED
 
 	# Angle of Elbow (found by Law of Cosines)
 	temp = math.pi - math.acos( ( (a2**2)+(d4**2)-(dElbowNorm**2))/(2*a2*d4))
-	print("temp is: " + str(temp))
+	#print("temp is: " + str(temp))
 
 	# 8 Solutions - first 4 rows are for elbow up; bottom 4 are elbow down:
 	thIK[2][0] = thIK[2][1] = thIK[2][2] = thIK[2][3] = temp
@@ -305,24 +317,132 @@ def ikine(T06, thP):
 	thIK[6][2] = thIK[6][2] + 2**1
 	thIK[6][3] = thIK[6][3] + 2**1
 	thIK[2][4] = thIK[2][5] = thIK[2][6] = thIK[2][7] = -temp
-	print("thIK: " + str(thIK))
+	#print("thIK: " + str(thIK))
 
 	# Solve for Joints 1 and 2:
 	elbowUpPVector = np.array([0, 0, a2]) + \
 	                 np.array([-d4*math.sin(thIK[2][0]), 0, d4*math.cos(thIK[2][0])])  
 	elbowUpPVector = [elbowUpPVector[0], elbowUpPVector[1], elbowUpPVector[2]]
-	print("elbowUpPVector: " + str(elbowUpPVector)) # TEST PASSED
+	#print("elbowUpPVector: " + str(elbowUpPVector)) # TEST PASSED
 	
 	elbowDownPVector = np.array([0, 0, a2]) + \
 	                   np.array([-d4*math.sin(thIK[2][4]), 0, d4*math.cos(thIK[2][4])])
 	elbowDownPVector = [elbowDownPVector[0], elbowDownPVector[1], elbowDownPVector[2]]
-	print("elbowDownPVector: " + str(elbowDownPVector))
+	#print("elbowDownPVector: " + str(elbowDownPVector))
 
 	# Call subproblem 2 to solve for Joint angles 1 and 2:
 	elbowUpSolution = subproblem2(elbowUpPVector, dElbow, [0, 0, 1], [0, 1, 0])
 	elbowDownSolution = subproblem2(elbowDownPVector, dElbow, [0, 0, 1], [0, 1, 0])
 
-	print("elbowUpSolution: " + str(elbowUpSolution))
-	print("elbowDownSolution: " + str(elbowDownSolution))
+	#print("elbowUpSolution: " + str(elbowUpSolution))
+	#print("elbowDownSolution: " + str(elbowDownSolution))
 
+	# Replace invalid solutions from subproblem2:
+	theta11 = elbowUpSolution[0]
+	theta21 = elbowUpSolution[1]
+	theta12 = elbowDownSolution[0]
+	theta22 = elbowDownSolution[1]
+
+	if theta11[0] == -9001 or theta11[1] == -9001:
+		theta11 = [thP[0], thP[0]]
+	if theta12[0] == -9001 or theta12[1] == -9001:
+		theta12 = [thP[0], thP[0]]
+	if theta21[0] == -9001 or theta21[1] == -9001:
+		theta21 = [thP[0], thP[0]]
+	if theta22[0] == -9001 or theta22[1] == -9001:
+		theta22 = [thP[0], thP[0]]
+
+	#print(thIK[0, 0:4])
 	
+	# Set the solutions for shoulder right:
+	thIK[0, 0:4] = [theta11[0], theta11[1], theta11[0], theta11[1]]
+	thIK[6, [0,2]] = thIK[6, [0,2]] + 2**0
+	thIK[0, 4:8] = [theta12[0], theta12[1], theta12[0], theta12[1]]	
+	thIK[6, [4,6]] = thIK[6, [4,6]] + 2**0
+	thIK[1, 0:4] = [theta21[0], theta21[1], theta21[0], theta21[1]]
+	thIK[1, 4:8] = [theta22[0], theta22[1], theta22[0], theta22[0]]	 
+
+	print(thIK)
+
+	# Solve for Joint 4, 5, 6 Angles:
+	for z in [0, 1, 4, 5]:
+		th1 = thIK[0, z]
+		th2 = thIK[1, z]
+		th3 = thIK[2, z]			
+
+		# Joint 1 Transformation Matrix:
+		T01 = homoTrans(th1, d1, 0, -math.pi / 2)
+		# Joint 2 Transformation Matrix:
+		T12 = homoTrans(th2 - math.pi / 2, 0, a2, math.pi) 
+		# Joint 3 Transformation Matrix:
+		T23 = homoTrans(th3 - math.pi / 2, 0, 0, -math.pi / 2)	 
+
+		T02 = T01*T12
+		T03 = T02*T23
+
+		'''
+		T03 = np.matrix([ [0, 1, 2, 3], \
+		                  [4, 5, 6, 7], \
+						  [8, 9, 10, 11], \
+						  [12, 13, 14, 15] ])
+		'''
+
+		t03Rot = T03[0:3, 0:3].T
+		print("t03Rot:")
+		print(t03Rot)
+		thirdRow = -T03[0:3, 0:3].T*T03[0:3, 3]
+		print("thirdRow:")
+		print(thirdRow)
+	
+		Twrist = np.matrix([ [t03Rot[0,0], t03Rot[0,1], t03Rot[0,2], \
+		                      thirdRow[0]], \
+							 [t03Rot[1,0], t03Rot[1,1], t03Rot[1,2], \
+							  thirdRow[1]], \
+							 [t03Rot[2,0], t03Rot[2,1], t03Rot[2,2], \
+							  thirdRow[2]], \
+							 [0, 0, 0, 1] ])
+		print("Twrist:")
+		print(Twrist) # TWRIST TESTED
+
+		# Remove first 3 joint angles to isolate joints 4, 5, 6 angles:
+		thIK[3,z] = math.atan2(-Twrist[2,3], -Twrist[0,2])
+		thIK[6,z] = thIK[6,z]+2**2
+		# Wrist up:
+		thIK[4,z] = math.acos(Twrist[2,2])
+		thIK[5,z] = math.atan2(-Twrist[2,1], Twrist[2,0])
+		thIK[3,z+2] = math.atan2(Twrist[1,2], Twrist[0,2])
+		# Wrist down:
+		thIK[4,z+2] = -math.acos(Twrist[2,2])
+		thIK[5,z+2] = math.atan2(Twrist[2,1], -Twrist[2,0])
+
+		print("Final Twrist:")
+		print(Twrist)
+
+	# Finally, take into account any joint limits and find closest solutions:
+	counter = 0		
+	tempOut = np.zeros([7,8])
+
+	for x in range(8):
+		# Check the joint limits:
+		if sum(abs(thIK[0:6, x]) <= thLimits) == 6:
+			tempOut[0:7, counter] = thIK[0:7, x]
+			counter += 1
+
+	print("tempOut: ")
+	print(tempOut)
+
+	tempOutLim = tempOut[0:7, 0:counter+1]
+
+	print("tempOutLim is: ")
+	print(tempOutLim)
+
+	if max(np.abs(thP)) > 0:
+		minDiff = np.zeros([counter+1, 1])
+		for x in range(counter+1):
+			minDiff[x] = np.linalg.norm(tempOutLim[0:6, x].T - thP)
+
+		thOut = tempOutLim[minDiff == min(minDiff)]
+	else:
+		thOut = tempOutLim
+	
+	return thOut

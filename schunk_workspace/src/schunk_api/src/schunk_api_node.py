@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 1/29/15 - 3:12 PM   
+Last Updated: 2/2/15 - 12:51 PM   
 '''
 
 # Standard Python Libraries:
@@ -125,6 +125,9 @@ def position_api_coord_space_handler(req):
 	We can calculate these target joint angles by calling the inverse kinematics
 	functions:
 	'''
+
+	# First, get a list of the current joint angles:
+	jointAngles = [	 
 
 		
 
