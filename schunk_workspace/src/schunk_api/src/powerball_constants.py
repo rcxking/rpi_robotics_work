@@ -8,7 +8,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 1/26/14 - 4:52 PM 
+Last Updated: 2/3/14 - 6:07 PM 
 '''
 
 import math
@@ -27,13 +27,13 @@ L1 = 20.5
 L2 = 35.0
 L3 = 30.5
 
-P01 = np.matrix( (0.0, 0.0, L1), dtype=float).T
-P12 = np.matrix( (0.0, 0.0, 0.0), dtype=float).T
-P23 = np.matrix( (0.0, 0.0, L2), dtype=float).T
-P34 = np.matrix( (0.0, 0.0, 0.0), dtype=float).T
-P45 = np.matrix( (0.0, 0.0, L3), dtype=float).T
-P56 = np.matrix( (0.0, 0.0, 0.0), dtype=float).T
-P6T = np.matrix( (0.0, 0.0, 0.0), dtype=float).T
+P01 = np.array([[0.0, 0.0, L1]]).T
+P12 = np.array([[0.0, 0.0, 0.0]]).T
+P23 = np.array([[0.0, 0.0, L2]]).T
+P34 = np.array([[0.0, 0.0, 0.0]]).T
+P45 = np.array([[0.0, 0.0, L3]]).T
+P56 = np.array([[0.0, 0.0, 0.0]]).T
+P6T = np.array([[0.0, 0.0, 0.0]]).T
 
 '''
 Joint limits.  These limits are in radians.  Joint 1 is the base of the 
@@ -71,11 +71,11 @@ Rotation axes.  These axes follow the following convention:
 ----------->(x)
 '''
 
-JOINT_1_ROTATION_AXIS = [0, 0, 1]
-JOINT_2_ROTATION_AXIS = [0, 1, 0]
-JOINT_3_ROTATION_AXIS = [0, -1, 0]
-JOINT_4_ROTATION_AXIS = [0, 0, 1]
-JOINT_5_ROTATION_AXIS = [0, -1, 0]
-JOINT_6_ROTATION_AXIS = [0, 0, 1]
+JOINT_1_ROTATION_AXIS = np.array([[0, 0, 1]]).T
+JOINT_2_ROTATION_AXIS = np.array([[0, 1, 0]]).T
+JOINT_3_ROTATION_AXIS = np.array([[0,-1, 0]]).T
+JOINT_4_ROTATION_AXIS = np.array([[0, 0, 1]]).T
+JOINT_5_ROTATION_AXIS = np.array([[0,-1, 0]]).T
+JOINT_6_ROTATION_AXIS = np.array([[0, 0, 1]]).T
    
 

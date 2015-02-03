@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 2/2/15 - 4:36 PM
+Last Updated: 2/3/15 - 6:17 PM
 '''
 
 from powerball_constants import *
@@ -13,19 +13,30 @@ import math
 import numpy as np
 
 ''' 
-This function takes in a 3-element list representing a vector and returns
+This function takes in a numpy array representing a 3x1 vector and returns
 a 3 x 3 matrix representing kcross. 
+
+Arguments:
+vector: a numpy array of the form: array([[x],
+                                          [y],
+										  [z]])
+
+TESTED/VALIDATED 2/3/15 - 6:23 PM
 '''
 def kcross(vector):
-	return np.matrix( ([0, -1 * vector[2], vector[1]], 
-	                  [vector[2], 0, -1 * vector[0]],
-					  [-1 * vector[1], vector[0], 0]), dtype = float)
+	return np.matrix( ([0, -1 * vector[2][0], vector[1][0]], 
+	                  [vector[2][0], 0, -1 * vector[0][0]],
+					  [-1 * vector[1][0], vector[0][0], 0]), dtype = float)
 
 '''
 This function is an implementation of the Euler-Rodrigues formula for 3D
 rotations.
 
-The angle to rotate must be in radians.
+Arguments:
+rotAxis: The rotation axis (in the form of a numpy column array) 
+angleToRotate: Angle to rotate (must be in radians)
+
+TESTED/VALIDATED 2/3/15 - 6:28 PM
 '''
 def rot3D(rotAxis, angleToRotate):
 	identity3 = np.matrix( ([1, 0, 0], [0, 1, 0], [0, 0, 1]), dtype=float )
@@ -36,7 +47,7 @@ Calculate the forward kinematics of the Powerball Arm.  The forward kinematics
 is found by passing in a list of the joint angles.
 
 Parameters:
-jointAngles: A list of 6 floating point numbers representing the 6 joint angles (in radians)
+jointAngles: A numpy array of 6 floating point numbers representing the 6 joint angles (in radians)
 '''
 def fkine(jointAngles):
 
@@ -247,6 +258,12 @@ def subproblem2(p, q, k1, k2):
 		theta21 = subproblem1(p, z1, [normK2[0], normK2[1], normK2[2]])
 		theta22 = subproblem1(p, z2, [normK2[0], normK2[1], normK2[2]])
 
+		print("Inside subproblem2: ")
+		print("theta11: " + str(theta11))
+		print("theta12: " + str(theta12))
+		print("theta21: " + str(theta21))
+		print("theta22: " + str(theta22))
+		print("Done inside subproblem2")
 		return [[theta11, theta21], [theta12, theta22]]
 
 '''
@@ -353,6 +370,11 @@ def ikine(T06, thP):
 		theta22 = [thP[0], thP[0]]
 
 	#print(thIK[0, 0:4])
+
+	print("theta11: " + str(theta11))
+	print("theta21: " + str(theta21))
+	print("theta12: " + str(theta12))
+	print("theta22: " + str(theta22))
 	
 	# Set the solutions for shoulder right:
 	thIK[0, 0:4] = [theta11[0], theta11[1], theta11[0], theta11[1]]
@@ -362,6 +384,8 @@ def ikine(T06, thP):
 	thIK[1, 0:4] = [theta21[0], theta21[1], theta21[0], theta21[1]]
 	thIK[1, 4:8] = [theta22[0], theta22[1], theta22[0], theta22[0]]	 
 
+	print("After setting the solutions for shoulder right and shoulder left")
+	print("thIK is: ") 
 	print(thIK)
 
 	# Solve for Joint 4, 5, 6 Angles:
