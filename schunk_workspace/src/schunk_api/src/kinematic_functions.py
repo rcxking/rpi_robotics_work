@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 2/3/15 - 6:17 PM
+Last Updated: 2/5/15 - 3:58 PM
 '''
 
 from powerball_constants import *
@@ -47,7 +47,11 @@ Calculate the forward kinematics of the Powerball Arm.  The forward kinematics
 is found by passing in a list of the joint angles.
 
 Parameters:
-jointAngles: A numpy array of 6 floating point numbers representing the 6 joint angles (in radians)
+jointAngles: A list of 6 floating point numbers representing the 6 joint angles (in radians)
+
+Returns: rotFK, transFK (rotational and translational forward kinematics, respectively)
+
+TESTED/VALIDATED 2/5/15 - 4:14 PM
 '''
 def fkine(jointAngles):
 
@@ -55,16 +59,19 @@ def fkine(jointAngles):
 	q1 = jointAngles[0]
 	q2 = jointAngles[1]
 	q3 = jointAngles[2]
-	q4 = jointAngles[3]
+	q4 = jointAngles[3]	
 	q5 = jointAngles[4]
 	q6 = jointAngles[5]
 
+	# DEBUG ONLY - Print out current joint angles:
+	'''
 	print("q1: " + str(q1))
 	print("q2: " + str(q2))
 	print("q3: " + str(q3))
 	print("q4: " + str(q4))
 	print("q5: " + str(q5))
 	print("q6: " + str(q6))
+	'''
 
 	# The rotation matrices for the joints:
 	R01 = rot3D(JOINT_1_ROTATION_AXIS, q1)
@@ -74,12 +81,15 @@ def fkine(jointAngles):
 	R45 = rot3D(JOINT_5_ROTATION_AXIS, q5)
 	R56 = rot3D(JOINT_6_ROTATION_AXIS, q6)
 
+	# DEBUG ONLY - Print out computed rotation matrices:
+	'''
 	print("R01: \n" + str(R01))
 	print("R12: \n" + str(R12))
 	print("R23: \n" + str(R23))
 	print("R34: \n" + str(R34))
 	print("R45: \n" + str(R45))
 	print("R56: \n" + str(R56))
+	'''
 		
 	R02 = R01 * R12
 	R03 = R02 * R23
@@ -87,11 +97,13 @@ def fkine(jointAngles):
 	R05 = R04 * R45
 	R06 = R05 * R56
 
+	'''
 	print("R02: \n" + str(R02))
 	print("R03: \n" + str(R03))
 	print("R04: \n" + str(R04))
 	print("R05: \n" + str(R05))
 	print("R06: \n" + str(R06))
+	'''
 
  
 	# Calculate the translational forward kinematics:
@@ -107,33 +119,27 @@ def fkine(jointAngles):
 Subproblem 0: Find the angle between two vectors.
 
 Inputs:
-p: 1st Vector (Python list of 3 floats)
-q: 2nd Vector (Python list of 3 floats)
-k: Rotation Axis (Python list of 3 floats)
+p: 1st Vector (numpy array of 3 floats)
+q: 2nd Vector (numpy array of 3 floats)
+k: Rotation Axis (numpy array of 3 floats)
+
+TESTED/VALIDATED 2/5/15 - 4:31 PM
 '''
 def subproblem0(p, q, k):
 
-	# Convert P, Q, and K into Numpy Matrices:
-	matP = np.matrix(p)
-	matQ = np.matrix(q)	
-	matK = np.matrix(k)
-
 	# Normalize the vectors p and q:
-	normP = matP / np.linalg.norm(matP)
-	normQ = matQ / np.linalg.norm(matQ)
+	normP = p / np.linalg.norm(p)
+	normQ = q / np.linalg.norm(q)
 
 	# Calculate the angle between p and q:
 	theta = 2 * math.atan2( (np.linalg.norm(normP - normQ)), (np.linalg.norm(normP + normQ)))
 
 	# A Numpy Representation of the Rotation Axis:
-	numpyMatrixK = np.matrix((k[0], k[1], k[2]), dtype=float).T
+	numpyMatrixK = np.matrix((k[0][0], k[1][0], k[2][0]), dtype=float).T
 
 	# Determine the sign of the angle:
-	temp = numpyMatrixK * np.cross(p, q)
-	# Indices is a matrix that helps filter out for negative values 
-	indices = np.where(temp < 0)
-	finalSignMatrix = temp[indices]
-
+	temp = numpyMatrixK * np.cross(p.T, q.T)
+	
 	# The crossproduct was negative; reverse the sign of theta:
 	if temp[2,2] < 0:
 		theta *= -1
@@ -144,9 +150,11 @@ def subproblem0(p, q, k):
 subproblem1() finds the angle between two vectors in 3D Space.
 
 Arguments:
-P: 1st Vector (Python List of 3 floats)
-Q: 2nd Vector (Python List of 3 floats)
-K: Rotation Axis (Python List of 3 floats)
+P: 1st Vector (numpy array of 3 floats)
+Q: 2nd Vector (numpy array of 3 floats)
+K: Rotation Axis (numpy array of 3 floats)
+
+TESTED/VALIDATED 2/5/15 - 4:39 PM
 '''
 def subproblem1(p, q, k):
 		
@@ -160,8 +168,10 @@ def subproblem1(p, q, k):
 	print("normK: " + str(normK))
 
 	# Calculate the modified P and Q vectors:
-	pPrime = normP - (np.dot(normP, normK) * normK)
-	qPrime = normQ - (np.dot(normQ, normK) * normK)	 
+	pPrime = normP - (np.dot(normP.T, normK) * normK)
+	print("pPrime: " + str(pPrime))
+	qPrime = normQ - (np.dot(normQ.T, normK) * normK)	 
+	print("qPrime: " + str(qPrime))
 
 	theta = subproblem0(pPrime, qPrime, k)
 
@@ -172,99 +182,99 @@ subproblem2() finds 0, 1, or 2 solutions between spinning two vectors
 around two separate rotation axis.
 
 Arguments:
+p 
+q 
+k1 
+k2
+
+TESTED/VALIDATED 2/5/15 - 6:00 PM
 
 '''
 def subproblem2(p, q, k1, k2):
 
-	# Normalize all arguments:
-	normP = p / np.linalg.norm(p)
-	normQ = q / np.linalg.norm(q)
-	normK1 = k1 / np.linalg.norm(k1)
-	normK2 = k2 / np.linalg.norm(k2)
+	print("p: " + str(p))
+	print("q: " + str(q))
+	print("k1: " + str(k1))
+	print("k2: " + str(k2))
 
-	# DEBUG ONLY - Print out the normalized arguments:
-	print("normP: " + str(normP))
-	print("normQ: " + str(normQ))
-	print("normK1: " + str(normK1))
-	print("normK2: " + str(normK2))
+	k12 = np.dot(k1.T, k2)[0][0]
+	pk = np.dot(p.T, k2)[0][0]
+	qk = np.dot(q.T, k1)[0][0]
+	print("k12: " + str(k12))
+	print("pk: " + str(pk))
+	print("qk: " + str(qk))
 
-	# Solve for alpha and beta:
 
-	temp = np.matrix([ [1, np.dot(normK1, normK2)], \
-	                   [np.dot(normK2, normK1), 1] ])
-	print("temp is: " + str(temp)) # TEST PASSED
-
-	rhsNum = normK1 * np.transpose(np.matrix([normQ[0], normQ[1], normQ[2]]))
-	rhsNum = rhsNum[0, 0]
-	rhsDen = normK2 * np.transpose(np.matrix([normP[0], normP[1], normP[2]]))
-	rhsDen = rhsDen[0, 0]
-
-	print("rhsNum is: " + str(rhsNum))
-	print("rhsDen is: " + str(rhsDen))
-
-	alphaBeta = (1 / np.linalg.det(temp)) * \
-	            np.matrix([ [1, -np.dot(normK1, normK2)], \
-				            [-np.dot(normK1, normK2), 1] ]) * \
-				np.transpose(np.matrix([rhsNum, rhsDen]))
-				
-	print("alphaBeta is: " + str(alphaBeta)) # TEST PASSED
-
-	# Store the values of alpha and beta:
-	alpha = alphaBeta[0,0]
-	beta = alphaBeta[1,0]
-
-	print("alpha is: " + str(alpha))
-	print("beta is: " + str(beta))
-
-	# Now let's calculate the number of solutions:
-	denominator = (alpha**2) + (2*alpha*beta*np.dot(k1, k2)) + (beta**2)
-	print("denominator is: " + str(denominator)) # TEST PASSED
-
-	# Case 1: No solutions:
-	if np.linalg.norm(p) ** 2 < denominator:
-		print("NO SOLUTIONS!")
+	# No solution exists:
+	if abs(k12**2 - 1) < 0.0001:
+		print("No solution exists!")
 		return [[-9001, -9001], [-9001, -9001]]
-	elif np.linalg.norm(p) ** 2 == denominator:
-		# Case 2: 1 Solution found (gamma is 0) 
-		print("1 Solution found!")
-		
-		z = (alpha * normK1) + (beta * normK2)
-		print("z is: " + str(z))
+	
+	a = np.matrix([ [k12, -1], [-1, k12] ]) * \
+	    np.matrix([ [pk / (k12**2 - 1)], [qk / (k12**2 - 1)]])
+	print("a: " + str(a)) # PASSED
 
-		# Solve for theta 1's and 2's:
-		theta1 = -1 * subproblem1(q, z, [normK1[0], normK1[1], normK1[2]])
-		theta2 = subproblem1(p, z, [normK2[0], normK2[1], normK2[2]]) 
-		
+	bb = (np.linalg.norm(p)**2 - np.linalg.norm(a)**2 - \
+	      2*a[0][0]*a[1][0]*k12).item(0, 0)
+	print("bb: " + str(bb)) # PASSED
+
+	if abs(bb) < 0.0001:
+		bb = 0
+	if bb < 0:
+		print("No solution exists!")
+		return [[-9001, -9001], [-9001, -9001]]
+
+	# Check if only 1 solution exists:
+	gamma = math.sqrt(bb) / np.linalg.norm(np.cross(k1.T, k2.T))
+	print("gamma: " + str(gamma)) # PASSED
+
+	if abs(gamma) < 0.0001:
+		print("1 Solution Found!")
+		k1xk2 = np.cross(k1.T, k2.T)  
+		c1 = np.matrix(([k1.item(0,0), k2.item(0,0), k1xk2.item(0)],\
+		                [k1.item(1,0), k2.item(1,0), k1xk2.item(1)],\
+						[k1.item(2,0), k2.item(2,0), k1xk2.item(2)]\
+						)) * np.matrix([ [a.item(0,0)],\
+						                 [a.item(1,0)],\
+										 [gamma] ]) 
+		print("c1: " + str(c1)) # PASSED
+		print("type c1: " + str(type(c1)))
+		c1 = np.array([[c1.item(0,0), c1.item(1,0), c1.item(2,0)]]).T
+
+		theta1 = -1*subproblem1(q, c1, k1)
+		theta2 = subproblem1(p, c1, k2)
 		return [[theta1, theta1], [theta2, theta2]]
-	else:
-		# Case 3: 2 Solutions Found
-		print("2 solutions found!")
 
-		# Find the gamma values:
-		gamma1 = math.sqrt((np.linalg.norm([normP[0], normP[1], normP[2]])**2 \
-		  - denominator)) / np.linalg.norm(np.cross([normK1[0], normK1[1], normK1[2]], [normK2[0], normK2[1], normK2[2]]))
-		gamma2 = math.sqrt((np.linalg.norm([normP[0], normP[1], normP[2]])**2 \
-		  - denominator)) / (-1* np.linalg.norm(np.cross([normK1[0], normK1[1], normK1[2]], [normK2[0], normK2[1], normK2[2]])))
-		print("gamma1: " + str(gamma1))
-		print("gamma2: " + str(gamma2))
+	# General Case - 2 Solutions
+	theta1 = np.zeros([1,2])
+	theta2 = np.zeros([1,2])
 
-		# We have 2 equations for z:
-		z1 = (alpha * normK1) + (beta * normK2) + (gamma1 * np.cross([normK1[0], normK1[1], normK1[2]], [normK2[0], normK2[1], normK2[2]]))
-		z2 = (alpha * normK1) + (beta * normK2) + (gamma2 * np.cross([normK1[0], normK1[1], normK1[2]], [normK2[0], normK2[1], normK2[2]]))
+	k1xk2 = np.cross(k1.T, k2.T)
+	
+	c1 = np.matrix(([k1.item(0,0), k2.item(0,0), k1xk2.item(0)],\
+	                [k1.item(1,0), k2.item(1,0), k1xk2.item(1)],\
+					[k1.item(2,0), k2.item(2,0), k1xk2.item(2)]\
+				  )) * np.matrix([ [a.item(0,0)],\
+				                   [a.item(1,0)],\
+								   [gamma] ])
+	c2 = np.matrix(([k1.item(0,0), k2.item(0,0), k1xk2.item(0)],\
+	                [k1.item(1,0), k2.item(1,0), k1xk2.item(1)],\
+					[k1.item(2,0), k2.item(2,0), k1xk2.item(2)]\
+				  )) * np.matrix([ [a.item(0,0)],\
+				                   [a.item(1,0)],\
+								   [-1*gamma] ])
 
-		# We will have two pairs of answers:
-		theta11 = -1*subproblem1(q, z1, [normK1[0], normK1[1], normK1[2]])
-		theta12 = -1*subproblem1(q, z2, [normK1[0], normK1[1], normK1[2]])
-		theta21 = subproblem1(p, z1, [normK2[0], normK2[1], normK2[2]])
-		theta22 = subproblem1(p, z2, [normK2[0], normK2[1], normK2[2]])
+	c1 = np.array([[c1.item(0,0), c1.item(1,0), c1.item(2,0)]]).T
+	c2 = np.array([[c2.item(0,0), c2.item(1,0), c2.item(2,0)]]).T
 
-		print("Inside subproblem2: ")
-		print("theta11: " + str(theta11))
-		print("theta12: " + str(theta12))
-		print("theta21: " + str(theta21))
-		print("theta22: " + str(theta22))
-		print("Done inside subproblem2")
-		return [[theta11, theta21], [theta12, theta22]]
+	theta2.itemset((0,0), subproblem1(p, c1, k2))
+	theta2.itemset((0,1), subproblem1(p, c2, k2))
+	theta1.itemset((0,0), -1*subproblem1(q, c1, k1))
+	theta1.itemset((0,1), -1*subproblem1(q, c2, k1))
+
+	return [theta1, theta2]
+
+
 
 '''
 This function creates a 4x4 Homogenous Transformation Matrix from Denavit-
@@ -291,10 +301,6 @@ def ikine(T06, thP):
 	# Create the matrix that will hold the Inverse Kinematics solution:
 	thIK = np.zeros([7, 8])
 
-	# Debug Only - Print out thIK:
-	#print("thIK: ")
-	#print(thIK)
-
 	# This list holds the joint limits of the Powerball in radians:
 	thLimits = [JOINT_1_MAX, JOINT_2_MAX, JOINT_3_MAX, JOINT_4_MAX, JOINT_5_MAX, JOINT_6_MAX]	 
 
@@ -310,22 +316,21 @@ def ikine(T06, thP):
 	dx = np.matrix([ [T06[0, 0], T06[0, 1], T06[0, 2] ], \
 	                 [T06[1, 0], T06[1, 1], T06[1, 2] ], \
 					 [T06[2, 0], T06[2, 1], T06[2, 2] ] ]) * \
-					 np.transpose(np.matrix([0, 0, d6]))
-	dx = [dx[0, 0], dx[1, 0], dx[2, 0]]
-	#print("dx: " + str(dx)) # TEST PASSED
+					 np.matrix([0, 0, d6]).T
+	dx = np.array([[dx[0, 0], dx[1, 0], dx[2, 0]]]).T
+	print("dx: " + str(dx)) # TEST PASSED
 
 	# Vector with the tool tip distance and base distance removed:
-	dElbow = np.array([T06[0, 3], T06[1, 3], T06[2, 3]]) - np.array(dx) - \
-	         np.array([0, 0, d1])
-	dElbow = [dElbow[0], dElbow[1], dElbow[2]]
-	#print("dElbow is: " + str(dElbow)) # TEST PASSED
+	dElbow = np.subtract(np.array([[T06[0, 3], T06[1, 3], T06[2, 3]]]).T, dx,\
+	         np.array([[0, 0, d1]]).T)
+	print("dElbow is: " + str(dElbow)) 
 
 	dElbowNorm = np.linalg.norm(dElbow)	
-	#print("dElbowNorm is: " + str(dElbowNorm)) # TEST PASSED
+	print("dElbowNorm is: " + str(dElbowNorm)) 
 
 	# Angle of Elbow (found by Law of Cosines)
 	temp = math.pi - math.acos( ( (a2**2)+(d4**2)-(dElbowNorm**2))/(2*a2*d4))
-	#print("temp is: " + str(temp))
+	print("temp is: " + str(temp))
 
 	# 8 Solutions - first 4 rows are for elbow up; bottom 4 are elbow down:
 	thIK[2][0] = thIK[2][1] = thIK[2][2] = thIK[2][3] = temp
@@ -334,7 +339,8 @@ def ikine(T06, thP):
 	thIK[6][2] = thIK[6][2] + 2**1
 	thIK[6][3] = thIK[6][3] + 2**1
 	thIK[2][4] = thIK[2][5] = thIK[2][6] = thIK[2][7] = -temp
-	#print("thIK: " + str(thIK))
+	print("thIK: " + str(thIK))
+	return
 
 	# Solve for Joints 1 and 2:
 	elbowUpPVector = np.array([0, 0, a2]) + \
