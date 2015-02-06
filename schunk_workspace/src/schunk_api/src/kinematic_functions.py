@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 2/5/15 - 3:58 PM
+Last Updated: 2/6/15 - 3:20 PM
 '''
 
 from powerball_constants import *
@@ -127,6 +127,8 @@ TESTED/VALIDATED 2/5/15 - 4:31 PM
 '''
 def subproblem0(p, q, k):
 
+	#print("inside sub0")
+
 	# Normalize the vectors p and q:
 	normP = p / np.linalg.norm(p)
 	normQ = q / np.linalg.norm(q)
@@ -135,15 +137,27 @@ def subproblem0(p, q, k):
 	theta = 2 * math.atan2( (np.linalg.norm(normP - normQ)), (np.linalg.norm(normP + normQ)))
 
 	# A Numpy Representation of the Rotation Axis:
-	numpyMatrixK = np.matrix((k[0][0], k[1][0], k[2][0]), dtype=float).T
+	numpyMatrixK = np.matrix([k.item(0,0), k.item(1,0), k.item(2,0)])
+	#print("numpyMatrixK: " + str(numpyMatrixK))
+	#print("numpyMatrixK.shape: " + str(numpyMatrixK.shape))
+
+	cross = np.cross(p.T, q.T)
+	cross = np.matrix([cross.item(0), cross.item(1), cross.item(2)]).T
+	#print("cross: " + str(cross))
+	#print("cross.shape: " + str(cross.shape))
+
 
 	# Determine the sign of the angle:
-	temp = numpyMatrixK * np.cross(p.T, q.T)
+	temp = numpyMatrixK * cross 
+	#print("temp: " + str(temp))
 	
 	# The crossproduct was negative; reverse the sign of theta:
-	if temp[2,2] < 0:
-		theta *= -1
+	if temp.item(0,0) < 0.0:
+		#print("before negating theta, theta is: " + str(theta))
+		theta *= -1.0
+		#print("after negating theta, theta is: " + str(theta))
 
+	#print("leaving sub0")
 	return theta
 
 '''
@@ -163,15 +177,15 @@ def subproblem1(p, q, k):
 	normQ = q / np.linalg.norm(q)
 	normK = k / np.linalg.norm(k)
 
-	print("normP: " + str(normP))
-	print("normQ: " + str(normQ))
-	print("normK: " + str(normK))
+	#print("normP: " + str(normP))
+	#print("normQ: " + str(normQ))
+	#print("normK: " + str(normK))
 
 	# Calculate the modified P and Q vectors:
-	pPrime = normP - (np.dot(normP.T, normK) * normK)
-	print("pPrime: " + str(pPrime))
-	qPrime = normQ - (np.dot(normQ.T, normK) * normK)	 
-	print("qPrime: " + str(qPrime))
+	pPrime = np.subtract(normP, (np.dot(normP.T, normK) * normK))
+	#print("pPrime: " + str(pPrime))
+	qPrime = np.subtract(normQ, (np.dot(normQ.T, normK) * normK))
+	#print("qPrime: " + str(qPrime))
 
 	theta = subproblem0(pPrime, qPrime, k)
 
@@ -192,17 +206,19 @@ TESTED/VALIDATED 2/5/15 - 6:00 PM
 '''
 def subproblem2(p, q, k1, k2):
 
-	print("p: " + str(p))
-	print("q: " + str(q))
-	print("k1: " + str(k1))
-	print("k2: " + str(k2))
+	#print("inside sub2: ")
+
+	#print("p: " + str(p))
+	#print("q: " + str(q))
+	#print("k1: " + str(k1))
+	#print("k2: " + str(k2))
 
 	k12 = np.dot(k1.T, k2)[0][0]
 	pk = np.dot(p.T, k2)[0][0]
 	qk = np.dot(q.T, k1)[0][0]
-	print("k12: " + str(k12))
-	print("pk: " + str(pk))
-	print("qk: " + str(qk))
+	#print("k12: " + str(k12))
+	#print("pk: " + str(pk))
+	#print("qk: " + str(qk))
 
 
 	# No solution exists:
@@ -212,11 +228,11 @@ def subproblem2(p, q, k1, k2):
 	
 	a = np.matrix([ [k12, -1], [-1, k12] ]) * \
 	    np.matrix([ [pk / (k12**2 - 1)], [qk / (k12**2 - 1)]])
-	print("a: " + str(a)) # PASSED
+	#print("a: " + str(a)) # PASSED
 
 	bb = (np.linalg.norm(p)**2 - np.linalg.norm(a)**2 - \
 	      2*a[0][0]*a[1][0]*k12).item(0, 0)
-	print("bb: " + str(bb)) # PASSED
+	#print("bb: " + str(bb)) # PASSED
 
 	if abs(bb) < 0.0001:
 		bb = 0
@@ -226,7 +242,7 @@ def subproblem2(p, q, k1, k2):
 
 	# Check if only 1 solution exists:
 	gamma = math.sqrt(bb) / np.linalg.norm(np.cross(k1.T, k2.T))
-	print("gamma: " + str(gamma)) # PASSED
+	#print("gamma: " + str(gamma)) # PASSED
 
 	if abs(gamma) < 0.0001:
 		print("1 Solution Found!")
@@ -237,8 +253,8 @@ def subproblem2(p, q, k1, k2):
 						)) * np.matrix([ [a.item(0,0)],\
 						                 [a.item(1,0)],\
 										 [gamma] ]) 
-		print("c1: " + str(c1)) # PASSED
-		print("type c1: " + str(type(c1)))
+		#print("c1: " + str(c1)) # PASSED
+		#print("type c1: " + str(type(c1)))
 		c1 = np.array([[c1.item(0,0), c1.item(1,0), c1.item(2,0)]]).T
 
 		theta1 = -1*subproblem1(q, c1, k1)
@@ -262,16 +278,22 @@ def subproblem2(p, q, k1, k2):
 					[k1.item(2,0), k2.item(2,0), k1xk2.item(2)]\
 				  )) * np.matrix([ [a.item(0,0)],\
 				                   [a.item(1,0)],\
-								   [-1*gamma] ])
+								   [-1.0*gamma] ])
 
 	c1 = np.array([[c1.item(0,0), c1.item(1,0), c1.item(2,0)]]).T
 	c2 = np.array([[c2.item(0,0), c2.item(1,0), c2.item(2,0)]]).T
+
+	#print("c1: " + str(c1));
+	#print("c2: " + str(c2));
 
 	theta2.itemset((0,0), subproblem1(p, c1, k2))
 	theta2.itemset((0,1), subproblem1(p, c2, k2))
 	theta1.itemset((0,0), -1*subproblem1(q, c1, k1))
 	theta1.itemset((0,1), -1*subproblem1(q, c2, k1))
 
+	#print("theta1: " + str(theta1))
+	#print("theta2: " + str(theta2))
+	#print("leaving sub2")
 	return [theta1, theta2]
 
 
@@ -318,19 +340,19 @@ def ikine(T06, thP):
 					 [T06[2, 0], T06[2, 1], T06[2, 2] ] ]) * \
 					 np.matrix([0, 0, d6]).T
 	dx = np.array([[dx[0, 0], dx[1, 0], dx[2, 0]]]).T
-	print("dx: " + str(dx)) # TEST PASSED
+	#print("dx: " + str(dx)) # TEST PASSED
 
 	# Vector with the tool tip distance and base distance removed:
-	dElbow = np.subtract(np.array([[T06[0, 3], T06[1, 3], T06[2, 3]]]).T, dx,\
-	         np.array([[0, 0, d1]]).T)
-	print("dElbow is: " + str(dElbow)) 
+	temp1 = np.subtract(np.array([[T06[0, 3], T06[1, 3], T06[2, 3]]]).T, dx,)
+	dElbow = np.subtract(temp1, np.array([[0, 0, d1]]).T)
+	#print("dElbow is: " + str(dElbow)) # TEST PASSED 2/6/15 - 2:29 PM
 
 	dElbowNorm = np.linalg.norm(dElbow)	
-	print("dElbowNorm is: " + str(dElbowNorm)) 
+	#print("dElbowNorm is: " + str(dElbowNorm)) # TEST PASSED 2/6/15 - 2:33 PM
 
 	# Angle of Elbow (found by Law of Cosines)
 	temp = math.pi - math.acos( ( (a2**2)+(d4**2)-(dElbowNorm**2))/(2*a2*d4))
-	print("temp is: " + str(temp))
+	#print("temp is: " + str(temp)) # TEST PASSED 2/6/15 - 2:33 PM
 
 	# 8 Solutions - first 4 rows are for elbow up; bottom 4 are elbow down:
 	thIK[2][0] = thIK[2][1] = thIK[2][2] = thIK[2][3] = temp
@@ -339,23 +361,30 @@ def ikine(T06, thP):
 	thIK[6][2] = thIK[6][2] + 2**1
 	thIK[6][3] = thIK[6][3] + 2**1
 	thIK[2][4] = thIK[2][5] = thIK[2][6] = thIK[2][7] = -temp
-	print("thIK: " + str(thIK))
-	return
+	#print("thIK: " + str(thIK)) # TEST PASSED 2/6/15 - 2:39 PM
 
 	# Solve for Joints 1 and 2:
-	elbowUpPVector = np.array([0, 0, a2]) + \
-	                 np.array([-d4*math.sin(thIK[2][0]), 0, d4*math.cos(thIK[2][0])])  
-	elbowUpPVector = [elbowUpPVector[0], elbowUpPVector[1], elbowUpPVector[2]]
-	#print("elbowUpPVector: " + str(elbowUpPVector)) # TEST PASSED
-	
-	elbowDownPVector = np.array([0, 0, a2]) + \
-	                   np.array([-d4*math.sin(thIK[2][4]), 0, d4*math.cos(thIK[2][4])])
-	elbowDownPVector = [elbowDownPVector[0], elbowDownPVector[1], elbowDownPVector[2]]
-	#print("elbowDownPVector: " + str(elbowDownPVector))
+
+	p1pt1 = np.array([[0, 0, a2]]).T
+	p1pt2 = np.array([[-d4*math.sin(thIK.item(2,0)), 0, d4*math.cos(thIK.item(2,0))]]).T
+	p1 = np.add(p1pt1, p1pt2)
+	#print("p1pt1: " + str(p1pt1)) # TEST PASSED 2/6/15 - 3:02 PM
+	#print("p1pt2: " + str(p1pt2)) # TEST PASSED 2/6/15 - 3:02 PM
+	#print("p1: " + str(p1)) # TEST PASSED 2/6/15 - 3:02 PM
+
+	p2pt1 = np.array([[0, 0, a2]]).T
+	p2pt2 = np.array([[-d4*math.sin(thIK.item(2,4)), 0, d4*math.cos(thIK.item(2,4))]]).T
+	p2 = np.add(p2pt1, p2pt2)
+	#print("p2pt1: " + str(p2pt1)) # THREE LINES PASSED
+	#print("p2pt2: " + str(p2pt2))
+	#print("p2: " + str(p2))
 
 	# Call subproblem 2 to solve for Joint angles 1 and 2:
-	elbowUpSolution = subproblem2(elbowUpPVector, dElbow, [0, 0, 1], [0, 1, 0])
-	elbowDownSolution = subproblem2(elbowDownPVector, dElbow, [0, 0, 1], [0, 1, 0])
+	elbowUpSolution = subproblem2(p1, dElbow, JOINT_1_ROTATION_AXIS,\
+	                              JOINT_2_ROTATION_AXIS)
+	elbowDownSolution = subproblem2(p2, dElbow, \
+	                                JOINT_1_ROTATION_AXIS, JOINT_2_ROTATION_AXIS)
+
 
 	#print("elbowUpSolution: " + str(elbowUpSolution))
 	#print("elbowDownSolution: " + str(elbowDownSolution))
@@ -366,39 +395,50 @@ def ikine(T06, thP):
 	theta12 = elbowDownSolution[0]
 	theta22 = elbowDownSolution[1]
 
-	if theta11[0] == -9001 or theta11[1] == -9001:
+	#print("theta11.item(0,0) is: " + str(theta11.item(0,0)))
+	#print("theta11.item(0,1) is: " + str(theta11.item(0,1)))
+
+	if theta11.item(0,0) == -9001 or theta11.item(0,1) == -9001:
 		theta11 = [thP[0], thP[0]]
-	if theta12[0] == -9001 or theta12[1] == -9001:
+	if theta12.item(0,0) == -9001 or theta12.item(0,1) == -9001:
 		theta12 = [thP[0], thP[0]]
-	if theta21[0] == -9001 or theta21[1] == -9001:
+	if theta21.item(0,0) == -9001 or theta21.item(0,1) == -9001:
 		theta21 = [thP[0], thP[0]]
-	if theta22[0] == -9001 or theta22[1] == -9001:
+	if theta22.item(0,0) == -9001 or theta22.item(0,1) == -9001:
 		theta22 = [thP[0], thP[0]]
 
 	#print(thIK[0, 0:4])
 
-	print("theta11: " + str(theta11))
-	print("theta21: " + str(theta21))
-	print("theta12: " + str(theta12))
-	print("theta22: " + str(theta22))
-	
+	#print("theta11: " + str(theta11))
+	#print("theta21: " + str(theta21))
+	#print("theta12: " + str(theta12))
+	#print("theta22: " + str(theta22))
+
+	# ALL TESTS PASSED TO THIS POINT
+		
 	# Set the solutions for shoulder right:
-	thIK[0, 0:4] = [theta11[0], theta11[1], theta11[0], theta11[1]]
+	thIK[0, 0:4] = [theta11.item(0,0), theta11.item(0,1), theta11.item(0,0), theta11.item(0,1)]
 	thIK[6, [0,2]] = thIK[6, [0,2]] + 2**0
-	thIK[0, 4:8] = [theta12[0], theta12[1], theta12[0], theta12[1]]	
+	thIK[0, 4:8] = [theta12.item(0,0), theta12.item(0,1), theta12.item(0,0), theta12.item(0,1)]	
 	thIK[6, [4,6]] = thIK[6, [4,6]] + 2**0
-	thIK[1, 0:4] = [theta21[0], theta21[1], theta21[0], theta21[1]]
-	thIK[1, 4:8] = [theta22[0], theta22[1], theta22[0], theta22[0]]	 
+	thIK[1, 0:4] = [theta21.item(0,0), theta21.item(0,1), theta21.item(0,0), theta21.item(0,1)]
+	thIK[1, 4:8] = [theta22.item(0,0), theta22.item(0,1), theta22.item(0,0), theta22.item(0,1)]	 
 
 	print("After setting the solutions for shoulder right and shoulder left")
 	print("thIK is: ") 
 	print(thIK)
+
+	# ALL TESTS PASSED TO THIS POINT
 
 	# Solve for Joint 4, 5, 6 Angles:
 	for z in [0, 1, 4, 5]:
 		th1 = thIK[0, z]
 		th2 = thIK[1, z]
 		th3 = thIK[2, z]			
+
+		#print("th1: " + str(th1))
+		#print("th2: " + str(th2))
+		#print("th3: " + str(th3))
 
 		# Joint 1 Transformation Matrix:
 		T01 = homoTrans(th1, d1, 0, -math.pi / 2)
@@ -410,12 +450,13 @@ def ikine(T06, thP):
 		T02 = T01*T12
 		T03 = T02*T23
 
-		'''
-		T03 = np.matrix([ [0, 1, 2, 3], \
-		                  [4, 5, 6, 7], \
-						  [8, 9, 10, 11], \
-						  [12, 13, 14, 15] ])
-		'''
+		#print("T01: " + str(T01))
+		#print("T12: " + str(T12))
+		#print("T23: " + str(T23))
+		#print("T02: " + str(T02))
+		#print("T03: " + str(T03))
+
+		# ALL TESTS PASSED TO THIS POINT
 
 		t03Rot = T03[0:3, 0:3].T
 		print("t03Rot:")
@@ -424,18 +465,20 @@ def ikine(T06, thP):
 		print("thirdRow:")
 		print(thirdRow)
 	
+
+
 		Twrist = np.matrix([ [t03Rot[0,0], t03Rot[0,1], t03Rot[0,2], \
-		                      thirdRow[0]], \
+		                      thirdRow[0,0]], \
 							 [t03Rot[1,0], t03Rot[1,1], t03Rot[1,2], \
-							  thirdRow[1]], \
+							  thirdRow[1,0]], \
 							 [t03Rot[2,0], t03Rot[2,1], t03Rot[2,2], \
-							  thirdRow[2]], \
-							 [0, 0, 0, 1] ])
-		print("Twrist:")
-		print(Twrist) # TWRIST TESTED
+							  thirdRow[2,0]], \
+							 [0, 0, 0, 1] ]) * T06
+	
+		print("Twrist: " + str(Twrist))
 
 		# Remove first 3 joint angles to isolate joints 4, 5, 6 angles:
-		thIK[3,z] = math.atan2(-Twrist[2,3], -Twrist[0,2])
+		thIK[3,z] = math.atan2(-Twrist[1,2], -Twrist[0,2])
 		thIK[6,z] = thIK[6,z]+2**2
 		# Wrist up:
 		thIK[4,z] = math.acos(Twrist[2,2])
@@ -445,8 +488,13 @@ def ikine(T06, thP):
 		thIK[4,z+2] = -math.acos(Twrist[2,2])
 		thIK[5,z+2] = math.atan2(Twrist[2,1], -Twrist[2,0])
 
-		print("Final Twrist:")
-		print(Twrist)
+		#print("Final Twrist:")
+		#print(Twrist)
+
+	print("After solving for joints 4, 5, 6, thIK is: ")
+	print(thIK) 
+
+	# ALL TESTS PASS TO THIS POINT
 
 	# Finally, take into account any joint limits and find closest solutions:
 	counter = 0		
@@ -461,18 +509,38 @@ def ikine(T06, thP):
 	print("tempOut: ")
 	print(tempOut)
 
-	tempOutLim = tempOut[0:7, 0:counter+1]
+	tempOutLim = tempOut[0:7, 0:counter]
 
 	print("tempOutLim is: ")
 	print(tempOutLim)
 
+	# ALL TESTS PASS TO THIS POINT
+
 	if max(np.abs(thP)) > 0:
-		minDiff = np.zeros([counter+1, 1])
-		for x in range(counter+1):
+		print("In Conditional if")
+		minDiff = np.zeros([counter, 1])
+		for x in range(counter):
 			minDiff[x] = np.linalg.norm(tempOutLim[0:6, x].T - thP)
 
-		thOut = tempOutLim[minDiff == min(minDiff)]
+		print("minDiff:" + str(minDiff))
+
+		# ALL TESTS PASS TO THIS POINT
+		
+		# Find the closest solution:
+		smallestIndex = 9001
+		
+		if minDiff.item(0, 0) < minDiff.item(1, 0):
+			smallestIndex = 0
+		else:
+			smallestIndex = 1
+
+		print("smallestIndex: " + str(smallestIndex))
+
+		
+		thOut = []
+		for i in range(7):
+			thOut.append(tempOutLim.item(i, smallestIndex))
+		return thOut
 	else:
 		thOut = tempOutLim
-	
-	return thOut
+		return thOut
