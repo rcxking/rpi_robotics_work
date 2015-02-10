@@ -8,7 +8,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 2/3/14 - 6:07 PM 
+Last Updated: 2/9/14 - 6:07 PM 
 '''
 
 import math

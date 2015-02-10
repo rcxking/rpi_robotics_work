@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 2/6/15 - 3:20 PM
+Last Updated: 2/9/15 - 10:28 PM
 '''
 
 from powerball_constants import *
@@ -394,35 +394,46 @@ def ikine(T06, thP):
 	theta21 = elbowUpSolution[1]
 	theta12 = elbowDownSolution[0]
 	theta22 = elbowDownSolution[1]
+	
+	print("theta11: " + str(theta11))
+	print("theta21: " + str(theta21))
+	print("theta12: " + str(theta12))
+	print("theta22: " + str(theta22))
+
 
 	#print("theta11.item(0,0) is: " + str(theta11.item(0,0)))
 	#print("theta11.item(0,1) is: " + str(theta11.item(0,1)))
 
-	if theta11.item(0,0) == -9001 or theta11.item(0,1) == -9001:
-		theta11 = [thP[0], thP[0]]
-	if theta12.item(0,0) == -9001 or theta12.item(0,1) == -9001:
-		theta12 = [thP[0], thP[0]]
-	if theta21.item(0,0) == -9001 or theta21.item(0,1) == -9001:
-		theta21 = [thP[0], thP[0]]
-	if theta22.item(0,0) == -9001 or theta22.item(0,1) == -9001:
-		theta22 = [thP[0], thP[0]]
+	if np.isnan(theta11[0,0]) or np.isnan(theta11[0,1]):
+		print("A value in theta11 is nan!")
+		theta11 = [thP[0,0], thP[0,0]]
+	if np.isnan(theta12[0,0]) or np.isnan(theta12[0,1]):
+		print("A value in theta12 is nan!")
+		theta12 = [thP[0,0], thP[0,0]]
+	if np.isnan(theta21[0,0]) or np.isnan(theta21[0,1]):
+		print("A value in theta21 is nan!")
+		theta21 = [thP[0,0], thP[0,0]]
+	if np.isnan(theta22[0,0]) or np.isnan(theta22[0,1]):
+		print("A value in theta22 is nan!")
+		theta22 = [thP[0,0], thP[0,0]]
 
 	#print(thIK[0, 0:4])
 
-	#print("theta11: " + str(theta11))
-	#print("theta21: " + str(theta21))
-	#print("theta12: " + str(theta12))
-	#print("theta22: " + str(theta22))
+	print("After setting theta11, theta21, theta12, theta22:") 
+	print("theta11: " + str(theta11))
+	print("theta21: " + str(theta21))
+	print("theta12: " + str(theta12))
+	print("theta22: " + str(theta22))
 
 	# ALL TESTS PASSED TO THIS POINT
 		
 	# Set the solutions for shoulder right:
-	thIK[0, 0:4] = [theta11.item(0,0), theta11.item(0,1), theta11.item(0,0), theta11.item(0,1)]
+	thIK[0, 0:4] = [theta11[0,0], theta11[0,1], theta11[0,0], theta11[0,1]]
 	thIK[6, [0,2]] = thIK[6, [0,2]] + 2**0
-	thIK[0, 4:8] = [theta12.item(0,0), theta12.item(0,1), theta12.item(0,0), theta12.item(0,1)]	
+	thIK[0, 4:8] = [theta12[0,0], theta12[0,1], theta12[0,0], theta12[0,1]]	
 	thIK[6, [4,6]] = thIK[6, [4,6]] + 2**0
-	thIK[1, 0:4] = [theta21.item(0,0), theta21.item(0,1), theta21.item(0,0), theta21.item(0,1)]
-	thIK[1, 4:8] = [theta22.item(0,0), theta22.item(0,1), theta22.item(0,0), theta22.item(0,1)]	 
+	thIK[1, 0:4] = [theta21[0,0], theta21[0,1], theta21[0,0], theta21[0,1]]
+	thIK[1, 4:8] = [theta22[0,0], theta22[0,1], theta22[0,0], theta22[0,1]]	 
 
 	print("After setting the solutions for shoulder right and shoulder left")
 	print("thIK is: ") 
@@ -502,9 +513,26 @@ def ikine(T06, thP):
 
 	for x in range(8):
 		# Check the joint limits:
-		if sum(abs(thIK[0:6, x]) <= thLimits) == 6:
+
+		print("thIK[0:6, x] is: " + str(thIK[0:6, x]))
+
+		# The number of joints that are within joint limits:
+		absTHIK = np.abs(thIK[0:6, x])  
+		numGoodJoints = 0   
+		nextJoint = 0
+		for i in absTHIK:
+			print("i is: " + str(i))
+			print("thLimits[nextJoint] is: " + str(thLimits[nextJoint]))
+			if i <= thLimits[nextJoint]:
+				numGoodJoints += 1
+			nextJoint += 1
+
+		if numGoodJoints == 6:
 			tempOut[0:7, counter] = thIK[0:7, x]
 			counter += 1
+		#if sum(np.abs(thIK[0:6, x]) <= thLimits) == 6:
+			#tempOut[0:7, counter] = thIK[0:7, x]
+			#counter += 1
 
 	print("tempOut: ")
 	print(tempOut)
@@ -515,6 +543,8 @@ def ikine(T06, thP):
 	print(tempOutLim)
 
 	# ALL TESTS PASS TO THIS POINT
+
+	print("np.abs(thP) is: " + str(np.abs(thP)))
 
 	if max(np.abs(thP)) > 0:
 		print("In Conditional if")
