@@ -8,7 +8,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 2/9/14 - 6:07 PM 
+Last Updated: 2/10/14 - 7:59 PM 
 '''
 
 import math
@@ -23,9 +23,9 @@ All these constants are in centimeters (cm).
 The reference frame 0 is the base of the robot.
 ''' 
 
-L1 = 20.5
-L2 = 35.0
-L3 = 30.5
+L1 = 205.0
+L2 = 350.0
+L3 = 305.0
 
 P01 = np.array([[0.0, 0.0, L1]]).T
 P12 = np.array([[0.0, 0.0, 0.0]]).T
