@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 2/2/15 - 12:51 PM   
+Last Updated: 2/9/15 - 12:45 PM   
 '''
 
 # Standard Python Libraries:
@@ -127,7 +127,6 @@ def position_api_coord_space_handler(req):
 	'''
 
 	# First, get a list of the current joint angles:
-	jointAngles = [	 
 
 		
 
