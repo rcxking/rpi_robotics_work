@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 2/10/15 - 5:36 PM
+Last Updated: 2/11/15 - 2:16 PM
 '''
 
 from powerball_constants import *
@@ -109,7 +109,7 @@ def fkine(jointAngles):
 	# Calculate the translational forward kinematics:
 	transFK = P01 + (R01 * P12) + (R02 * P23) + (R03 * P34) + (R04 * P45) + (R05 * P56) + (R05 * P6T)
 	# Calculate the rotational forward kinematics:
-	rotFK = sum(jointAngles) 
+	rotFK = R06 
 
 	return rotFK, transFK.ravel().tolist()[0]
 

@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 2/9/15 - 12:45 PM   
+Last Updated: 2/11/15 - 2:16 PM   
 '''
 
 # Standard Python Libraries:
@@ -26,6 +26,7 @@ from move_base_msgs.msg import *
 from tf.transformations import *
 from std_msgs.msg import String, ColorRGBA
 from control_msgs.msg import *
+from sensor_msgs.msg import JointState
 
 # Custom ROS Messages:
 from schunk_api.srv import *
@@ -99,11 +100,39 @@ def position_api_joint_space_handler(req):
 	# return ah
 	return 0
 
+# The current joint locations of the Powerball:
+j1 = -9001.0
+j2 = -9001.0
+j3 = -9001.0
+j4 = -9001.0
+j5 = -9001.0
+j6 = -9001.0 
+#hasNewMessage = False 
+
+'''
+This callback assigns the new joint positions to variables j1...j6.
+It will also toggle the "hasNewMessage" flag to True. 
+'''
+def jointStateCallback(data):
+	#hasNewMessage = True
+
+	print("I received jointStates!")
+	print("data: " + str(data))
+	j1 = data.position[0]
+	j2 = data.position[1]
+	j3 = data.position[2]
+	j4 = data.position[3]
+	j5 = data.position[4]
+	j6 = data.position[5]
+
+	return [j1, j2, j3, j4, j5, j6]
+
+
 '''
 This function handles a position command given in the coordinate space.  This 
 function expects a message (defined in msg/PositionCoordSpace.msg) in the form 
 of an (X, Y, Z) tuple, where X/Y/Z are floating point numbers indicating the X, Y, Z
-destinations of the end effector. 
+destinations of the end effector (in mm.)
 '''
 def position_api_coord_space_handler(req):
 	
@@ -111,14 +140,14 @@ def position_api_coord_space_handler(req):
 	This simple_script_server is a custom library that was created by
 	the Fraunhofer institute.  An action_handle will listen for position commands.
 	'''
-	ah = simple_script_server.action_handle("move", "arm", "home", False, False)
-	if False:
-		return ah
-	else:
-		ah.set_active()
+	#ah = simple_script_server.action_handle("move", "arm", "home", False, False)
+	#if False:
+	#	return ah
+	#else:
+	#	ah.set_active()
 	
 	# Get the target (X, Y, Z) coordinates to move to:
-	targetCoords = [req.x, req.y, req.z]
+	targetCoords = [req.xCoord, req.yCoord, req.zCoord]
 
 	'''
 	Currently the Powerball requires a list of the 6 target joint angles to move.
@@ -126,10 +155,15 @@ def position_api_coord_space_handler(req):
 	functions:
 	'''
 
-	# First, get a list of the current joint angles:
-
-		
-
+	'''
+	First, get a list of the current joint angles.  The joint angles can be
+	found from rostopic /joint_states 
+	'''
+	#rospy.init_node('jointStatesListener', 'jointStatesListener')
+	sub = rospy.Subscriber("/joint_states", JointState, jointStateCallback) 
+	rospy.Subscriber.unregister(sub)
+	
+	return 0
 
 def api_server():
 	# Initialize the API Server node:
