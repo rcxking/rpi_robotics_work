@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 2/9/15 - 10:28 PM
+Last Updated: 2/10/15 - 5:36 PM
 '''
 
 from powerball_constants import *
@@ -222,7 +222,7 @@ def subproblem2(p, q, k1, k2):
 
 
 	# No solution exists:
-	if abs(k12**2 - 1) < 0.0001:
+	if abs(k12**2 - 1) < 0.001:
 		print("No solution exists!")
 		return [[-9001, -9001], [-9001, -9001]]
 	
@@ -295,8 +295,6 @@ def subproblem2(p, q, k1, k2):
 	#print("theta2: " + str(theta2))
 	#print("leaving sub2")
 	return [theta1, theta2]
-
-
 
 '''
 This function creates a 4x4 Homogenous Transformation Matrix from Denavit-
@@ -400,10 +398,18 @@ def ikine(T06, thP):
 	print("theta12: " + str(theta12))
 	print("theta22: " + str(theta22))
 
+	#print("theta11 dim: " + str(theta11.shape))
+	#print("theta21 dim: " + str(theta21.shape))
+	#print("theta12 dim: " + str(theta12.shape))
+	#print("theta22 dim: " + str(theta22.shape))
+
 
 	#print("theta11.item(0,0) is: " + str(theta11.item(0,0)))
 	#print("theta11.item(0,1) is: " + str(theta11.item(0,1)))
 
+	# Check for any invalid values:
+
+	'''
 	if np.isnan(theta11[0,0]) or np.isnan(theta11[0,1]):
 		print("A value in theta11 is nan!")
 		theta11 = [thP[0,0], thP[0,0]]
@@ -416,6 +422,20 @@ def ikine(T06, thP):
 	if np.isnan(theta22[0,0]) or np.isnan(theta22[0,1]):
 		print("A value in theta22 is nan!")
 		theta22 = [thP[0,0], thP[0,0]]
+	'''
+	print("thP is: " + str(thP))
+	if np.any(np.isnan(theta11)):
+		theta11 = np.array([[thP[0], thP[0]]])
+		theta21 = np.array([[theta21[0], theta21[1]]])
+	if np.any(np.isnan(theta21)):
+		theta21 = np.array([[thP[0], thP[0]]])
+		theta11 = np.array([[theta11[0], theta11[1]]])
+	if np.any(np.isnan(theta12)):
+		theta12 = np.array([[thP[0], thP[0]]])
+		theta22 = np.array([[theta22[0], theta22[1]]])
+	if np.any(np.isnan(theta22)):
+		theta22 = np.array([[thP[0], thP[0]]])
+		theta12 = np.array([[theta12[0], theta12[1]]])
 
 	#print(thIK[0, 0:4])
 
@@ -539,38 +559,44 @@ def ikine(T06, thP):
 
 	tempOutLim = tempOut[0:7, 0:counter]
 
-	print("tempOutLim is: ")
-	print(tempOutLim)
+	print("tempOutLim.shape[0]: " + str(tempOutLim.shape[0]))
+	print("tempOutLim.shape[1]: " + str(tempOutLim.shape[1]))
+	if tempOutLim.shape[1] != 0:
 
-	# ALL TESTS PASS TO THIS POINT
-
-	print("np.abs(thP) is: " + str(np.abs(thP)))
-
-	if max(np.abs(thP)) > 0:
-		print("In Conditional if")
-		minDiff = np.zeros([counter, 1])
-		for x in range(counter):
-			minDiff[x] = np.linalg.norm(tempOutLim[0:6, x].T - thP)
-
-		print("minDiff:" + str(minDiff))
+		print("tempOutLim is: ")
+		print(tempOutLim)
 
 		# ALL TESTS PASS TO THIS POINT
+
+		print("np.abs(thP) is: " + str(np.abs(thP)))
+
+		if max(np.abs(thP)) > 0:
+			print("In Conditional if")
+			minDiff = np.zeros([counter, 1])
+			for x in range(counter):
+				minDiff[x] = np.linalg.norm(tempOutLim[0:6, x].T - thP)
+
+			print("minDiff:" + str(minDiff))
+
+			# ALL TESTS PASS TO THIS POINT
 		
-		# Find the closest solution:
-		smallestIndex = 9001
+			# Find the closest solution:
+			smallestIndex = 9001
 		
-		if minDiff.item(0, 0) < minDiff.item(1, 0):
-			smallestIndex = 0
+			if minDiff.item(0, 0) < minDiff.item(1, 0):
+				smallestIndex = 0
+			else:
+				smallestIndex = 1
+
+			print("smallestIndex: " + str(smallestIndex))
+
+		
+			thOut = []
+			for i in range(7):
+				thOut.append(tempOutLim.item(i, smallestIndex))
+			return thOut
 		else:
-			smallestIndex = 1
-
-		print("smallestIndex: " + str(smallestIndex))
-
-		
-		thOut = []
-		for i in range(7):
-			thOut.append(tempOutLim.item(i, smallestIndex))
-		return thOut
+			thOut = tempOutLim
+			return thOut
 	else:
-		thOut = tempOutLim
-		return thOut
+		return []
