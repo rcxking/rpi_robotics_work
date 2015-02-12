@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 2/11/15 - 2:16 PM   
+Last Updated: 2/12/15 - 2:55 PM   
 '''
 
 # Standard Python Libraries:
@@ -100,21 +100,16 @@ def position_api_joint_space_handler(req):
 	# return ah
 	return 0
 
-# The current joint locations of the Powerball:
-j1 = -9001.0
-j2 = -9001.0
-j3 = -9001.0
-j4 = -9001.0
-j5 = -9001.0
-j6 = -9001.0 
-#hasNewMessage = False 
+jointAngles = [-9001.0, -9001.0, -9001.0, -9001.0, -9001.0, -9001.0]
+
 
 '''
 This callback assigns the new joint positions to variables j1...j6.
 It will also toggle the "hasNewMessage" flag to True. 
 '''
 def jointStateCallback(data):
-	#hasNewMessage = True
+
+	global jointAngles
 
 	print("I received jointStates!")
 	print("data: " + str(data))
@@ -124,9 +119,7 @@ def jointStateCallback(data):
 	j4 = data.position[3]
 	j5 = data.position[4]
 	j6 = data.position[5]
-
-	return [j1, j2, j3, j4, j5, j6]
-
+	jointAngles = [j1, j2, j3, j4, j5, j6]
 
 '''
 This function handles a position command given in the coordinate space.  This 
@@ -144,10 +137,12 @@ def position_api_coord_space_handler(req):
 	#if False:
 	#	return ah
 	#else:
-	#	ah.set_active()
+		ah.set_active()
 	
 	# Get the target (X, Y, Z) coordinates to move to:
 	targetCoords = [req.xCoord, req.yCoord, req.zCoord]
+
+	print("targetCoords is: " + str(targetCoords))
 
 	'''
 	Currently the Powerball requires a list of the 6 target joint angles to move.
@@ -159,15 +154,17 @@ def position_api_coord_space_handler(req):
 	First, get a list of the current joint angles.  The joint angles can be
 	found from rostopic /joint_states 
 	'''
-	#rospy.init_node('jointStatesListener', 'jointStatesListener')
 	sub = rospy.Subscriber("/joint_states", JointState, jointStateCallback) 
 	rospy.Subscriber.unregister(sub)
+
+	print("Current joint angles are: " + str(jointAngles))
 	
 	return 0
 
 def api_server():
 	# Initialize the API Server node:
 	rospy.init_node('schunk_api_server')
+	# Start service listeners to accept API calls given in Joint and Coordinate spaces:
 	s1 = rospy.Service('PositionAPIJointSpace', PositionAPIJointSpace, position_api_joint_space_handler)
 	s2 = rospy.Service('PositionAPICoordSpace', PositionAPICoordSpace, position_api_coord_space_handler) 
 	rospy.spin() 
