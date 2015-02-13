@@ -7,11 +7,12 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 2/12/15 - 3:37 PM   
+Last Updated: 2/13/15 - 3:26 PM   
 '''
 
 # Standard Python Libraries:
 import time
+import numpy as np
 
 # ROS Libraries:
 import rospy
@@ -38,6 +39,10 @@ from cob_srvs.srv import *
 
 # Manifests to load:
 roslib.load_manifest('cob_script_server')
+
+# Custom Kinematic Libraries:
+import kinematic_functions as kf
+from powerball_constants import *
 
 '''
 This function sends a position control request to the Powerball.  The request
@@ -174,7 +179,33 @@ def position_api_coord_space_handler(req):
 	print("Current joint angles are: " + str(jointAngles))
 
 	# We need to convert the quaternion into a 3x3 rotation matrix:
-	rotMatrix = euler_from_quaternion(targetRot, "xyzs")
+	eulerAngles = euler_from_quaternion(targetRot, "xyzs")
+	
+	# Calculate the rotation matrix:
+	rx = kf.rot3D(np.array([[1, 0, 0]]).T, eulerAngles[0])
+	ry = kf.rot3D(np.array([[0, 1, 0]]).T, eulerAngles[1])
+	rz = kf.rot3D(np.array([[0, 0, 1]]).T, eulerAngles[2])
+
+	rotMatrix = rx * ry * rz
+
+	# Construct the 4x4 homogenous transformation matrix:
+	homoMat = np.matrix([[rotMatrix[0,0], rotMatrix[0,1], rotMatrix[0,2], \
+                          targetCoords[0]], \
+                         [rotMatrix[1,0], rotMatrix[1,1], rotMatrix[1,2], \
+                          targetCoords[1]], \
+                         [rotMatrix[2,0], rotMatrix[2,1], rotMatrix[2,2], \
+                          targetCoords[2]], \
+                         [0, 0, 0, 1]]) 
+
+	'''
+	Calculate the inverse kinematics given the target rotation/position and
+	the list of current joint angles:
+	'''
+	targetJointAngles = kf.ikine(homoMat, jointAngles)
+
+	if len(targetJointAngles) != 0:
+		# We have a valid solution!  Move the Powerball to this location:
+		pass		
  
 	
 	
