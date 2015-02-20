@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 2/13/15 - 3:26 PM   
+Last Updated: 2/20/15 - 2:28 PM
 '''
 
 # Standard Python Libraries:
@@ -108,7 +108,6 @@ def position_api_joint_space_handler(req):
 jointAngles = [-9001.0, -9001.0, -9001.0, -9001.0, -9001.0, -9001.0]
 jointStateCallbackEx = False
 
-
 '''
 This callback assigns the new joint positions to variables j1...j6.
 It will also toggle the "hasNewMessage" flag to True. 
@@ -178,24 +177,10 @@ def position_api_coord_space_handler(req):
 
 	print("Current joint angles are: " + str(jointAngles))
 
-	# We need to convert the quaternion into a 3x3 rotation matrix:
-	eulerAngles = euler_from_quaternion(targetRot, "xyzs")
-	
-	# Calculate the rotation matrix:
-	rx = kf.rot3D(np.array([[1, 0, 0]]).T, eulerAngles[0])
-	ry = kf.rot3D(np.array([[0, 1, 0]]).T, eulerAngles[1])
-	rz = kf.rot3D(np.array([[0, 0, 1]]).T, eulerAngles[2])
+	# We need to convert the quaternion into a 4x4 homogeneous transformation matrix:
+	#eulerAngles = euler_from_quaternion(targetRot, "xyzs")
+	homoMat = quaternion_matrix([req.quat.w, req.quat.x, req.quat.y, req.quat.z]) 
 
-	rotMatrix = rx * ry * rz
-
-	# Construct the 4x4 homogenous transformation matrix:
-	homoMat = np.matrix([[rotMatrix[0,0], rotMatrix[0,1], rotMatrix[0,2], \
-                          targetCoords[0]], \
-                         [rotMatrix[1,0], rotMatrix[1,1], rotMatrix[1,2], \
-                          targetCoords[1]], \
-                         [rotMatrix[2,0], rotMatrix[2,1], rotMatrix[2,2], \
-                          targetCoords[2]], \
-                         [0, 0, 0, 1]]) 
 
 	'''
 	Calculate the inverse kinematics given the target rotation/position and
@@ -205,7 +190,7 @@ def position_api_coord_space_handler(req):
 
 	if len(targetJointAngles) != 0:
 		# We have a valid solution!  Move the Powerball to this location:
-		pass		
+		print("Valid joint angle solution!")
  
 	
 	
