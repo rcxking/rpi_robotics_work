@@ -6,16 +6,20 @@ import struct
 
 
 class PositionCoordSpace(genpy.Message):
-  _md5sum = "4a842b65f413084dc2b10fb484ea7f17"
+  _md5sum = "53f63fe6a2b19d96e82e773318ed9e36"
   _type = "schunk_api/PositionCoordSpace"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """float64 x
 float64 y
 float64 z
+float64 qw
+float64 qx
+float64 qy
+float64 qz
 
 """
-  __slots__ = ['x','y','z']
-  _slot_types = ['float64','float64','float64']
+  __slots__ = ['x','y','z','qw','qx','qy','qz']
+  _slot_types = ['float64','float64','float64','float64','float64','float64','float64']
 
   def __init__(self, *args, **kwds):
     """
@@ -25,7 +29,7 @@ float64 z
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       x,y,z
+       x,y,z,qw,qx,qy,qz
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -40,10 +44,22 @@ float64 z
         self.y = 0.
       if self.z is None:
         self.z = 0.
+      if self.qw is None:
+        self.qw = 0.
+      if self.qx is None:
+        self.qx = 0.
+      if self.qy is None:
+        self.qy = 0.
+      if self.qz is None:
+        self.qz = 0.
     else:
       self.x = 0.
       self.y = 0.
       self.z = 0.
+      self.qw = 0.
+      self.qx = 0.
+      self.qy = 0.
+      self.qz = 0.
 
   def _get_types(self):
     """
@@ -58,7 +74,7 @@ float64 z
     """
     try:
       _x = self
-      buff.write(_struct_3d.pack(_x.x, _x.y, _x.z))
+      buff.write(_struct_7d.pack(_x.x, _x.y, _x.z, _x.qw, _x.qx, _x.qy, _x.qz))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
@@ -71,8 +87,8 @@ float64 z
       end = 0
       _x = self
       start = end
-      end += 24
-      (_x.x, _x.y, _x.z,) = _struct_3d.unpack(str[start:end])
+      end += 56
+      (_x.x, _x.y, _x.z, _x.qw, _x.qx, _x.qy, _x.qz,) = _struct_7d.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -86,7 +102,7 @@ float64 z
     """
     try:
       _x = self
-      buff.write(_struct_3d.pack(_x.x, _x.y, _x.z))
+      buff.write(_struct_7d.pack(_x.x, _x.y, _x.z, _x.qw, _x.qx, _x.qy, _x.qz))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
@@ -100,11 +116,11 @@ float64 z
       end = 0
       _x = self
       start = end
-      end += 24
-      (_x.x, _x.y, _x.z,) = _struct_3d.unpack(str[start:end])
+      end += 56
+      (_x.x, _x.y, _x.z, _x.qw, _x.qx, _x.qy, _x.qz,) = _struct_7d.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
-_struct_3d = struct.Struct("<3d")
+_struct_7d = struct.Struct("<7d")

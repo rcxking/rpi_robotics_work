@@ -59,12 +59,20 @@ struct PositionCoordSpace_
   PositionCoordSpace_()
     : x(0.0)
     , y(0.0)
-    , z(0.0)  {
+    , z(0.0)
+    , qw(0.0)
+    , qx(0.0)
+    , qy(0.0)
+    , qz(0.0)  {
     }
   PositionCoordSpace_(const ContainerAllocator& _alloc)
     : x(0.0)
     , y(0.0)
-    , z(0.0)  {
+    , z(0.0)
+    , qw(0.0)
+    , qx(0.0)
+    , qy(0.0)
+    , qz(0.0)  {
     }
 
 
@@ -77,6 +85,18 @@ struct PositionCoordSpace_
 
    typedef double _z_type;
   _z_type z;
+
+   typedef double _qw_type;
+  _qw_type qw;
+
+   typedef double _qx_type;
+  _qx_type qx;
+
+   typedef double _qy_type;
+  _qy_type qy;
+
+   typedef double _qz_type;
+  _qz_type qz;
 
 
 
@@ -156,12 +176,12 @@ struct MD5Sum< ::schunk_api::PositionCoordSpace_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "4a842b65f413084dc2b10fb484ea7f17";
+    return "53f63fe6a2b19d96e82e773318ed9e36";
   }
 
   static const char* value(const ::schunk_api::PositionCoordSpace_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x4a842b65f413084dULL;
-  static const uint64_t static_value2 = 0xc2b10fb484ea7f17ULL;
+  static const uint64_t static_value1 = 0x53f63fe6a2b19d96ULL;
+  static const uint64_t static_value2 = 0xe82e773318ed9e36ULL;
 };
 
 template<class ContainerAllocator>
@@ -183,6 +203,10 @@ struct Definition< ::schunk_api::PositionCoordSpace_<ContainerAllocator> >
     return "float64 x\n\
 float64 y\n\
 float64 z\n\
+float64 qw\n\
+float64 qx\n\
+float64 qy\n\
+float64 qz\n\
 ";
   }
 
@@ -204,6 +228,10 @@ namespace serialization
       stream.next(m.x);
       stream.next(m.y);
       stream.next(m.z);
+      stream.next(m.qw);
+      stream.next(m.qx);
+      stream.next(m.qy);
+      stream.next(m.qz);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER;
@@ -228,6 +256,14 @@ struct Printer< ::schunk_api::PositionCoordSpace_<ContainerAllocator> >
     Printer<double>::stream(s, indent + "  ", v.y);
     s << indent << "z: ";
     Printer<double>::stream(s, indent + "  ", v.z);
+    s << indent << "qw: ";
+    Printer<double>::stream(s, indent + "  ", v.qw);
+    s << indent << "qx: ";
+    Printer<double>::stream(s, indent + "  ", v.qx);
+    s << indent << "qy: ";
+    Printer<double>::stream(s, indent + "  ", v.qy);
+    s << indent << "qz: ";
+    Printer<double>::stream(s, indent + "  ", v.qz);
   }
 };
 

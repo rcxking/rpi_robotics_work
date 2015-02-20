@@ -1,1 +1,2 @@
 ipa_canopen/ipa_canopen:ipa_canopen/ipa_canopen_core:ipa_canopen/ipa_canopen_ros:mocap_optitrack:schunk_api:schunk_robots/schunk_lwa4p:schunk_robots/schunk_lwa4p_extended:schunk_robots/schunk_robots:schunk_test
+-DCATKIN_DEVEL_PREFIX=/home/powerball/rpi_robotics_work/schunk_workspace/devel -DCMAKE_INSTALL_PREFIX=/home/powerball/rpi_robotics_work/schunk_workspace/install

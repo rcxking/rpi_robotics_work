@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 2/20/15 - 2:28 PM
+Last Updated: 2/20/15 - 4:05 PM
 '''
 
 # Standard Python Libraries:
@@ -143,19 +143,20 @@ def position_api_coord_space_handler(req):
 	This simple_script_server is a custom library that was created by
 	the Fraunhofer institute.  An action_handle will listen for position commands.
 	'''
-	#ah = simple_script_server.action_handle("move", "arm", "home", False, False)
-	#if False:
-	#	return ah
-	#else:
-	#	ah.set_active()
+	ah = simple_script_server.action_handle("move", "arm", "home", False, False)
+	if False:
+		return ah
+	else:
+		ah.set_active()
 	
 	# Get the target (X, Y, Z) coordinates to move to:
 	targetCoords = [req.xCoord, req.yCoord, req.zCoord]
 
 	# Get the desired rotation (in quaternion) to move to:
-	targetRot = req.quat	
+	targetRot = [req.quatW, req.quatX, req.quatY, req.quatZ]
 
 	print("targetCoords is: " + str(targetCoords))
+	print("targetRot is: " + str(targetRot))
 
 	'''
 	Currently the Powerball requires a list of the 6 target joint angles to move.
@@ -179,21 +180,68 @@ def position_api_coord_space_handler(req):
 
 	# We need to convert the quaternion into a 4x4 homogeneous transformation matrix:
 	#eulerAngles = euler_from_quaternion(targetRot, "xyzs")
-	homoMat = quaternion_matrix([req.quat.w, req.quat.x, req.quat.y, req.quat.z]) 
+	homoMat = quaternion_matrix(targetRot) 
+	
+	print("orig homoMat: " + str(homoMat))
+
+	# Insert the desired target joint coordinate into the transformation matrix:
+	homoMat[0,3] = req.xCoord
+	homoMat[1,3] = req.yCoord
+	homoMat[2,3] = req.zCoord    
+
+	print("homoMat: " + str(homoMat))
 
 
 	'''
 	Calculate the inverse kinematics given the target rotation/position and
 	the list of current joint angles:
 	'''
+
 	targetJointAngles = kf.ikine(homoMat, jointAngles)
 
 	if len(targetJointAngles) != 0:
 		# We have a valid solution!  Move the Powerball to this location:
 		print("Valid joint angle solution!")
- 
+		print("Solution is: " + str(targetJointAngles))			
 	
-	
+		targetJointAngles = targetJointAngles[:6]
+		print("Modified targetJointAngles: " + str(targetJointAngles))
+
+		# Encapsulate the targetJointAngles into a trajectory:
+		traj = [targetJointAngles] 
+
+		# Generate the trajectory message to send to the Powerball:
+		traj_msg = JointTrajectory()
+		traj_msg.header.stamp = rospy.Time.now() + rospy.Duration(0.5)
+		traj_msg.joint_names = ['arm_1_joint', 'arm_2_joint', 'arm_3_joint', 'arm_4_joint', 'arm_5_joint', 'arm_6_joint']
+		point_nr = 0
+
+		# Set the target velocities of the target joints.  They are set to 0 to denote stopping at the destinations:
+		for point in traj:
+			point_nr += 1
+			point_msg = JointTrajectoryPoint()
+			point_msg.positions = point
+			point_msg.velocities = [0] * 6
+			point_msg.time_from_start = rospy.Duration(3 * point_nr)
+			traj_msg.points.append(point_msg)
+
+		# Send the position control message to the action server node:
+		action_server_name = '/arm_controller/follow_joint_trajectory'
+		
+		client = actionlib.SimpleActionClient(action_server_name, FollowJointTrajectoryAction)
+		if not client.wait_for_server(rospy.Duration(5)):
+			print("Action server not ready within timeout.  Aborting...")
+			ah.set_failed(4)
+			return ah
+		else:
+			print("Action server ready for Coordinate API Request")
+		
+		client_goal = FollowJointTrajectoryGoal()
+		client_goal.trajectory = traj_msg
+		client.send_goal(client_goal)
+		ah.set_client(client)
+
+		ah.wait_inside()
 	return 0
 
 def api_server():

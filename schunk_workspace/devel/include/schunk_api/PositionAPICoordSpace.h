@@ -73,7 +73,7 @@ template<>
 struct MD5Sum< ::schunk_api::PositionAPICoordSpace > {
   static const char* value()
   {
-    return "fcb0db018d72d795dd8f562b7c618526";
+    return "4982f129f41484e5b919c3f16704179f";
   }
 
   static const char* value(const ::schunk_api::PositionAPICoordSpace&) { return value(); }

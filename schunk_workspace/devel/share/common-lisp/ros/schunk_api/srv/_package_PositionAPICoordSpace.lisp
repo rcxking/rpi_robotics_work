@@ -5,6 +5,14 @@
           YCOORD
           ZCOORD-VAL
           ZCOORD
+          QUATW-VAL
+          QUATW
+          QUATX-VAL
+          QUATX
+          QUATY-VAL
+          QUATY
+          QUATZ-VAL
+          QUATZ
           STATUS-VAL
           STATUS
 ))
