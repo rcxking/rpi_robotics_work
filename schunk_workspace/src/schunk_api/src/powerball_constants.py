@@ -8,7 +8,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 2/10/14 - 7:59 PM 
+Last Updated: 2/23/14 - 4:04 PM 
 '''
 
 import math
@@ -26,6 +26,7 @@ The reference frame 0 is the base of the robot.
 L1 = 205.0
 L2 = 350.0
 L3 = 305.0
+LT = 300.0 
 
 P01 = np.array([[0.0, 0.0, L1]]).T
 P12 = np.array([[0.0, 0.0, 0.0]]).T
@@ -33,7 +34,7 @@ P23 = np.array([[0.0, 0.0, L2]]).T
 P34 = np.array([[0.0, 0.0, 0.0]]).T
 P45 = np.array([[0.0, 0.0, L3]]).T
 P56 = np.array([[0.0, 0.0, 0.0]]).T
-P6T = np.array([[0.0, 0.0, 0.0]]).T
+P6T = np.array([[0.0, 0.0, LT]]).T
 
 '''
 Joint limits.  These limits are in radians.  Joint 1 is the base of the 

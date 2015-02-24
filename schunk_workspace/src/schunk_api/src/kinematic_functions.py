@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 2/11/15 - 2:16 PM
+Last Updated: 2/23/15 - 4:15 PM
 '''
 
 from powerball_constants import *
@@ -328,7 +328,7 @@ def ikine(T06, thP):
 	d1 = 205
 	a2 = 350
 	d4 = 305
-	d6 = 75
+	d6 = 300
 
 	# Solve for theta 3 (Joint 3 angle): 	 
 
