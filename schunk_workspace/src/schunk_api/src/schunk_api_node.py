@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 2/20/15 - 4:05 PM
+Last Updated: 2/24/15 - 4:41 PM
 '''
 
 # Standard Python Libraries:
@@ -244,12 +244,20 @@ def position_api_coord_space_handler(req):
 		ah.wait_inside()
 	return 0
 
+'''
+This handler allows a user to query for joint data, such as current joint angles
+and      
+'''
+def joint_data_handler(req):
+	pass 
+
 def api_server():
 	# Initialize the API Server node:
 	rospy.init_node('schunk_api_server')
 	# Start service listeners to accept API calls given in Joint and Coordinate spaces:
 	s1 = rospy.Service('PositionAPIJointSpace', PositionAPIJointSpace, position_api_joint_space_handler)
 	s2 = rospy.Service('PositionAPICoordSpace', PositionAPICoordSpace, position_api_coord_space_handler) 
+	s3 = rospy.Service('JointData', JointData, joint_data_handler)
 	rospy.spin() 
 
 # Main function.  This node will listen for a position control message and will
