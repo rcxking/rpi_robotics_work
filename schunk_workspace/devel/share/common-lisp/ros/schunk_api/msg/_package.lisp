@@ -1,9 +1,13 @@
 (cl:defpackage schunk_api-msg
   (:use )
   (:export
+   "<JOINTDATAPOWERBALL>"
+   "JOINTDATAPOWERBALL"
    "<POSITIONJOINTSPACE>"
    "POSITIONJOINTSPACE"
    "<POSITIONCOORDSPACE>"
    "POSITIONCOORDSPACE"
+   "<INITHALT>"
+   "INITHALT"
   ))
 

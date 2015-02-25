@@ -2,7 +2,11 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/schunk_api_generate_messages_cpp"
   "/home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionJointSpace.h"
   "/home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionCoordSpace.h"
+  "/home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/InitHalt.h"
+  "/home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/JointDataPowerball.h"
+  "/home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/JointDataAPIPowerball.h"
   "/home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionAPIJointSpace.h"
+  "/home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/InitHaltAPI.h"
   "/home/powerball/rpi_robotics_work/schunk_workspace/devel/include/schunk_api/PositionAPICoordSpace.h"
 )
 

@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 2/24/15 - 4:41 PM
+Last Updated: 2/25/15 - 4:31 PM
 '''
 
 # Standard Python Libraries:
@@ -191,7 +191,6 @@ def position_api_coord_space_handler(req):
 
 	print("homoMat: " + str(homoMat))
 
-
 	'''
 	Calculate the inverse kinematics given the target rotation/position and
 	the list of current joint angles:
@@ -245,22 +244,38 @@ def position_api_coord_space_handler(req):
 	return 0
 
 '''
-This handler allows a user to query for joint data, such as current joint angles
-and      
+This handler allows a user to initialize, halt, and emergency stop the Powerball   
 '''
-def joint_data_handler(req):
-	pass 
+def init_halt_api_handler(req):
+	
+	# Acquire the requested action (a string):
+	userCmd = req.command
+
+	# What command is it?
+	if userCmd == 'init':
+		rospy.wait_for_service('/arm_controller/init')
+		try:
+			initRobot = rospy.ServiceProxy('/arm_controller/init', Trigger)
+			resp = initRobot()
+			return 0
+		except rospy.ServiceException, e:
+			print("Service call failed: %s" % e)
 
 def api_server():
 	# Initialize the API Server node:
 	rospy.init_node('schunk_api_server')
+
 	# Start service listeners to accept API calls given in Joint and Coordinate spaces:
-	s1 = rospy.Service('PositionAPIJointSpace', PositionAPIJointSpace, position_api_joint_space_handler)
-	s2 = rospy.Service('PositionAPICoordSpace', PositionAPICoordSpace, position_api_coord_space_handler) 
-	s3 = rospy.Service('JointData', JointData, joint_data_handler)
+	PositionAPIJoint = rospy.Service('PositionAPIJointSpace', PositionAPIJointSpace, position_api_joint_space_handler)
+	PositionAPICoord = rospy.Service('PositionAPICoordSpace', PositionAPICoordSpace, position_api_coord_space_handler) 
+
+	# This service accepts API calls to initialize, halt, and emergency stop the Powerball:
+	#InitHaltAPI = rospy.Service('InitHaltAPI', InitHaltAPI, init_halt_api_handler)	   
+	
 	rospy.spin() 
 
 # Main function.  This node will listen for a position control message and will
 # then execute the command.  
 if __name__ == '__main__':
+	rospy.loginfo("Schunk API Node Up!")
 	api_server()

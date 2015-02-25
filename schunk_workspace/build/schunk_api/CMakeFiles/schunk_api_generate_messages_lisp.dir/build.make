@@ -44,7 +44,11 @@ include schunk_api/CMakeFiles/schunk_api_generate_messages_lisp.dir/progress.mak
 
 schunk_api/CMakeFiles/schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/PositionJointSpace.lisp
 schunk_api/CMakeFiles/schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/PositionCoordSpace.lisp
+schunk_api/CMakeFiles/schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/InitHalt.lisp
+schunk_api/CMakeFiles/schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/JointDataPowerball.lisp
+schunk_api/CMakeFiles/schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/JointDataAPIPowerball.lisp
 schunk_api/CMakeFiles/schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/PositionAPIJointSpace.lisp
+schunk_api/CMakeFiles/schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/InitHaltAPI.lisp
 schunk_api/CMakeFiles/schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/PositionAPICoordSpace.lisp
 
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/PositionJointSpace.lisp: /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py
@@ -59,22 +63,50 @@ schunk_api/CMakeFiles/schunk_api_generate_messages_lisp: /home/powerball/rpi_rob
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Lisp code from schunk_api/PositionCoordSpace.msg"
 	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/PositionCoordSpace.msg -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg
 
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/InitHalt.lisp: /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/InitHalt.lisp: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/InitHalt.msg
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Lisp code from schunk_api/InitHalt.msg"
+	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/InitHalt.msg -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg
+
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/JointDataPowerball.lisp: /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/JointDataPowerball.lisp: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/JointDataPowerball.msg
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Lisp code from schunk_api/JointDataPowerball.msg"
+	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/JointDataPowerball.msg -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg
+
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/JointDataAPIPowerball.lisp: /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/JointDataAPIPowerball.lisp: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/JointDataAPIPowerball.srv
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Lisp code from schunk_api/JointDataAPIPowerball.srv"
+	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/JointDataAPIPowerball.srv -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv
+
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/PositionAPIJointSpace.lisp: /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/PositionAPIJointSpace.lisp: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPIJointSpace.srv
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Lisp code from schunk_api/PositionAPIJointSpace.srv"
 	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPIJointSpace.srv -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv
 
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/InitHaltAPI.lisp: /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/InitHaltAPI.lisp: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/InitHaltAPI.srv
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_7)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Lisp code from schunk_api/InitHaltAPI.srv"
+	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/InitHaltAPI.srv -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv
+
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/PositionAPICoordSpace.lisp: /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/PositionAPICoordSpace.lisp: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPICoordSpace.srv
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Lisp code from schunk_api/PositionAPICoordSpace.srv"
 	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPICoordSpace.srv -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv
 
 schunk_api_generate_messages_lisp: schunk_api/CMakeFiles/schunk_api_generate_messages_lisp
 schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/PositionJointSpace.lisp
 schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/PositionCoordSpace.lisp
+schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/InitHalt.lisp
+schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/msg/JointDataPowerball.lisp
+schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/JointDataAPIPowerball.lisp
 schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/PositionAPIJointSpace.lisp
+schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/InitHaltAPI.lisp
 schunk_api_generate_messages_lisp: /home/powerball/rpi_robotics_work/schunk_workspace/devel/share/common-lisp/ros/schunk_api/srv/PositionAPICoordSpace.lisp
 schunk_api_generate_messages_lisp: schunk_api/CMakeFiles/schunk_api_generate_messages_lisp.dir/build.make
 .PHONY : schunk_api_generate_messages_lisp

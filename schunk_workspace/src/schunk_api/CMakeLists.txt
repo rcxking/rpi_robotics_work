@@ -49,7 +49,8 @@ add_message_files(
    FILES
    PositionJointSpace.msg
    PositionCoordSpace.msg
-   JointData.msg
+   JointDataPowerball.msg
+   InitHalt.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -57,7 +58,8 @@ add_service_files(
    FILES
    PositionAPIJointSpace.srv
    PositionAPICoordSpace.srv
-   JointData.srv
+   JointDataAPIPowerball.srv
+   InitHaltAPI.srv
 )
 
 ## Generate actions in the 'action' folder

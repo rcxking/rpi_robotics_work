@@ -44,7 +44,11 @@ include schunk_api/CMakeFiles/schunk_api_generate_messages_py.dir/progress.make
 
 schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_PositionJointSpace.py
 schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_PositionCoordSpace.py
+schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_InitHalt.py
+schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_JointDataPowerball.py
+schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_JointDataAPIPowerball.py
 schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPIJointSpace.py
+schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_InitHaltAPI.py
 schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPICoordSpace.py
 schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py
 schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py
@@ -61,40 +65,76 @@ schunk_api/CMakeFiles/schunk_api_generate_messages_py: /home/powerball/rpi_robot
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python from MSG schunk_api/PositionCoordSpace"
 	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/PositionCoordSpace.msg -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg
 
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_InitHalt.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_InitHalt.py: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/InitHalt.msg
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python from MSG schunk_api/InitHalt"
+	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/InitHalt.msg -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg
+
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_JointDataPowerball.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_JointDataPowerball.py: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/JointDataPowerball.msg
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python from MSG schunk_api/JointDataPowerball"
+	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg/JointDataPowerball.msg -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg
+
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_JointDataAPIPowerball.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/gensrv_py.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_JointDataAPIPowerball.py: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/JointDataAPIPowerball.srv
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python code from SRV schunk_api/JointDataAPIPowerball"
+	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/JointDataAPIPowerball.srv -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv
+
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPIJointSpace.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/gensrv_py.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPIJointSpace.py: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPIJointSpace.srv
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python code from SRV schunk_api/PositionAPIJointSpace"
 	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPIJointSpace.srv -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv
 
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_InitHaltAPI.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/gensrv_py.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_InitHaltAPI.py: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/InitHaltAPI.srv
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_7)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python code from SRV schunk_api/InitHaltAPI"
+	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/InitHaltAPI.srv -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv
+
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPICoordSpace.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/gensrv_py.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPICoordSpace.py: /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPICoordSpace.srv
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python code from SRV schunk_api/PositionAPICoordSpace"
 	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/srv/PositionAPICoordSpace.srv -Ischunk_api:/home/powerball/rpi_robotics_work/schunk_workspace/src/schunk_api/msg -Istd_msgs:/opt/ros/hydro/share/std_msgs/cmake/../msg -p schunk_api -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv
 
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_PositionJointSpace.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_PositionCoordSpace.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_InitHalt.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_JointDataPowerball.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_JointDataAPIPowerball.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPIJointSpace.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_InitHaltAPI.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPICoordSpace.py
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python msg __init__.py for schunk_api"
 	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg --initpy
 
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py: /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_PositionJointSpace.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_PositionCoordSpace.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_InitHalt.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_JointDataPowerball.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_JointDataAPIPowerball.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPIJointSpace.py
+/home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_InitHaltAPI.py
 /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPICoordSpace.py
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating Python srv __init__.py for schunk_api"
 	cd /home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/hydro/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv --initpy
 
 schunk_api_generate_messages_py: schunk_api/CMakeFiles/schunk_api_generate_messages_py
 schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_PositionJointSpace.py
 schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_PositionCoordSpace.py
+schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_InitHalt.py
+schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/_JointDataPowerball.py
+schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_JointDataAPIPowerball.py
 schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPIJointSpace.py
+schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_InitHaltAPI.py
 schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/_PositionAPICoordSpace.py
 schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/msg/__init__.py
 schunk_api_generate_messages_py: /home/powerball/rpi_robotics_work/schunk_workspace/devel/lib/python2.7/dist-packages/schunk_api/srv/__init__.py
