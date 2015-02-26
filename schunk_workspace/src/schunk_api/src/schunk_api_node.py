@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 2/25/15 - 4:31 PM
+Last Updated: 2/26/15 - 4:37 PM
 '''
 
 # Standard Python Libraries:
@@ -176,20 +176,20 @@ def position_api_coord_space_handler(req):
 	rospy.Subscriber.unregister(sub)
 	jointStateCallbackEx = False
 
-	print("Current joint angles are: " + str(jointAngles))
+	#print("Current joint angles are: " + str(jointAngles))
 
 	# We need to convert the quaternion into a 4x4 homogeneous transformation matrix:
 	#eulerAngles = euler_from_quaternion(targetRot, "xyzs")
 	homoMat = quaternion_matrix(targetRot) 
 	
-	print("orig homoMat: " + str(homoMat))
+	#print("orig homoMat: " + str(homoMat))
 
 	# Insert the desired target joint coordinate into the transformation matrix:
 	homoMat[0,3] = req.xCoord
 	homoMat[1,3] = req.yCoord
 	homoMat[2,3] = req.zCoord    
 
-	print("homoMat: " + str(homoMat))
+	#print("homoMat: " + str(homoMat))
 
 	'''
 	Calculate the inverse kinematics given the target rotation/position and
@@ -200,11 +200,11 @@ def position_api_coord_space_handler(req):
 
 	if len(targetJointAngles) != 0:
 		# We have a valid solution!  Move the Powerball to this location:
-		print("Valid joint angle solution!")
-		print("Solution is: " + str(targetJointAngles))			
+		#print("Valid joint angle solution!")
+		#print("Solution is: " + str(targetJointAngles))			
 	
 		targetJointAngles = targetJointAngles[:6]
-		print("Modified targetJointAngles: " + str(targetJointAngles))
+		#print("Modified targetJointAngles: " + str(targetJointAngles))
 
 		# Encapsulate the targetJointAngles into a trajectory:
 		traj = [targetJointAngles] 
@@ -260,6 +260,8 @@ def init_halt_api_handler(req):
 			return 0
 		except rospy.ServiceException, e:
 			print("Service call failed: %s" % e)
+	elif userCmd == 'halt':
+		rospy.wait_for_service('/arm_controller/')
 
 def api_server():
 	# Initialize the API Server node:
@@ -270,7 +272,7 @@ def api_server():
 	PositionAPICoord = rospy.Service('PositionAPICoordSpace', PositionAPICoordSpace, position_api_coord_space_handler) 
 
 	# This service accepts API calls to initialize, halt, and emergency stop the Powerball:
-	#InitHaltAPI = rospy.Service('InitHaltAPI', InitHaltAPI, init_halt_api_handler)	   
+	InitHaltAPI = rospy.Service('InitHaltAPI', InitHaltAPI, init_halt_api_handler)	   
 	
 	rospy.spin() 
 
