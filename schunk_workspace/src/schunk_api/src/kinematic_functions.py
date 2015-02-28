@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 2/23/15 - 4:15 PM
+Last Updated: 2/27/15 - 10:15 PM
 '''
 
 from powerball_constants import *
@@ -63,16 +63,6 @@ def fkine(jointAngles):
 	q5 = jointAngles[4]
 	q6 = jointAngles[5]
 
-	# DEBUG ONLY - Print out current joint angles:
-	'''
-	print("q1: " + str(q1))
-	print("q2: " + str(q2))
-	print("q3: " + str(q3))
-	print("q4: " + str(q4))
-	print("q5: " + str(q5))
-	print("q6: " + str(q6))
-	'''
-
 	# The rotation matrices for the joints:
 	R01 = rot3D(JOINT_1_ROTATION_AXIS, q1)
 	R12 = rot3D(JOINT_2_ROTATION_AXIS, q2)
@@ -81,37 +71,24 @@ def fkine(jointAngles):
 	R45 = rot3D(JOINT_5_ROTATION_AXIS, q5)
 	R56 = rot3D(JOINT_6_ROTATION_AXIS, q6)
 
-	# DEBUG ONLY - Print out computed rotation matrices:
-	'''
-	print("R01: \n" + str(R01))
-	print("R12: \n" + str(R12))
-	print("R23: \n" + str(R23))
-	print("R34: \n" + str(R34))
-	print("R45: \n" + str(R45))
-	print("R56: \n" + str(R56))
-	'''
-		
 	R02 = R01 * R12
 	R03 = R02 * R23
 	R04 = R03 * R34
 	R05 = R04 * R45
 	R06 = R05 * R56
 
-	'''
-	print("R02: \n" + str(R02))
-	print("R03: \n" + str(R03))
-	print("R04: \n" + str(R04))
-	print("R05: \n" + str(R05))
-	print("R06: \n" + str(R06))
-	'''
-
- 
 	# Calculate the translational forward kinematics:
-	transFK = P01 + (R01 * P12) + (R02 * P23) + (R03 * P34) + (R04 * P45) + (R05 * P56) + (R05 * P6T)
+	transFK = (R01 * P12) + (R02 * P23) + (R03 * P34) + (R04 * P45) + (R05 * P56)
 	# Calculate the rotational forward kinematics:
 	rotFK = R06 
 
-	return rotFK, transFK.ravel().tolist()[0]
+	# Create a 4x4 Homogenous matrix that contains the forward and inverse kinematics of the core arm:
+	return np.matrix([ [R06[0,0], R06[0,1], R06[0,2], transFK[0,0]], \
+	                   [R06[1,0], R06[1,1], R06[1,2], transFK[1,0]], \
+					   [R06[2,0], R06[2,1], R06[2,2], transFK[2,0]], \
+					   [0, 0, 0, 1] ])
+
+	# return rotFK, transFK.ravel().tolist()[0]
 
 # Inverse Kinematics Functions
 
