@@ -8,7 +8,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 2/23/14 - 4:04 PM 
+Last Updated: 3/2/14 - 3:02 PM 
 '''
 
 import math
@@ -35,6 +35,26 @@ P34 = np.array([[0.0, 0.0, 0.0]]).T
 P45 = np.array([[0.0, 0.0, L3]]).T
 P56 = np.array([[0.0, 0.0, 0.0]]).T
 P6T = np.array([[0.0, 0.0, LT]]).T
+
+'''
+Frames.  There are 4 frames that we are concerned about:
+
+1) World Frame (currently centered at the center of the base)  
+2) Robot Base Frame (currently centered at the center of the base)
+3) Arm Frame (currently centered in the center of the bottom joint).  This is 
+   calculated by the forward kinematics - fkineArm() function.
+4) End-Effector Frame (currently centered at the top half of the last joint).  
+   The end-effector frame is calculated by the function calcEndEffectorFrame(). 
+'''
+WORLDFRAME = np.matrix([ [1, 0, 0, 0], \
+                         [0, 1, 0, 0], \
+						 [0, 0, 1, 0], \
+						 [0, 0, 0, 1] ]) 
+
+BASEFRAME = np.matrix([ [1, 0, 0, 0], \
+                        [0, 1, 0, 0], \
+						[0, 0, 1, 0], \
+						[0, 0, 0, 1] ])
 
 '''
 Joint limits.  These limits are in radians.  Joint 1 is the base of the 

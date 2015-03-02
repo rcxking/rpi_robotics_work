@@ -5,7 +5,7 @@ Bryant Pong
 RPI CS Robotics Lab
 11/12/14
 
-Last Updated: 2/27/15 - 10:15 PM
+Last Updated: 3/2/15 - 4:23 PM
 '''
 
 from powerball_constants import *
@@ -42,18 +42,19 @@ def rot3D(rotAxis, angleToRotate):
 	identity3 = np.matrix( ([1, 0, 0], [0, 1, 0], [0, 0, 1]), dtype=float )
 	return identity3 + (math.sin(angleToRotate) * kcross(rotAxis)) + ( (1 - math.cos(angleToRotate)) * kcross(rotAxis) * kcross(rotAxis))
 
+# Forward Kinematic Functions:
+
 '''
-Calculate the forward kinematics of the Powerball Arm.  The forward kinematics
+Calculate the forward kinematics of the Powerball Arm (JOINTS ONLY).  The forward kinematics
 is found by passing in a list of the joint angles.
 
 Parameters:
 jointAngles: A list of 6 floating point numbers representing the 6 joint angles (in radians)
 
-Returns: rotFK, transFK (rotational and translational forward kinematics, respectively)
-
-TESTED/VALIDATED 2/5/15 - 4:14 PM
+Returns: A 4x4 homogenous transformation matrix containing the rotational and the
+         translational forward kinematics for the ARM only.         
 '''
-def fkine(jointAngles):
+def fkineArm(jointAngles):
 
 	# Extract the joint angles from the list:
 	q1 = jointAngles[0]
@@ -88,7 +89,12 @@ def fkine(jointAngles):
 					   [R06[2,0], R06[2,1], R06[2,2], transFK[2,0]], \
 					   [0, 0, 0, 1] ])
 
-	# return rotFK, transFK.ravel().tolist()[0]
+'''
+This function calculates the forward kinematics for the end effector frame.  
+This function requires 1 argument: the joint angle of the 6th joint.
+
+Returns: 4x4 Homogenous Transformation matrix          
+'''
 
 # Inverse Kinematics Functions
 
