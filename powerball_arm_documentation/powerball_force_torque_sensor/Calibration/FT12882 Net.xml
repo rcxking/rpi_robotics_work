@@ -1,0 +1,78 @@
+<?xml version="1.0" standalone="yes"?>
+<dsNetFTCalibrationFile xmlns="http://tempuri.org/dsNetFTCalibrationFile.xsd">
+  <xs:schema id="dsNetFTCalibrationFile" targetNamespace="http://tempuri.org/dsNetFTCalibrationFile.xsd" xmlns:mstns="http://tempuri.org/dsNetFTCalibrationFile.xsd" xmlns="http://tempuri.org/dsNetFTCalibrationFile.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+    <xs:element name="dsNetFTCalibrationFile" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="tblNetFTCalibrationInfo">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="SerialNumber" type="xs:string" minOccurs="0" />
+                <xs:element name="BodyStyle" type="xs:string" minOccurs="0" />
+                <xs:element name="CalibrationPartNumber" type="xs:string" minOccurs="0" />
+                <xs:element name="Family" type="xs:string" minOccurs="0" />
+                <xs:element name="CalibrationDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="MatrixFX" type="xs:string" minOccurs="0" />
+                <xs:element name="MatrixFy" type="xs:string" minOccurs="0" />
+                <xs:element name="MatrixFz" type="xs:string" minOccurs="0" />
+                <xs:element name="MatrixTx" type="xs:string" minOccurs="0" />
+                <xs:element name="MatrixTy" type="xs:string" minOccurs="0" />
+                <xs:element name="MatrixTz" type="xs:string" minOccurs="0" />
+                <xs:element name="GaugeGains" type="xs:string" minOccurs="0" />
+                <xs:element name="GaugeOffsets" type="xs:string" minOccurs="0" />
+                <xs:element name="CalibrationIndex" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="tblCalibrationInformation">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CalibrationPartNumber" type="xs:string" minOccurs="0" />
+                <xs:element name="ForceUnits" type="xs:string" minOccurs="0" />
+                <xs:element name="TorqueUnits" type="xs:string" minOccurs="0" />
+                <xs:element name="CountsPerForce" type="xs:long" minOccurs="0" />
+                <xs:element name="CountsPerTorque" type="xs:long" minOccurs="0" />
+                <xs:element name="MaxRatings" type="xs:string" minOccurs="0" />
+                <xs:element name="Resolutions" type="xs:string" minOccurs="0" />
+                <xs:element name="Ranges" type="xs:string" minOccurs="0" />
+                <xs:element name="_x0031_6BitScaleFactors" msprop:Generator_UserColumnName="16BitScaleFactors" msprop:Generator_ColumnVarNameInTable="column16BitScaleFactors" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+    <xs:annotation>
+      <xs:appinfo>
+        <msdata:Relationship name="NetFTCalibrationInfo_CalibrationInformation" msdata:parent="tblNetFTCalibrationInfo" msdata:child="tblCalibrationInformation" msdata:parentkey="CalibrationPartNumber" msdata:childkey="CalibrationPartNumber" />
+      </xs:appinfo>
+    </xs:annotation>
+  </xs:schema>
+  <tblNetFTCalibrationInfo>
+    <SerialNumber>FT12882</SerialNumber>
+    <BodyStyle>Mini45</BodyStyle>
+    <CalibrationPartNumber>SI-580-20</CalibrationPartNumber>
+    <Family>Net F/T</Family>
+    <CalibrationDate>2012-09-14T09:18:21.9522971-04:00</CalibrationDate>
+    <MatrixFX>-1053.53752767509 273.867308204937 770.881689920687 -27693.5060674861 -348.55367890053 29570.5881880851 </MatrixFX>
+    <MatrixFy>-624.704218233356 33743.3379315566 -732.765666087486 -16035.7031738569 1569.14307770717 -16976.9034178532 </MatrixFy>
+    <MatrixFz>39384.0332741717 484.71215042401 38799.0985234 2416.13116492826 41112.7758225787 -261.15907230978 </MatrixFz>
+    <MatrixTx>10.6629586863168 231.064431530845 -639.069166851202 -147.390761290393 664.76305602582 -117.530924514157 </MatrixTx>
+    <MatrixTy>765.523016970071 10.571304281749 -374.988571742567 167.368846689605 -404.777372166919 -199.790180488951 </MatrixTy>
+    <MatrixTz>7.01330699378697 -421.347573884039 4.11375569956031 -405.603300355789 12.561768094086 -432.663305880529 </MatrixTz>
+    <GaugeGains>585 649 555 591 609 631 </GaugeGains>
+    <GaugeOffsets>31692 33036 32544 32224 32908 34606 </GaugeOffsets>
+    <CalibrationIndex>0</CalibrationIndex>
+  </tblNetFTCalibrationInfo>
+  <tblCalibrationInformation>
+    <CalibrationPartNumber>SI-580-20</CalibrationPartNumber>
+    <ForceUnits>N</ForceUnits>
+    <TorqueUnits>N-m</TorqueUnits>
+    <CountsPerForce>1000000</CountsPerForce>
+    <CountsPerTorque>1000000</CountsPerTorque>
+    <MaxRatings>580 580 1160 20 20 20 </MaxRatings>
+    <Resolutions>24 24 24 24 24 24</Resolutions>
+    <Ranges>24 24 24 24 24 24</Ranges>
+    <_x0031_6BitScaleFactors>35402 35402 35402 611 611 611 </_x0031_6BitScaleFactors>
+  </tblCalibrationInformation>
+</dsNetFTCalibrationFile>

@@ -1,0 +1,381 @@
+$ EZ-EDS Version 1.0 Generated Electronic Data Sheet
+
+[File]
+        DescText = "EDS File for ATI Net F/T Sensor";
+        CreateDate = 09-21-2006;
+        CreateTime = 10:32:38;
+        ModDate = 02-18-2008;
+        ModTime = 17:47:23;
+        Revision = 1.2;
+        HomeURL = "http://www.ati-ia.com";
+
+[Device]
+        VendCode = 555;
+        VendName = "ATI Industrial Automation";
+        ProdType = 0;
+        ProdTypeStr = "Generic Device";
+        ProdCode = 1;
+        MajRev = 1;
+        MinRev = 14;
+        ProdName = "ATI Net F/T Sensor";
+
+[Device Classification]
+        Class1 = DeviceNet;
+        Class2 = EtherNetIP;
+
+[IO_Info]
+        Default = 0x0001;
+        PollInfo =
+                0x0001,
+                1,
+                1;
+        Input1 =
+                14,
+                0,
+                0x0009,
+                "Data",
+                6,
+                "20 04 24 65 30 03",
+                "Status Code and F/T Data";
+        Output1 =
+                0,
+                0,
+                0x0001,
+                "Heartbeat",
+                6,
+                "20 04 24 66 30 03",
+                "";
+
+[ParamClass]
+        MaxInst = 19;
+        Descriptor = 0x000B;
+        CfgAssembly = 0;
+
+[Params]
+        Param1 =
+                0,                      $ reserved, shall equal 0
+                6,"20 64 24 01 30 01",  $ Link Path Size, Link Path
+                0x0010,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Raw Gauge 0 Reading",  $ name
+                "",                     $ units
+                "Gauge 0 ADC Value",    $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param2 =
+                0,                      $ reserved, shall equal 0
+                6,"20 64 24 01 30 02",  $ Link Path Size, Link Path
+                0x0000,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Gauge 0 Bias",         $ name
+                "",                     $ units
+                "Tare of Gauge 0",      $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param3 =
+                0,                      $ reserved, shall equal 0
+                6,"20 64 24 02 30 01",  $ Link Path Size, Link Path
+                0x0010,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Raw Gauge 1 Reading",  $ name
+                "",                     $ units
+                "Gauge 1 ADC Value",    $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param4 =
+                0,                      $ reserved, shall equal 0
+                6,"20 64 24 02 30 02",  $ Link Path Size, Link Path
+                0x0000,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Gauge 1 Bias",         $ name
+                "",                     $ units
+                "Tare of Gauge 1",      $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param5 =
+                0,                      $ reserved, shall equal 0
+                6,"20 64 24 03 30 01",  $ Link Path Size, Link Path
+                0x0010,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Raw Gauge 2 Reading",  $ name
+                "",                     $ units
+                "Gauge 2 ADC Value",    $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param6 =
+                0,                      $ reserved, shall equal 0
+                6,"20 64 24 03 30 02",  $ Link Path Size, Link Path
+                0x0000,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Gauge 2 Bias",         $ name
+                "",                     $ units
+                "Tare of Gauge 2",      $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param7 =
+                0,                      $ reserved, shall equal 0
+                6,"20 64 24 04 30 01",  $ Link Path Size, Link Path
+                0x0010,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Raw Gauge 3 Reading",  $ name
+                "",                     $ units
+                "Gauge 3 ADC Value",    $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param8 =
+                0,                      $ reserved, shall equal 0
+                6,"20 64 24 04 30 02",  $ Link Path Size, Link Path
+                0x0000,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Gauge 3 Bias",         $ name
+                "",                     $ units
+                "Tare of Gauge 3",      $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param9 =
+                0,                      $ reserved, shall equal 0
+                6,"20 64 24 05 30 01",  $ Link Path Size, Link Path
+                0x0010,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Raw Gauge 4 Reading",  $ name
+                "",                     $ units
+                "Gauge 4 ADC Value",    $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param10 =
+                0,                      $ reserved, shall equal 0
+                6,"20 64 24 05 30 02",  $ Link Path Size, Link Path
+                0x0000,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Gauge 4 Bias",         $ name
+                "",                     $ units
+                "Tare of Gauge 4",      $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param11 =
+                0,                      $ reserved, shall equal 0
+                6,"20 64 24 06 30 01",  $ Link Path Size, Link Path
+                0x0010,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Raw Gauge 5 Reading",  $ name
+                "",                     $ units
+                "Gauge 5 ADC Value",    $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param12 =
+                0,                      $ reserved, shall equal 0
+                6,"20 64 24 06 30 02",  $ Link Path Size, Link Path
+                0x0000,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Gauge 5 Bias",         $ name
+                "",                     $ units
+                "Tare of Gauge 5",      $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param13 =
+                0,                      $ reserved, shall equal 0
+                6,"20 65 24 01 30 02",  $ Link Path Size, Link Path
+                0x0010,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Resolved Fx Data",     $ name
+                "",                     $ units
+                "Force in X",           $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param14 =
+                0,                      $ reserved, shall equal 0
+                6,"20 65 24 02 30 02",  $ Link Path Size, Link Path
+                0x0010,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Resolved Fy Data",     $ name
+                "",                     $ units
+                "Force in Y",           $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param15 =
+                0,                      $ reserved, shall equal 0
+                6,"20 65 24 03 30 02",  $ Link Path Size, Link Path
+                0x0010,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Resolved Fz Data",     $ name
+                "",                     $ units
+                "Force in Z",           $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param16 =
+                0,                      $ reserved, shall equal 0
+                6,"20 65 24 04 30 02",  $ Link Path Size, Link Path
+                0x0010,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Resolved Tx Data",     $ name
+                "",                     $ units
+                "Torque in X",          $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param17 =
+                0,                      $ reserved, shall equal 0
+                6,"20 65 24 05 30 02",  $ Link Path Size, Link Path
+                0x0010,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Resolved Ty Data",     $ name
+                "",                     $ units
+                "Torque in Y",          $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param18 =
+                0,                      $ reserved, shall equal 0
+                6,"20 65 24 06 30 02",  $ Link Path Size, Link Path
+                0x0010,                 $ Descriptor
+                0xC3,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Resolved Tz Data",     $ name
+                "",                     $ units
+                "Torque in Z",          $ help string
+                -32768,32767,0,         $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+        Param19 =
+                0,                      $ reserved, shall equal 0
+                6,"20 67 24 01 30 02",  $ Link Path Size, Link Path
+                0x0010,                 $ Descriptor
+                0xD2,                   $ Data Type
+                2,                      $ Data Size in bytes
+                "Status Code",          $ name
+                "",                     $ units
+                "Status bitmap",        $ help string
+                0,65535,0,              $ min, max, default data values
+                ,,,,                    $ mult, div, base, offset scaling
+                ,,,,                    $ mult, div, base, offset links
+                ;                       $ decimal places
+
+[Assembly]
+        Assem1 =
+                "Input Assembly (DN)",
+                "20 04 24 65 30 03",
+                14,
+                0x0000,
+                ,,
+                112,Assem1;
+        Assem2 =
+                "Input Assembly (EIP)",
+                "20 04 24 64 30 03",
+                28,
+                0x0000,
+                ,,
+                224,Assem2;
+
+[Connection Manager]
+        Connection1 =
+                0x02010002,             $ 0-15    = supported transport classes
+                                        $ 16      = trigger: cyclic
+                                        $ 17      = trigger: change of state
+                                        $ 18      = trigger: application
+                                        $ 19-23   = trigger: reserved
+                                        $ 24      = transport type: listen-only
+                                        $ 25      = transport type: input-only
+                                        $ 26      = transport type: exclusive-owner
+                                        $ 27      = transport type: redundant-owner
+                                        $ 28-30   = reserved
+                                        $ 31      = Client = 0 / Server = 1
+                0x44240305,             $ 0       = O->T fixed size supported
+                                        $ 1       = O->T variable size supported
+                                        $ 2       = T->O fixed size supported
+                                        $ 3       = T->O variable size supported
+                                        $ 4-5     = O->T number of bytes per slot (obsolete)
+                                        $ 6-7     = T->O number of bytes per slot (obsolete)
+                                        $ 8-10    = O->T Real time transfer format
+                                        $ 11      = reserved
+                                        $ 12-14   = T->O Real time transfer format
+                                        $ 15      = reserved
+                                        $ 16      = O->T connection type: NULL
+                                        $ 17      = O->T connection type: MULTICAST
+                                        $ 18      = O->T connection type: POINT2POINT
+                                        $ 19      = O->T connection type: reserved
+                                        $ 20      = T->O connection type: NULL
+                                        $ 21      = T->O connection type: MULTICAST
+                                        $ 22      = T->O connection type: POINT2POINT
+                                        $ 23      = T->O connection type: reserved
+                                        $ 24      = O->T priority: LOW
+                                        $ 25      = O->T priority: HIGH
+                                        $ 26      = O->T priority: SCHEDULED
+                                        $ 27      = O->T priority: reserved
+                                        $ 28      = T->O priority: LOW
+                                        $ 29      = T->O priority: HIGH
+                                        $ 30      = T->O priority: SCHEDULED
+                                        $ 31      = T->O priority: reserved
+                ,0,,                    $ O->T RPI, size, format
+                ,28,Assem2,             $ T->O RPI, size, format
+                ,,                      $ config #1 size, format
+                ,,                      $ config #2 size, format
+                "Input Only",           $ Connection Name
+                "",                     $ help string
+                "20 04 24 01 2c 66 2c 64";    $ Path
+
+[Port]
+        Port1 =
+                TCP,
+                "EtherNet/IP",
+                "20 f5 24 01",
+                1;
+        Port2 =
+                DeviceNet,
+                "DeviceNet",
+                "20 03 24 01",
+                2;
+
+[Capacity]
+        TSpec1 = Tx, 28, 500;
+
+

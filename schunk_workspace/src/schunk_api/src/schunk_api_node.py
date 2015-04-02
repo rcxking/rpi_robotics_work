@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 2/26/15 - 4:37 PM
+Last Updated: 4/2/15 - 5:47 PM
 '''
 
 # Standard Python Libraries:
@@ -259,9 +259,25 @@ def init_halt_api_handler(req):
 			resp = initRobot()
 			return 0
 		except rospy.ServiceException, e:
-			print("Service call failed: %s" % e)
+			print("Service call failed when initializing robot: %s" % e)
 	elif userCmd == 'halt':
-		rospy.wait_for_service('/arm_controller/')
+		rospy.wait_for_service('/arm_controller/halt')
+		try:
+			haltRobot = rospy.ServiceProxy('/arm_controller/halt', Trigger)
+			resp = haltRobot()
+			return 0
+		except rospy.ServiceException, e:
+			print("Service call failed when calling robot halt: %s" % e)
+	else:
+		# Treat any other command received as an emergency stop:
+		rospy.wait_for_service('/arm_controller/stop', Trigger)
+		try:
+			estopRobot = rospy.ServiceProxy('/arm_controller/stop', Trigger)
+			resp = estopRobot()
+			return 0
+		except rospy.ServiceException, e:
+			print("Service call failed when calling robot emergency stop; %s" % e)
+
 
 def api_server():
 	# Initialize the API Server node:
