@@ -96,7 +96,6 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   INCLUDE("/home/powerball/rpi_robotics_work/schunk_workspace/build/ipa_canopen/ipa_canopen_core/cmake_install.cmake")
   INCLUDE("/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_api/cmake_install.cmake")
   INCLUDE("/home/powerball/rpi_robotics_work/schunk_workspace/build/schunk_test/cmake_install.cmake")
-  INCLUDE("/home/powerball/rpi_robotics_work/schunk_workspace/build/mocap_optitrack/cmake_install.cmake")
   INCLUDE("/home/powerball/rpi_robotics_work/schunk_workspace/build/ipa_canopen/ipa_canopen_ros/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)

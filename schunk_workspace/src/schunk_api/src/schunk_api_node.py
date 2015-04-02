@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 4/2/15 - 5:47 PM
+Last Updated: 4/2/15 - 6:08 PM
 '''
 
 # Standard Python Libraries:
@@ -288,7 +288,7 @@ def api_server():
 	PositionAPICoord = rospy.Service('PositionAPICoordSpace', PositionAPICoordSpace, position_api_coord_space_handler) 
 
 	# This service accepts API calls to initialize, halt, and emergency stop the Powerball:
-	InitHaltAPI = rospy.Service('InitHaltAPI', InitHaltAPI, init_halt_api_handler)	   
+	InitHaltAPIsrv = rospy.Service('InitHaltAPI', InitHaltAPI, init_halt_api_handler)	   
 	
 	rospy.spin() 
 
