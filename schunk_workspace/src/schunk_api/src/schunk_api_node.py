@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 4/6/15 - 12:47 PM
+Last Updated: 4/6/15 - 1:23 PM
 '''
 
 # Standard Python Libraries:
@@ -257,6 +257,13 @@ def init_halt_api_handler(req):
 		try:
 			initRobot = rospy.ServiceProxy('/arm_controller/init', Trigger)
 			resp = initRobot()
+
+			print("resp.success.data is: " + str(resp.success.data))
+
+			# If initialization fails, try again:
+			while resp.success.data != True:
+				resp = initRobot()
+			
 			return 0
 		except rospy.ServiceException, e:
 			print("Service call failed when initializing robot: %s" % e)
