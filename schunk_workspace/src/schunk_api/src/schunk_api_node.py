@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 4/2/15 - 6:08 PM
+Last Updated: 4/6/15 - 12:47 PM
 '''
 
 # Standard Python Libraries:
@@ -155,8 +155,8 @@ def position_api_coord_space_handler(req):
 	# Get the desired rotation (in quaternion) to move to:
 	targetRot = [req.quatW, req.quatX, req.quatY, req.quatZ]
 
-	print("targetCoords is: " + str(targetCoords))
-	print("targetRot is: " + str(targetRot))
+	#print("targetCoords is: " + str(targetCoords))
+	#print("targetRot is: " + str(targetRot))
 
 	'''
 	Currently the Powerball requires a list of the 6 target joint angles to move.

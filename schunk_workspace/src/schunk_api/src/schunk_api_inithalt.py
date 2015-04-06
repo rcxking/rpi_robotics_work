@@ -8,7 +8,7 @@ Bryant Pong
 RPI CS Robotics Laboratory
 2/26/15
 
-Last Updated: 4/2/15 - 5:07 PM
+Last Updated: 4/6/15 - 12:46 PM
 '''
 
 # Python Imports:
@@ -40,12 +40,15 @@ def main():
 		
 	usrIn = str(raw_input("Please enter your next command (q to quit):"))
 
-	while usrIn != 'q':
+	while True:
 		
 		# Call the initHalt service with the input:
 		initHaltClient(usrIn)
 		
 		usrIn = str(raw_input("Please enter your next command(q to quit):")) 
+
+		if usrIn == 'q':
+			break
 
 		print("Now requesting Powerball Arm to: " + str(usrIn))        
 	
