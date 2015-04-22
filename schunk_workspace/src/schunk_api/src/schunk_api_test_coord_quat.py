@@ -8,8 +8,9 @@ This method sends 7 constants to the Powerball.
 
 Bryant Pong
 RPI CS Robotics Laboratory
+4/22/15
 
-Last Updated: 4/22/15 - 5:09 PM    
+Last Updated: 4/22/15 - 5:41 PM    
 '''
 
 # Standard Python Libraries:

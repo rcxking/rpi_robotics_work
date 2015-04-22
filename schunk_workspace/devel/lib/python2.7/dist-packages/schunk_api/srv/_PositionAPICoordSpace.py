@@ -6,19 +6,19 @@ import struct
 
 
 class PositionAPICoordSpaceRequest(genpy.Message):
-  _md5sum = "21ee566cba98451e033200e600f6bd5f"
+  _md5sum = "e03157376959499c94bb7df7a77bf0e0"
   _type = "schunk_api/PositionAPICoordSpaceRequest"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """float64 xCoord
 float64 yCoord
 float64 zCoord
-float64 quatW
 float64 quatX
 float64 quatY
 float64 quatZ
+float64 quatW
 
 """
-  __slots__ = ['xCoord','yCoord','zCoord','quatW','quatX','quatY','quatZ']
+  __slots__ = ['xCoord','yCoord','zCoord','quatX','quatY','quatZ','quatW']
   _slot_types = ['float64','float64','float64','float64','float64','float64','float64']
 
   def __init__(self, *args, **kwds):
@@ -29,7 +29,7 @@ float64 quatZ
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       xCoord,yCoord,zCoord,quatW,quatX,quatY,quatZ
+       xCoord,yCoord,zCoord,quatX,quatY,quatZ,quatW
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -44,22 +44,22 @@ float64 quatZ
         self.yCoord = 0.
       if self.zCoord is None:
         self.zCoord = 0.
-      if self.quatW is None:
-        self.quatW = 0.
       if self.quatX is None:
         self.quatX = 0.
       if self.quatY is None:
         self.quatY = 0.
       if self.quatZ is None:
         self.quatZ = 0.
+      if self.quatW is None:
+        self.quatW = 0.
     else:
       self.xCoord = 0.
       self.yCoord = 0.
       self.zCoord = 0.
-      self.quatW = 0.
       self.quatX = 0.
       self.quatY = 0.
       self.quatZ = 0.
+      self.quatW = 0.
 
   def _get_types(self):
     """
@@ -74,7 +74,7 @@ float64 quatZ
     """
     try:
       _x = self
-      buff.write(_struct_7d.pack(_x.xCoord, _x.yCoord, _x.zCoord, _x.quatW, _x.quatX, _x.quatY, _x.quatZ))
+      buff.write(_struct_7d.pack(_x.xCoord, _x.yCoord, _x.zCoord, _x.quatX, _x.quatY, _x.quatZ, _x.quatW))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
@@ -88,7 +88,7 @@ float64 quatZ
       _x = self
       start = end
       end += 56
-      (_x.xCoord, _x.yCoord, _x.zCoord, _x.quatW, _x.quatX, _x.quatY, _x.quatZ,) = _struct_7d.unpack(str[start:end])
+      (_x.xCoord, _x.yCoord, _x.zCoord, _x.quatX, _x.quatY, _x.quatZ, _x.quatW,) = _struct_7d.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -102,7 +102,7 @@ float64 quatZ
     """
     try:
       _x = self
-      buff.write(_struct_7d.pack(_x.xCoord, _x.yCoord, _x.zCoord, _x.quatW, _x.quatX, _x.quatY, _x.quatZ))
+      buff.write(_struct_7d.pack(_x.xCoord, _x.yCoord, _x.zCoord, _x.quatX, _x.quatY, _x.quatZ, _x.quatW))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(_x))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(_x))))
 
@@ -117,7 +117,7 @@ float64 quatZ
       _x = self
       start = end
       end += 56
-      (_x.xCoord, _x.yCoord, _x.zCoord, _x.quatW, _x.quatX, _x.quatY, _x.quatZ,) = _struct_7d.unpack(str[start:end])
+      (_x.xCoord, _x.yCoord, _x.zCoord, _x.quatX, _x.quatY, _x.quatZ, _x.quatW,) = _struct_7d.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -225,6 +225,6 @@ _struct_I = genpy.struct_I
 _struct_q = struct.Struct("<q")
 class PositionAPICoordSpace(object):
   _type          = 'schunk_api/PositionAPICoordSpace'
-  _md5sum = '4982f129f41484e5b919c3f16704179f'
+  _md5sum = 'f3eb575d9518a9ccc09a6926e4a48227'
   _request_class  = PositionAPICoordSpaceRequest
   _response_class = PositionAPICoordSpaceResponse

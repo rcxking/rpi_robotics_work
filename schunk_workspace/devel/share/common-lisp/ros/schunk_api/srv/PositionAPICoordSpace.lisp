@@ -22,11 +22,6 @@
     :initarg :zCoord
     :type cl:float
     :initform 0.0)
-   (quatW
-    :reader quatW
-    :initarg :quatW
-    :type cl:float
-    :initform 0.0)
    (quatX
     :reader quatX
     :initarg :quatX
@@ -40,6 +35,11 @@
    (quatZ
     :reader quatZ
     :initarg :quatZ
+    :type cl:float
+    :initform 0.0)
+   (quatW
+    :reader quatW
+    :initarg :quatW
     :type cl:float
     :initform 0.0))
 )
@@ -67,11 +67,6 @@
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader schunk_api-srv:zCoord-val is deprecated.  Use schunk_api-srv:zCoord instead.")
   (zCoord m))
 
-(cl:ensure-generic-function 'quatW-val :lambda-list '(m))
-(cl:defmethod quatW-val ((m <PositionAPICoordSpace-request>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader schunk_api-srv:quatW-val is deprecated.  Use schunk_api-srv:quatW instead.")
-  (quatW m))
-
 (cl:ensure-generic-function 'quatX-val :lambda-list '(m))
 (cl:defmethod quatX-val ((m <PositionAPICoordSpace-request>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader schunk_api-srv:quatX-val is deprecated.  Use schunk_api-srv:quatX instead.")
@@ -86,6 +81,11 @@
 (cl:defmethod quatZ-val ((m <PositionAPICoordSpace-request>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader schunk_api-srv:quatZ-val is deprecated.  Use schunk_api-srv:quatZ instead.")
   (quatZ m))
+
+(cl:ensure-generic-function 'quatW-val :lambda-list '(m))
+(cl:defmethod quatW-val ((m <PositionAPICoordSpace-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader schunk_api-srv:quatW-val is deprecated.  Use schunk_api-srv:quatW instead.")
+  (quatW m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <PositionAPICoordSpace-request>) ostream)
   "Serializes a message object of type '<PositionAPICoordSpace-request>"
   (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'xCoord))))
@@ -115,15 +115,6 @@
     (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
-  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'quatW))))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 32) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
   (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'quatX))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
@@ -143,6 +134,15 @@
     (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
   (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'quatZ))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 32) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'quatW))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
@@ -193,16 +193,6 @@
       (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
-    (cl:setf (cl:slot-value msg 'quatW) (roslisp-utils:decode-double-float-bits bits)))
-    (cl:let ((bits 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 32) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
     (cl:setf (cl:slot-value msg 'quatX) (roslisp-utils:decode-double-float-bits bits)))
     (cl:let ((bits 0))
       (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
@@ -224,6 +214,16 @@
       (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
     (cl:setf (cl:slot-value msg 'quatZ) (roslisp-utils:decode-double-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 32) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'quatW) (roslisp-utils:decode-double-float-bits bits)))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<PositionAPICoordSpace-request>)))
@@ -234,16 +234,16 @@
   "schunk_api/PositionAPICoordSpaceRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<PositionAPICoordSpace-request>)))
   "Returns md5sum for a message object of type '<PositionAPICoordSpace-request>"
-  "4982f129f41484e5b919c3f16704179f")
+  "f3eb575d9518a9ccc09a6926e4a48227")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'PositionAPICoordSpace-request)))
   "Returns md5sum for a message object of type 'PositionAPICoordSpace-request"
-  "4982f129f41484e5b919c3f16704179f")
+  "f3eb575d9518a9ccc09a6926e4a48227")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<PositionAPICoordSpace-request>)))
   "Returns full string definition for message of type '<PositionAPICoordSpace-request>"
-  (cl:format cl:nil "float64 xCoord~%float64 yCoord~%float64 zCoord~%float64 quatW~%float64 quatX~%float64 quatY~%float64 quatZ~%~%~%"))
+  (cl:format cl:nil "float64 xCoord~%float64 yCoord~%float64 zCoord~%float64 quatX~%float64 quatY~%float64 quatZ~%float64 quatW~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'PositionAPICoordSpace-request)))
   "Returns full string definition for message of type 'PositionAPICoordSpace-request"
-  (cl:format cl:nil "float64 xCoord~%float64 yCoord~%float64 zCoord~%float64 quatW~%float64 quatX~%float64 quatY~%float64 quatZ~%~%~%"))
+  (cl:format cl:nil "float64 xCoord~%float64 yCoord~%float64 zCoord~%float64 quatX~%float64 quatY~%float64 quatZ~%float64 quatW~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <PositionAPICoordSpace-request>))
   (cl:+ 0
      8
@@ -260,10 +260,10 @@
     (cl:cons ':xCoord (xCoord msg))
     (cl:cons ':yCoord (yCoord msg))
     (cl:cons ':zCoord (zCoord msg))
-    (cl:cons ':quatW (quatW msg))
     (cl:cons ':quatX (quatX msg))
     (cl:cons ':quatY (quatY msg))
     (cl:cons ':quatZ (quatZ msg))
+    (cl:cons ':quatW (quatW msg))
 ))
 ;//! \htmlinclude PositionAPICoordSpace-response.msg.html
 
@@ -322,10 +322,10 @@
   "schunk_api/PositionAPICoordSpaceResponse")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<PositionAPICoordSpace-response>)))
   "Returns md5sum for a message object of type '<PositionAPICoordSpace-response>"
-  "4982f129f41484e5b919c3f16704179f")
+  "f3eb575d9518a9ccc09a6926e4a48227")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'PositionAPICoordSpace-response)))
   "Returns md5sum for a message object of type 'PositionAPICoordSpace-response"
-  "4982f129f41484e5b919c3f16704179f")
+  "f3eb575d9518a9ccc09a6926e4a48227")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<PositionAPICoordSpace-response>)))
   "Returns full string definition for message of type '<PositionAPICoordSpace-response>"
   (cl:format cl:nil "int64 status~%~%~%~%"))

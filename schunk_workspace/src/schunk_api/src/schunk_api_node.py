@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 4/6/15 - 1:23 PM
+Last Updated: 4/22/15 - 5:41 PM
 '''
 
 # Standard Python Libraries:
@@ -155,9 +155,6 @@ def position_api_coord_space_handler(req):
 	# Get the desired rotation (in quaternion) to move to:
 	targetRot = [req.quatW, req.quatX, req.quatY, req.quatZ]
 
-	#print("targetCoords is: " + str(targetCoords))
-	#print("targetRot is: " + str(targetRot))
-
 	'''
 	Currently the Powerball requires a list of the 6 target joint angles to move.
 	We can calculate these target joint angles by calling the inverse kinematics
@@ -176,20 +173,13 @@ def position_api_coord_space_handler(req):
 	rospy.Subscriber.unregister(sub)
 	jointStateCallbackEx = False
 
-	#print("Current joint angles are: " + str(jointAngles))
-
 	# We need to convert the quaternion into a 4x4 homogeneous transformation matrix:
-	#eulerAngles = euler_from_quaternion(targetRot, "xyzs")
 	homoMat = quaternion_matrix(targetRot) 
 	
-	#print("orig homoMat: " + str(homoMat))
-
 	# Insert the desired target joint coordinate into the transformation matrix:
 	homoMat[0,3] = req.xCoord
 	homoMat[1,3] = req.yCoord
 	homoMat[2,3] = req.zCoord    
-
-	#print("homoMat: " + str(homoMat))
 
 	'''
 	Calculate the inverse kinematics given the target rotation/position and
@@ -200,11 +190,8 @@ def position_api_coord_space_handler(req):
 
 	if len(targetJointAngles) != 0:
 		# We have a valid solution!  Move the Powerball to this location:
-		#print("Valid joint angle solution!")
-		#print("Solution is: " + str(targetJointAngles))			
 	
 		targetJointAngles = targetJointAngles[:6]
-		#print("Modified targetJointAngles: " + str(targetJointAngles))
 
 		# Encapsulate the targetJointAngles into a trajectory:
 		traj = [targetJointAngles] 
@@ -242,6 +229,11 @@ def position_api_coord_space_handler(req):
 
 		ah.wait_inside()
 	return 0
+
+'''
+This handler allows a user to send a geometry_msgs/Pose message and calls the inverse kinematics
+to move the Powerball to a target location.    
+'''
 
 '''
 This handler allows a user to initialize, halt, and emergency stop the Powerball   
@@ -293,6 +285,7 @@ def api_server():
 	# Start service listeners to accept API calls given in Joint and Coordinate spaces:
 	PositionAPIJoint = rospy.Service('PositionAPIJointSpace', PositionAPIJointSpace, position_api_joint_space_handler)
 	PositionAPICoord = rospy.Service('PositionAPICoordSpace', PositionAPICoordSpace, position_api_coord_space_handler) 
+	PositionAPICoordQuat = rospy.Service('PositionAPICoordSpaceQuat', PositionAPICoordSpaceQuat, position_api_coord_space_quat_handler)
 
 	# This service accepts API calls to initialize, halt, and emergency stop the Powerball:
 	InitHaltAPIsrv = rospy.Service('InitHaltAPI', InitHaltAPI, init_halt_api_handler)	   

@@ -847,9 +847,9 @@ clean: schunk_api/CMakeFiles/schunk_api_gencpp.dir/clean
 # Target rules for target schunk_api/CMakeFiles/schunk_api_generate_messages.dir
 
 # All Build rule for target.
-schunk_api/CMakeFiles/schunk_api_generate_messages.dir/all: schunk_api/CMakeFiles/schunk_api_generate_messages_cpp.dir/all
 schunk_api/CMakeFiles/schunk_api_generate_messages.dir/all: schunk_api/CMakeFiles/schunk_api_generate_messages_py.dir/all
 schunk_api/CMakeFiles/schunk_api_generate_messages.dir/all: schunk_api/CMakeFiles/schunk_api_generate_messages_lisp.dir/all
+schunk_api/CMakeFiles/schunk_api_generate_messages.dir/all: schunk_api/CMakeFiles/schunk_api_generate_messages_cpp.dir/all
 	$(MAKE) -f schunk_api/CMakeFiles/schunk_api_generate_messages.dir/build.make schunk_api/CMakeFiles/schunk_api_generate_messages.dir/depend
 	$(MAKE) -f schunk_api/CMakeFiles/schunk_api_generate_messages.dir/build.make schunk_api/CMakeFiles/schunk_api_generate_messages.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/powerball/rpi_robotics_work/schunk_workspace/build/CMakeFiles 

@@ -60,19 +60,19 @@ struct PositionAPICoordSpaceRequest_
     : xCoord(0.0)
     , yCoord(0.0)
     , zCoord(0.0)
-    , quatW(0.0)
     , quatX(0.0)
     , quatY(0.0)
-    , quatZ(0.0)  {
+    , quatZ(0.0)
+    , quatW(0.0)  {
     }
   PositionAPICoordSpaceRequest_(const ContainerAllocator& _alloc)
     : xCoord(0.0)
     , yCoord(0.0)
     , zCoord(0.0)
-    , quatW(0.0)
     , quatX(0.0)
     , quatY(0.0)
-    , quatZ(0.0)  {
+    , quatZ(0.0)
+    , quatW(0.0)  {
     }
 
 
@@ -86,9 +86,6 @@ struct PositionAPICoordSpaceRequest_
    typedef double _zCoord_type;
   _zCoord_type zCoord;
 
-   typedef double _quatW_type;
-  _quatW_type quatW;
-
    typedef double _quatX_type;
   _quatX_type quatX;
 
@@ -97,6 +94,9 @@ struct PositionAPICoordSpaceRequest_
 
    typedef double _quatZ_type;
   _quatZ_type quatZ;
+
+   typedef double _quatW_type;
+  _quatW_type quatW;
 
 
 
@@ -176,12 +176,12 @@ struct MD5Sum< ::schunk_api::PositionAPICoordSpaceRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "21ee566cba98451e033200e600f6bd5f";
+    return "e03157376959499c94bb7df7a77bf0e0";
   }
 
   static const char* value(const ::schunk_api::PositionAPICoordSpaceRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x21ee566cba98451eULL;
-  static const uint64_t static_value2 = 0x033200e600f6bd5fULL;
+  static const uint64_t static_value1 = 0xe03157376959499cULL;
+  static const uint64_t static_value2 = 0x94bb7df7a77bf0e0ULL;
 };
 
 template<class ContainerAllocator>
@@ -203,10 +203,10 @@ struct Definition< ::schunk_api::PositionAPICoordSpaceRequest_<ContainerAllocato
     return "float64 xCoord\n\
 float64 yCoord\n\
 float64 zCoord\n\
-float64 quatW\n\
 float64 quatX\n\
 float64 quatY\n\
 float64 quatZ\n\
+float64 quatW\n\
 ";
   }
 
@@ -228,10 +228,10 @@ namespace serialization
       stream.next(m.xCoord);
       stream.next(m.yCoord);
       stream.next(m.zCoord);
-      stream.next(m.quatW);
       stream.next(m.quatX);
       stream.next(m.quatY);
       stream.next(m.quatZ);
+      stream.next(m.quatW);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER;
@@ -256,14 +256,14 @@ struct Printer< ::schunk_api::PositionAPICoordSpaceRequest_<ContainerAllocator> 
     Printer<double>::stream(s, indent + "  ", v.yCoord);
     s << indent << "zCoord: ";
     Printer<double>::stream(s, indent + "  ", v.zCoord);
-    s << indent << "quatW: ";
-    Printer<double>::stream(s, indent + "  ", v.quatW);
     s << indent << "quatX: ";
     Printer<double>::stream(s, indent + "  ", v.quatX);
     s << indent << "quatY: ";
     Printer<double>::stream(s, indent + "  ", v.quatY);
     s << indent << "quatZ: ";
     Printer<double>::stream(s, indent + "  ", v.quatZ);
+    s << indent << "quatW: ";
+    Printer<double>::stream(s, indent + "  ", v.quatW);
   }
 };
 
