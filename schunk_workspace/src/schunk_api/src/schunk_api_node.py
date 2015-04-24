@@ -7,7 +7,7 @@ Bryant Pong
 RPI CS Robotics Lab
 10/17/14
 
-Last Updated: 4/22/15 - 5:41 PM
+Last Updated: 4/24/15 - 4:35 PM
 '''
 
 # Standard Python Libraries:
@@ -277,6 +277,7 @@ def init_halt_api_handler(req):
 		except rospy.ServiceException, e:
 			print("Service call failed when calling robot emergency stop; %s" % e)
 
+def PositionAPICoordSpaceQuat(
 
 def api_server():
 	# Initialize the API Server node:
